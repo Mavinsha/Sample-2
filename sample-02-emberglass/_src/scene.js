@@ -280,10 +280,11 @@ function loop(){
   if(!running)return;
   const t=clock.getElapsedTime(),dt=Math.min(t-prev,.05);prev=t;
   update(t,dt);composer.render();frames++;
+  if(frames===2)hero.classList.add('live');
   if(!snapped&&frames>=8){snapped=true;snapshot();}
   requestAnimationFrame(loop);
 }
-if(reduce){update(0,0);composer.render();snapshot();}
+if(reduce){update(0,0);composer.render();snapshot();hero.classList.add('live');}
 else{
   loop();
   new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!running){running=true;prev=clock.getElapsedTime();loop();}else if(!e.isIntersecting){running=false;}})).observe(host);
