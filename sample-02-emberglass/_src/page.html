@@ -83,6 +83,9 @@ ul{list-style:none}
 .brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .brand-mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:700 17px/1 var(--head);color:#1A0C07;background:linear-gradient(150deg,#FFC070,#FF7A22 55%,#C2480F);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 22px -6px rgba(255,110,30,.8)}
 .brand-word{font:600 18px/1 var(--head);letter-spacing:-.01em}
+.logo{display:block;height:44px;width:auto}
+.f-brand .logo{height:50px}
+.f-tag{font:700 22px/1.2 var(--head)!important;letter-spacing:-.015em;color:var(--text)!important;margin-top:20px!important}
 .primary{flex:1;align-self:stretch}
 .nav-list{display:flex;justify-content:center;height:100%}
 .nav-item{display:flex}
@@ -95,6 +98,14 @@ ul{list-style:none}
 .nav-item.open .panel{display:block;animation:drop .2s ease-out}
 @keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 .is-mega .panel{left:var(--gut);right:var(--gut)}
+.rowmenu{display:flex;flex-wrap:wrap;gap:12px;padding:22px 24px}
+.tile-link{flex:1 1 210px;display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:rgba(255,236,220,.05);border:1px solid rgba(255,222,196,.12);font-weight:600;font-size:15px;transition:background .2s,border-color .2s}
+.tile-link:hover{background:rgba(255,236,220,.1);border-color:rgba(255,190,130,.35)}
+.tile-grp{flex:2 1 380px;padding:14px 16px;border-radius:16px;border:1px solid rgba(255,222,196,.12)}
+.tile-grp .grp-title{margin-bottom:12px;padding:0;border:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-link{padding:9px 15px;border-radius:999px;background:rgba(255,236,220,.07);border:1px solid rgba(255,222,196,.14);font-size:14px;font-weight:500;color:var(--text-2);transition:background .2s,color .2s}
+.chip-link:hover{background:rgba(255,236,220,.14);color:#fff}
 .nav-item:not(.is-mega) .panel{left:0;min-width:250px}
 .panel-in{background:rgba(30,14,9,.82);border:1px solid rgba(255,222,196,.16);border-radius:22px;backdrop-filter:blur(26px) saturate(1.4);-webkit-backdrop-filter:blur(26px) saturate(1.4);box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
 .mega{margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;padding:34px 36px 38px}
@@ -127,7 +138,7 @@ ul{list-style:none}
 .mobile-menu .btn{width:100%;margin-top:24px}
 
 /* ---------- hero ---------- */
-.hero{position:relative;min-height:max(760px,calc(100svh / var(--z,1)));display:flex;flex-direction:column;justify-content:center;overflow:hidden;
+.hero{position:relative;min-height:max(760px,calc(100svh / var(--z,1)));background-image:url(__IMG_hero-desktop__)!important;background-size:cover!important;background-position:right center!important;display:flex;flex-direction:column;justify-content:center;overflow:hidden;
   background:radial-gradient(70% 60% at 70% 62%,#FF9C4A 0%,#C9461C 30%,#4A170D 62%,#160806 100%)}
 #scene{position:absolute;inset:0}
 #scene canvas{display:block;width:100%!important;height:100%!important}
@@ -154,13 +165,23 @@ h1 .grad{display:inline;text-shadow:none}
 .beyond-copy .lede{font:500 clamp(19px,1.6vw,22px)/1.45 var(--sans);color:var(--text);margin-bottom:16px}
 .beyond-copy p{color:var(--text-2);font-size:15.5px}
 .beyond-copy strong{color:#FFD7B0;font-weight:600}
-.pillbar{margin-top:44px;border-radius:28px;display:grid;grid-template-columns:repeat(3,1fr);padding:10px}
-.pill{display:flex;align-items:center;gap:18px;padding:20px 24px;border-radius:20px;transition:background .25s}
-.pill+.pill{position:relative}
-.pill+.pill::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:rgba(255,222,196,.18)}
-.pill:hover{background:rgba(255,236,220,.06)}
-.pill h3{font:700 20px/1.1 var(--head);letter-spacing:-.01em}
-.pill p{color:var(--text-2);font-size:14px;margin-top:4px}
+.stackwrap{margin-top:44px;border-radius:32px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:24px;padding:20px 48px 20px 20px;overflow:hidden;position:relative}
+.stack3d{position:relative;height:440px;perspective:1600px}
+.slab{position:absolute;left:50%;top:60%;width:280px;height:280px;margin:-140px 0 0 -140px;border-radius:40px;display:grid;place-items:center;transform-style:preserve-3d;
+  transform:rotateX(58deg) rotateZ(-40deg) translateZ(var(--z));transition:transform .6s cubic-bezier(.3,.7,.2,1),background .4s,border-color .4s,opacity .4s;
+  background:linear-gradient(150deg,rgba(255,236,220,.16),rgba(255,236,220,.04));border:1px solid rgba(255,222,196,.28);
+  box-shadow:18px 18px 40px rgba(0,0,0,.35)}
+.slab::after{content:"";position:absolute;inset:0;border-radius:inherit;transform:translateZ(-12px);background:rgba(90,30,10,.55);border:1px solid rgba(255,190,130,.18)}
+.slab .gi{transform:rotateZ(40deg)}
+.slab.on{transform:rotateX(58deg) rotateZ(-40deg) translateZ(calc(var(--z) + 46px));background:linear-gradient(150deg,rgba(255,150,70,.5),rgba(255,110,30,.16));border-color:rgba(255,190,130,.6)}
+.stackwrap.has-on .slab:not(.on){opacity:.55}
+.stack-list{list-style:none;display:grid;gap:10px}
+.stack-list li{padding:22px 26px;border-radius:22px;border:1px solid transparent;cursor:pointer;transition:background .3s,border-color .3s}
+.stack-list li.on{background:rgba(255,236,220,.07);border-color:rgba(255,190,130,.3)}
+.stack-list .lv{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--o3)}
+.stack-list h3{font:700 clamp(26px,2.6vw,38px)/1.1 var(--head);letter-spacing:-.02em;margin:8px 0 6px;transition:color .3s}
+.stack-list li.on h3{color:#FFC98F}
+.stack-list p{color:var(--text-2);font-size:16px}
 
 /* ---------- capabilities ---------- */
 .caps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px}
@@ -192,6 +213,10 @@ h1 .grad{display:inline;text-shadow:none}
 .mod-count b{font:700 56px/1 var(--head);letter-spacing:-.03em}
 .mod-count span{color:var(--text-2);font-size:14px;line-height:1.35}
 .banks{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;position:relative}
+.mod-cta{display:flex;align-items:center;justify-content:flex-end;gap:20px;margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,222,196,.14)}
+.mod-sel{flex:1;color:var(--text-2);font-size:14px;line-height:1.45}
+.mod-sel b{color:var(--text);font-weight:600}
+#modTrial[aria-disabled="true"]{opacity:.45;pointer-events:none}
 .bank-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--text-2)}
 .bank ul{display:grid;gap:10px}
 .mchip{display:flex;align-items:center;gap:14px;width:100%;padding:12px 16px 12px 12px;border-radius:18px;background:rgba(255,236,220,.06);border:1px solid rgba(255,222,196,.16);text-align:left;font-weight:600;font-size:15px;line-height:1.25;transition:background .25s,border-color .25s,box-shadow .25s}
@@ -203,11 +228,14 @@ h1 .grad{display:inline;text-shadow:none}
 button.mchip:hover{border-color:rgba(255,190,130,.5)}
 
 /* ---------- operator ---------- */
-.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.op{border-radius:22px;padding:24px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;transition:transform .3s,border-color .3s}
+.ops-grid{display:grid;grid-template-columns:.85fr 1.3fr;gap:64px;align-items:start}
+.ops-intro{position:sticky;top:120px}
+.ln{display:block}
+.ops-copy{color:var(--text-2);font-size:16.5px;margin:22px 0 30px;max-width:44ch}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.op{border-radius:20px;padding:20px 22px;display:flex;align-items:center;gap:18px;min-height:96px;transition:transform .3s,border-color .3s}
 .op:hover{transform:translateY(-4px);border-color:rgba(255,190,130,.4)}
 .op h3{font:600 16.5px/1.3 var(--head);letter-spacing:-.005em}
-.ops-foot{display:flex;justify-content:center;margin-top:36px}
 
 /* ---------- industries ---------- */
 .ind-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"a b c" "d x e" "f x g";gap:18px}
@@ -226,12 +254,13 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
 .ind-center .h2{position:relative;font-size:clamp(34px,3.6vw,50px)}
 
 /* ---------- accountability ---------- */
-.acc{border-radius:32px;padding:64px;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.acc{border-radius:32px;padding:56px;display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;position:relative;overflow:hidden}
 .acc .lede{font:600 clamp(20px,1.8vw,24px)/1.4 var(--head);margin:22px 0 18px;letter-spacing:-.01em}
 .acc p.b{color:var(--text-2);margin-top:12px;max-width:60ch}
 .acc strong{color:#FFD7B0;font-weight:700}
 .acc .btn{margin-top:32px}
-.orb-wrap{position:relative;height:340px;display:grid;place-items:center}
+.acc-img{position:relative;border-radius:24px;overflow:hidden;align-self:stretch;min-height:440px;border:1px solid rgba(255,222,196,.18)}
+.acc-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 35%}
 .orb{width:220px;height:220px;border-radius:50%;position:relative;
   background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0%,rgba(255,220,170,.7) 8%,rgba(255,150,60,.35) 30%,rgba(255,100,24,.15) 55%,rgba(255,100,24,.05) 70%),radial-gradient(circle at 60% 70%,rgba(255,120,40,.7),transparent 60%);
   border:1px solid rgba(255,230,210,.45);box-shadow:inset 0 0 40px rgba(255,170,90,.45),inset -20px -30px 60px rgba(120,30,0,.5),0 0 50px rgba(255,120,40,.3);animation:float 7s ease-in-out infinite}
@@ -272,7 +301,7 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
 /* ---------- MSSP banner ---------- */
 .mssp{margin:110px auto 0;border-radius:34px;overflow:hidden;position:relative;min-height:420px;display:flex;align-items:center;border:1px solid rgba(255,222,196,.22);
   background:radial-gradient(70% 90% at 75% 70%,#FF9C4A 0%,#B53E18 35%,#3A120A 75%);box-shadow:0 40px 80px -50px rgba(255,100,24,.35)}
-.mssp-bg{position:absolute;inset:0;background:center/cover no-repeat;background-position:85% 55%;background-size:150% auto}
+.mssp-bg{position:absolute;inset:0;background:url(__IMG_mssp-banner__) right center/cover no-repeat}
 .mssp::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,8,6,.8) 0%,rgba(18,8,6,.45) 45%,rgba(18,8,6,0) 75%)}
 .mssp-in{position:relative;z-index:2;padding:56px;max-width:560px}
 .mssp .h2{font-size:clamp(40px,5vw,64px);margin-bottom:16px}
@@ -304,13 +333,19 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
   .sec{padding-top:84px}
   .sec-head{flex-direction:column;align-items:flex-start;gap:16px}
   .script{display:none}
-  .pillbar{grid-template-columns:1fr}
-  .pill+.pill::before{left:22%;right:22%;top:0;bottom:auto;width:auto;height:1px}
+  .stackwrap{grid-template-columns:1fr;padding:16px}
+  .stack3d{height:380px}
+  .slab{width:190px;height:190px;margin:-95px 0 0 -95px;border-radius:30px;top:74%}
+  .slab[data-i="0"]{--z:110px!important}
+  .slab[data-i="1"]{--z:55px!important}
   .modpanel{grid-template-columns:1fr;padding:36px 24px;gap:36px}
-  .ops{grid-template-columns:repeat(2,1fr)}
+  .mod-cta{flex-direction:column;align-items:stretch}
+  .mod-cta .btn{width:100%}
+  .ops-grid{grid-template-columns:1fr;gap:36px}
+  .ops-intro{position:static}
   .ind-grid{grid-template-columns:1fr 1fr;grid-template-areas:"x x" "a b" "c d" "e f" "g g"}
   .acc{grid-template-columns:1fr;padding:40px 26px}
-  .orb-wrap{height:260px;order:-1}
+  .acc-img{order:-1;min-height:320px}
   .res{grid-template-columns:1fr}
   .tq{padding:36px 26px}
   .f-top{grid-template-columns:1fr}
@@ -319,21 +354,21 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
 @media (max-width:640px){
   .wrap{padding-inline:16px}
   .header-row{height:72px}
-  .brand-word{display:none}
+  .logo{height:36px}
   .header-cta .btn{display:none}
   .icon-btn{display:none}
-  .hero{min-height:760px}
+  .hero{min-height:760px;background-image:url(__IMG_hero-mobile__)!important;background-position:center bottom!important}
   .hero-in{padding-top:110px;padding-bottom:140px}
   .hero::after{background:linear-gradient(180deg,rgba(18,8,6,.75) 0%,rgba(18,8,6,.6) 52%,rgba(18,8,6,.05) 68%,var(--bg) 100%)}
-  .mssp-bg{background-size:auto 130%;background-position:78% 50%}
+  .mssp-bg{background-position:72% center}
   .hero-actions .btn{flex:1}
   .searchbar{height:58px;padding-left:18px;bottom:36px}
   .searchbar select{height:44px;padding:0 16px}
   .caps{grid-template-columns:1fr}
   .cap{min-height:300px}
   .banks{grid-template-columns:1fr}
-  .ops{grid-template-columns:1fr 1fr;gap:12px}
-  .op{padding:18px;min-height:170px}
+  .ops{grid-template-columns:1fr;gap:10px}
+  .op{padding:16px;min-height:0}
   .op h3{font-size:15px}
   .ind-grid{grid-template-columns:1fr;grid-template-areas:"x" "a" "b" "c" "d" "e" "f" "g"}
   .ind{min-height:190px}
@@ -393,7 +428,7 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
 
 <header class="site-header" id="header">
   <div class="wrap header-row">
-    <a class="brand" href="#top" aria-label="K7 CyberSecurity home"><span class="brand-mark">K7</span><span class="brand-word">CyberSecurity</span></a>
+    <a class="brand" href="#top" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="176" height="45"></a>
     <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
     <div class="header-cta">
       <button class="icon-btn" type="button" aria-label="Search"><i data-lucide="search"></i></button>
@@ -441,10 +476,17 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
       </div>
     </div>
 
-    <div class="pillbar glass">
-      <div class="pill"><span class="gi sm tilt"><i data-lucide="bot"></i></span><div><h3>Agentic SOC</h3><p>Simplified Cybersecurity</p></div></div>
-      <div class="pill"><span class="gi sm tilt"><i data-lucide="layers"></i></span><div><h3>Platform</h3><p>Where It All Lives</p></div></div>
-      <div class="pill"><span class="gi sm tilt"><i data-lucide="radar"></i></span><div><h3>Sensor</h3><p>Proprietary, Unified</p></div></div>
+    <div class="stackwrap glass" id="stack">
+      <div class="stack3d" aria-hidden="true">
+        <div class="slab" data-i="0" style="--z:150px"><span class="gi sm"><i data-lucide="bot"></i></span></div>
+        <div class="slab" data-i="1" style="--z:75px"><span class="gi sm"><i data-lucide="layers"></i></span></div>
+        <div class="slab" data-i="2" style="--z:0px"><span class="gi sm"><i data-lucide="radar"></i></span></div>
+      </div>
+      <ol class="stack-list">
+        <li data-i="0" tabindex="0"><span class="lv">Layer 03</span><h3>Agentic SOC</h3><p>Simplified Cybersecurity</p></li>
+        <li data-i="1" tabindex="0"><span class="lv">Layer 02</span><h3>Platform</h3><p>Where It All Lives</p></li>
+        <li data-i="2" tabindex="0"><span class="lv">Layer 01</span><h3>Sensor</h3><p>Proprietary, Unified</p></li>
+      </ol>
     </div>
 
     <div class="caps" id="caps"></div>
@@ -459,11 +501,17 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
         <p class="eyebrow">Platform</p>
         <h2 class="h2" id="modTitle">Modular by <span class="grad">Design</span></h2>
         <p>Switch on capabilities as required, managed from the same console.</p>
-        <div class="mod-count" aria-live="polite"><b id="modNum">6</b><span id="modTxt">modules active<br>in one console</span></div>
+        <div class="mod-count" aria-live="polite"><b id="modNum">4</b><span id="modTxt">modules selected<br>in one console</span></div>
       </div>
-      <div class="banks">
-        <div class="bank"><div class="bank-h"><span class="gi xs"><i data-lucide="check"></i></span>Core</div><ul id="coreBank"></ul></div>
-        <div class="bank"><div class="bank-h"><span class="gi xs glassy"><i data-lucide="plus"></i></span>Add-ons</div><ul id="addBank"></ul></div>
+      <div>
+        <div class="banks" id="banks">
+          <div class="bank"><div class="bank-h"><span class="gi xs"><i data-lucide="check"></i></span>Core</div><ul id="coreBank"></ul></div>
+          <div class="bank"><div class="bank-h"><span class="gi xs glassy"><i data-lucide="plus"></i></span>Add-ons</div><ul id="addBank"></ul></div>
+        </div>
+        <div class="mod-cta">
+          <p class="mod-sel" id="modSel" aria-live="polite"></p>
+          <a class="btn btn-white" id="modTrial" href="#">Request Trial with Selected</a>
+        </div>
       </div>
     </div>
   </div>
@@ -472,15 +520,15 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
 <!-- OPERATOR -->
 <section class="sec" id="operations" aria-labelledby="opsTitle">
   <div class="wrap">
-    <div class="sec-head">
-      <div>
+    <div class="ops-grid">
+      <div class="ops-intro">
         <p class="eyebrow">Managed Security Services</p>
-        <h2 class="h2" id="opsTitle" style="max-width:14ch">One Platform. One Operator. <span class="grad">Every Endpoint.</span></h2>
+        <h2 class="h2" id="opsTitle"><span class="ln">One Platform.</span> <span class="ln">One Operator.</span> <span class="ln"><span class="grad">Every Endpoint.</span></span></h2>
+        <p class="ops-copy">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+        <a class="btn btn-white" href="#">Learn More</a>
       </div>
-      <p class="side">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+      <div class="ops" id="ops"></div>
     </div>
-    <div class="ops" id="ops"></div>
-    <div class="ops-foot"><a class="btn btn-glass" href="#">Learn More</a></div>
   </div>
 </section>
 
@@ -506,7 +554,7 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
         <p class="b">When you trust K7 CyberSecurity, you gain a <strong>single accountable partner</strong> focused on <strong>customer-centricity, trust, and accountability</strong>.</p>
         <a class="btn btn-white" href="#">Learn More</a>
       </div>
-      <div class="orb-wrap" aria-hidden="true"><span class="ring r2"></span><span class="orb"></span><span class="ring"></span></div>
+      <figure class="acc-img"><img src="__IMG_accountability-lighthouse__" alt="A lighthouse on a rock at sunset, its beam reaching devices on small islands" width="1122" height="1402" loading="lazy"></figure>
     </div>
   </div>
 </section>
@@ -575,7 +623,7 @@ button.mchip:hover{border-color:rgba(255,190,130,.5)}
 <footer class="site-footer">
   <div class="wrap">
     <div class="f-top">
-      <div class="f-brand"><a class="brand" href="#top"><span class="brand-mark">K7</span><span class="brand-word">CyberSecurity</span></a><p>Unified Endpoint-To-SOC Security Platform</p></div>
+      <div class="f-brand"><a class="brand" href="#top" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="196" height="50"></a><p class="f-tag">Security That <span class="grad">Answers To You</span></p></div>
       <div class="f-cols" id="fCols"></div>
     </div>
     <div class="f-base"><span>© 2026 K7 CyberSecurity</span><span>Sample 02 — Emberglass</span></div>
@@ -620,6 +668,7 @@ const OPS=[['24×7 Threat Detection and Response','radar'],['Exposure Management
 const INDS=[['BFSI','landmark'],['Education','graduation-cap'],['Government','building-2'],['Healthcare','heart-pulse'],['Manufacturing','factory'],['IT/ITES','cpu'],['Retail','shopping-bag']];
 const $=(s,r=document)=>r.querySelector(s);
 const ic=n=>`<i data-lucide="${n}"></i>`;
+const NAVICON={'Integration Partners':'plug','Solution Partners':'handshake','Distribution Partners':'truck','Insight':'lightbulb','Research':'microscope','Certifications':'award','Testimonials':'message-square-quote','About K7':'building-2','Leadership':'users','Careers':'briefcase','Contact Us':'mail'};
 
 /* ---------- nav ---------- */
 (function(){
@@ -631,7 +680,7 @@ const ic=n=>`<i data-lucide="${n}"></i>`;
     return `<div class="grp"><p class="grp-title">${g.title}</p>${links(g.items)}</div>`;
   };
   NAV.forEach((n,i)=>{
-    const li=document.createElement('li');li.className='nav-item'+(n.mega?' is-mega':'');
+    const li=document.createElement('li');li.className='nav-item'+(n.groups?' is-mega':'');
     if(!n.groups){li.innerHTML=`<a class="nav-link" href="#">${n.label}</a>`;list.appendChild(li);return;}
     let inner;
     if(n.mega){
@@ -640,7 +689,7 @@ const ic=n=>`<i data-lucide="${n}"></i>`;
       const cols=full.map(groupHTML);
       if(solo.length){const last=cols.pop();cols.push(`<div class="stack">${last}${solo.map(groupHTML).join('')}</div>`);}
       inner=`<div class="panel-in"><div class="mega${n.intro?' has-intro':''}">${intro}${cols.join('')}</div></div>`;
-    } else inner=`<div class="panel-in drop">${n.groups.map(groupHTML).join('')}</div>`;
+    } else inner=`<div class="panel-in"><div class="rowmenu">${n.groups.map(g=>g.title?`<div class="tile-grp"><p class="grp-title">${g.title}</p><div class="chips">${g.items.map(x=>`<a class="chip-link" href="#">${x}</a>`).join('')}</div></div>`:g.items.map(x=>`<a class="tile-link" href="#"><span class="gi xs">${ic(NAVICON[x]||'circle')}</span>${x}</a>`).join('')).join('')}</div></div>`;
     li.innerHTML=`<button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="np${i}">${n.label}</button><div class="panel" id="np${i}">${inner}</div>`;
     list.appendChild(li);
   });
@@ -655,7 +704,7 @@ const ic=n=>`<i data-lucide="${n}"></i>`;
     if(canHover){li.addEventListener('mouseenter',open);li.addEventListener('mouseleave',()=>{t=setTimeout(close,160)});}
   });
   document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
-  document.addEventListener('click',e=>{if(!e.target.closest('.nav-item'))closeAll()});
+  document.addEventListener('click',e=>{if(e.isTrusted&&!e.target.closest('.nav-item'))closeAll()});
   const mm=$('#mobileMenu'),mb=$('#menuBtn');
   mm.innerHTML='<div class="wrap">'+NAV.map(n=>{
     if(!n.groups)return `<a class="mm-link" href="#">${n.label}</a>`;
@@ -691,14 +740,27 @@ const ic=n=>`<i data-lucide="${n}"></i>`;
   });
 })();
 
+/* ---------- platform layers ---------- */
+(function(){
+  const w=$('#stack'),slabs=[...w.querySelectorAll('.slab')],items=[...w.querySelectorAll('.stack-list li')];let cur=0,hold=false;
+  const set=i=>{cur=i;w.classList.add('has-on');slabs.forEach(s=>s.classList.toggle('on',+s.dataset.i===i));items.forEach(l=>l.classList.toggle('on',+l.dataset.i===i));};
+  items.forEach(l=>{const i=+l.dataset.i;l.addEventListener('mouseenter',()=>{hold=true;set(i);});l.addEventListener('focus',()=>{hold=true;set(i);});l.addEventListener('click',()=>set(i));});
+  w.addEventListener('mouseleave',()=>{hold=false;});
+  set(2);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{if(!hold&&!document.hidden)set((cur+2)%3);},2600);
+})();
+
 /* ---------- modular ---------- */
 (function(){
-  const on=new Set(['DLP','Agentic SOC']);
-  $('#coreBank').innerHTML=CORE.map(([n,i])=>`<li><div class="mchip on"><span class="gi xs">${ic(i)}</span>${n}<span class="state">Included</span></div></li>`).join('');
-  const add=$('#addBank');
-  add.innerHTML=ADDS.map(([n,i])=>`<li><button type="button" class="mchip${on.has(n)?' on':''}" aria-pressed="${on.has(n)}" data-m="${n}"><span class="gi xs">${ic(i)}</span>${n}<span class="state">${on.has(n)?'On':'Off'}</span></button></li>`).join('');
-  const upd=()=>{$('#modNum').textContent=CORE.length+on.size;};
-  add.addEventListener('click',e=>{const b=e.target.closest('.mchip');if(!b)return;const m=b.dataset.m,now=!on.has(m);now?on.add(m):on.delete(m);
+  const on=new Set(['EPP','EDR','DLP','Agentic SOC']);
+  const chip=([n,i])=>`<li><button type="button" class="mchip${on.has(n)?' on':''}" aria-pressed="${on.has(n)}" data-m="${n}"><span class="gi xs">${ic(i)}</span>${n}<span class="state">${on.has(n)?'On':'Off'}</span></button></li>`;
+  $('#coreBank').innerHTML=CORE.map(chip).join('');
+  $('#addBank').innerHTML=ADDS.map(chip).join('');
+  const order=[...CORE,...ADDS].map(x=>x[0]);
+  const upd=()=>{const sel=order.filter(m=>on.has(m));$('#modNum').textContent=sel.length;
+    $('#modSel').innerHTML=sel.length?`<b>Selected:</b> ${sel.join(', ')}`:'Switch on at least one module to request a trial.';
+    const t=$('#modTrial');t.setAttribute('aria-disabled',!sel.length);t.href='#request-trial?modules='+encodeURIComponent(sel.join(','));};
+  $('#banks').addEventListener('click',e=>{const b=e.target.closest('.mchip');if(!b)return;const m=b.dataset.m,now=!on.has(m);now?on.add(m):on.delete(m);
     b.classList.toggle('on',now);b.setAttribute('aria-pressed',now);b.querySelector('.state').textContent=now?'On':'Off';upd();});
   upd();
 })();
@@ -722,7 +784,7 @@ $('#ops').innerHTML=OPS.map(([n,i])=>`<div class="op glass"><span class="gi sm t
 document.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
 </script>
 <script>
-window.REVEAL='.sec-head>*,.pillbar,.cap,.modpanel,.op,.ops-foot,.ind,.ind-center,.acc,.rcard,.labs,.tq,.mssp,.f-brand,.f-col';
+window.REVEAL='.sec-head>*,.stackwrap,.cap,.modpanel,.ops-intro,.op,.ind,.ind-center,.acc,.rcard,.labs,.tq,.mssp,.f-brand,.f-col';
 /* ===================== shared interaction layer ===================== */
 (function(){
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -743,7 +805,7 @@ window.REVEAL='.sec-head>*,.pillbar,.cap,.modpanel,.op,.ops-foot,.ind,.ind-cente
     c.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;if(Math.abs(dx)>50)(dx<0?next:prev).click();x0=null;});
     c.addEventListener('pointerenter',()=>paused=true);c.addEventListener('pointerleave',()=>{paused=false;x0=null;});
     c.addEventListener('focusin',()=>paused=true);c.addEventListener('focusout',()=>paused=false);
-    if(!reduce)setInterval(()=>{if(!paused&&!document.hidden)next.click();},6500);
+    if(!reduce)setInterval(()=>{if(!paused&&!document.hidden)(next.onclick?next.onclick():next.click());},6500);
   });
   if(reduce)return;
   // scroll reveal with sibling stagger

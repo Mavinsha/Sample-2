@@ -29,6 +29,13 @@ self-contained HTML file so the team can open it and compare.
 - Hero: H1 is "K7 Seventh Sense"; "Unified Endpoint-To-SOC Security Platform" sits
   beneath it. Keep section headings (e.g. "Beyond The Obvious") in their sections.
 - Keep glow restrained: no heavy bloom, halos or neon on everything.
+- Logo: use the official files in `_shared/brand/` (`k7-logo-white.svg` on dark
+  backgrounds, `k7-logo.svg` on light). The footer shows the logo with the line
+  "Security That Answers To You" beneath it.
+- Navigation: Platform, Solutions and Services are full-width mega-menus; Partners,
+  Resources, Why K7 and About Us open as full-width horizontal panels (items laid out
+  side by side), not narrow vertical lists.
+- Autoplay and other scripted actions must not fire synthetic clicks that close menus.
 - File naming: `sample-NN-<name>/Sample NN · <Name> - Index.html`.
 - A small fixed "Sample NN · Name" tag identifies each sample.
 - Do not publish these pages as claude.ai artifacts (they carry K7 branding);

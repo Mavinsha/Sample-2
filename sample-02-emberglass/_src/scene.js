@@ -275,7 +275,6 @@ function update(t,dt){
 function snapshot(){
   const img=renderer.domElement.toDataURL('image/jpeg',.82);
   document.body.style.setProperty('--snap',`url(${img})`);
-  document.querySelector('.mssp-bg').style.backgroundImage=`url(${img})`;
 }
 function loop(){
   if(!running)return;

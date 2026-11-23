@@ -18,7 +18,7 @@
     c.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;if(Math.abs(dx)>50)(dx<0?next:prev).click();x0=null;});
     c.addEventListener('pointerenter',()=>paused=true);c.addEventListener('pointerleave',()=>{paused=false;x0=null;});
     c.addEventListener('focusin',()=>paused=true);c.addEventListener('focusout',()=>paused=false);
-    if(!reduce)setInterval(()=>{if(!paused&&!document.hidden)next.click();},6500);
+    if(!reduce)setInterval(()=>{if(!paused&&!document.hidden)(next.onclick?next.onclick():next.click());},6500);
   });
   if(reduce)return;
   // scroll reveal with sibling stagger
