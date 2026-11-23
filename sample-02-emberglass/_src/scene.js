@@ -11,7 +11,7 @@ const host=document.getElementById('scene');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 let renderer;
 try{ renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'}); }catch(e){ throw e; }
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+renderer.setPixelRatio(Math.min(devicePixelRatio*(parseFloat(getComputedStyle(document.documentElement).zoom)||1),2));
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure=0.95;
 host.appendChild(renderer.domElement);
@@ -117,7 +117,7 @@ cluster.rotation.set(.5,.7,.15);
 const floaters=[];
 [[1.6,6.0,-5.6,.55],[2.6,4.7,-2.4,.4],[7.4,5.9,-5.2,.62],[8.6,3.9,-3.6,.4],[4.2,7.2,-8.5,.5],[9.6,6.6,-7,.36]].forEach(([x,y,z,s],i)=>{
   const m=new THREE.Mesh(cubeGeo,i%3===1?goldMat:mats[i%3]);m.position.set(x,y,z);m.scale.setScalar(s);m.rotation.set(rnd()*3,rnd()*3,rnd()*3);
-  m.userData={y,sp:.4+rnd()*.5,ph:rnd()*6,rx:(rnd()-.5)*.6,ry:(rnd()-.5)*.6};scene.add(m);floaters.push(m);});
+  m.userData={x,y,z,sp:.4+rnd()*.5,ph:rnd()*6,rx:(rnd()-.5)*.6,ry:(rnd()-.5)*.6,dir:new THREE.Vector3(x-AX,y-2.95,z-AZ).normalize()};scene.add(m);floaters.push(m);});
 
 /* orb */
 const orb=new THREE.Mesh(new THREE.SphereGeometry(.62,48,32),new THREE.MeshPhysicalMaterial({color:0xffe6d0,transmission:1,thickness:1.2,roughness:0,ior:1.4,iridescence:.7,clearcoat:1,envMapIntensity:1.6}));
@@ -147,11 +147,14 @@ frameCam();
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(frameCam,120)});
 
 const mouse={x:0,y:0};addEventListener('pointermove',e=>{mouse.x=e.clientX/innerWidth-.5;mouse.y=e.clientY/innerHeight-.5;},{passive:true});
-const clock=new THREE.Clock();let running=true,frames=0,snapped=false;
+const clock=new THREE.Clock();let running=true,frames=0,snapped=false,burst=0,spin=0;
+document.querySelector('.hero').addEventListener('pointerdown',e=>{if(e.target.closest('a,button,input,select,form,.nav-item'))return;burst=1;});
 function update(t){
-  cluster.rotation.y=.7+t*.18;cluster.rotation.x=.5+Math.sin(t*.4)*.12;cluster.position.y=2.95+Math.sin(t*.8)*.08;
-  floaters.forEach(m=>{const u=m.userData;m.position.y=u.y+Math.sin(t*u.sp+u.ph)*.22;m.rotation.x+=u.rx*.01;m.rotation.y+=u.ry*.01;});
-  const p=1+Math.sin(t*2)*.18;spark.scale.setScalar(p);orbLight.intensity=9+Math.sin(t*2)*3;coreLight.intensity=26+Math.sin(t*1.6)*6;
+  burst*=.965;spin+=.003+burst*.11;
+  cluster.rotation.y=.7+spin+mouse.x*.5;cluster.rotation.x=.5+Math.sin(t*.4)*.12+mouse.y*.35;cluster.position.y=2.95+Math.sin(t*.8)*.08;
+  cluster.scale.setScalar(1.25*(1+burst*.12));bloom.strength=.75+burst*.35;
+  floaters.forEach(m=>{const u=m.userData,k=burst*2.4;m.position.set(u.x+u.dir.x*k,u.y+Math.sin(t*u.sp+u.ph)*.22+u.dir.y*k,u.z+u.dir.z*k);m.rotation.x+=u.rx*.01*(1+burst*12);m.rotation.y+=u.ry*.01*(1+burst*12);});
+  const p=1+Math.sin(t*2)*.18;spark.scale.setScalar(p);orbLight.intensity=9+Math.sin(t*2)*3;coreLight.intensity=26+Math.sin(t*1.6)*6+burst*70;
   camera.position.x+=((base.pos.x+mouse.x*1.2)-camera.position.x)*.04;
   camera.position.y+=((base.pos.y-mouse.y*.6)-camera.position.y)*.04;
   camera.lookAt(base.look);

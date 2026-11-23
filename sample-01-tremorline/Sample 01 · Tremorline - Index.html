@@ -24,6 +24,7 @@
   --sans:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
   --header:72px;
+  --gut:clamp(16px,4.4vw,112px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -33,7 +34,7 @@ img,svg{display:block}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 ul,ol{list-style:none}
 :focus-visible{outline:2px solid var(--signal);outline-offset:3px}
-.wrap{max-width:1280px;margin:0 auto;padding-inline:32px}
+.wrap{width:100%;margin:0 auto;padding-inline:var(--gut)}
 .mono{font-family:var(--mono)}
 .serif{font-family:var(--serif)}
 .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
@@ -121,7 +122,7 @@ h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.06
 .hero-actions{display:flex;gap:12px;padding-bottom:10px}
 .recorder{position:relative;height:290px;border-top:1px solid var(--ink);background:var(--paper)}
 .recorder canvas{display:block;width:100%;height:100%}
-.rec-meta{position:absolute;left:32px;right:32px;top:14px;display:flex;justify-content:space-between;gap:16px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);pointer-events:none}
+.rec-meta{position:absolute;left:var(--gut);right:var(--gut);top:14px;display:flex;justify-content:space-between;gap:16px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);pointer-events:none}
 .rec-meta.bottom{top:auto;bottom:14px;color:var(--ink-3);justify-content:flex-end;gap:72px}
 .rec-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:1px;animation:blink 1.4s steps(2,jump-none) infinite}
 @keyframes blink{50%{opacity:.15}}
@@ -373,6 +374,34 @@ button.sw:hover .track{border-color:var(--signal)}
   *,*::before,*::after{animation:none!important;transition:none!important}
   .channels .ch-line,.channels .ch-merge,.sign path{stroke-dashoffset:0}
 }
+/* ---------- interaction layer ---------- */
+.rv{opacity:0;translate:0 32px;transition:opacity .9s cubic-bezier(.2,.7,.2,1),translate .9s cubic-bezier(.2,.7,.2,1)!important}
+.rv.in{opacity:1;translate:0 0}
+[data-carousel]{touch-action:pan-y}
+/* wide screens: scale the whole page up instead of leaving empty sides */
+@media (min-width:1760px){html{zoom:1.1;--z:1.1}}
+@media (min-width:2100px){html{zoom:1.25;--z:1.25}}
+@media (min-width:2500px){html{zoom:1.45;--z:1.45}}
+@media (min-width:3200px){html{zoom:1.85;--z:1.85}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;translate:none}}
+.progress{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--signal);transform-origin:left;transform:scaleX(0);z-index:70;pointer-events:none}
+.btn{transition:background .18s,color .18s,border-color .18s,translate .25s cubic-bezier(.3,.7,.3,1)}
+.recorder canvas{cursor:crosshair}
+.chn{transition:opacity .3s}
+.chn .hit{fill:none;stroke:transparent;stroke-width:22;pointer-events:stroke;cursor:pointer}
+.channels svg:hover .chn{opacity:.22}
+.channels svg .chn:hover{opacity:1}
+.chn:hover .ch-line{stroke:var(--signal);stroke-width:2.2}
+.chn:hover text{fill:var(--signal)}
+.stratum h3{transition:color .25s,transform .35s}
+.stratum:hover h3{color:var(--signal);font-style:italic;transform:translateX(8px)}
+.stratum:hover .hatch{animation:hatch 1.2s linear infinite}
+@keyframes hatch{to{background-position:32px 0,32px 0}}
+.cell{cursor:pointer}
+.cell:hover{background:var(--paper-hi)}
+.cell.ack{background:var(--lamp)}
+.cell.ack .lamp{background:var(--signal);border-color:var(--signal)}
+.stat .num{font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body id="top">
@@ -404,7 +433,7 @@ button.sw:hover .track{border-color:var(--signal)}
   </div>
   <div class="recorder" aria-hidden="true">
     <canvas id="trace"></canvas>
-    <div class="rec-meta"><span><span class="rec-dot"></span>Live trace</span><span class="hide-s">Endpoint to SOC</span></div>
+    <div class="rec-meta"><span><span class="rec-dot"></span>Live trace<span class="hide-s"> · Move to probe · Click to trigger</span></span><span class="hide-s">Endpoint to SOC</span></div>
     <div class="rec-meta bottom"><span>Detect</span><span>Contain</span><span class="hide-s">Respond</span><span class="hide-s">Recover</span></div>
   </div>
 </section>
@@ -560,9 +589,9 @@ button.sw:hover .track{border-color:var(--signal)}
     <div class="labs">
       <p class="lede">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
       <dl class="stats">
-        <div class="stat"><dt><span class="num">30+</span><span class="unit">Years</span></dt><dd>Multi-decade expertise</dd></div>
+        <div class="stat"><dt><span class="num" data-count="30" data-suffix="+">30+</span><span class="unit">Years</span></dt><dd>Multi-decade expertise</dd></div>
         <div class="stat"><dt><span class="num">Millions</span><span class="unit">of Devices</span></dt><dd>Extensive sources of telemetry</dd></div>
-        <div class="stat"><dt><span class="num">32</span><span class="unit">Countries</span></dt><dd>Geographically distributed threat intelligence</dd></div>
+        <div class="stat"><dt><span class="num" data-count="32">32</span><span class="unit">Countries</span></dt><dd>Geographically distributed threat intelligence</dd></div>
       </dl>
     </div>
   </div>
@@ -572,7 +601,7 @@ button.sw:hover .track{border-color:var(--signal)}
 <section class="sec sec-alt" id="testimonials" aria-label="Customer testimonials">
   <div class="wrap">
     <p class="ch"><b>CH.08</b> Field reports</p>
-    <div class="quotes"><div class="q-track" id="qTrack">
+    <div class="quotes" data-carousel data-prev="qPrev" data-next="qNext"><div class="q-track" id="qTrack">
       <blockquote class="q"><span class="q-mark" aria-hidden="true">“</span><div><p>Customer testimonial to be supplied — a short, specific quote from a named enterprise customer.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
       <blockquote class="q"><span class="q-mark" aria-hidden="true">“</span><div><p>Second testimonial placeholder — ideally from a different industry than the first.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
       <blockquote class="q"><span class="q-mark" aria-hidden="true">“</span><div><p>Third testimonial placeholder — ideally speaking to the managed SOC experience.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
@@ -730,10 +759,11 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const cv=$('#trace'); const ctx=cv.getContext('2d');
   const LABELS=['EPP · Malicious file blocked','EDR · Process isolated','XDR · Signals correlated','SOC · Analyst triage closed','DLP · Data transfer stopped','IAM · Privileged access revoked','Patch · Vulnerability closed'];
   const SPEED=72; const STEP=1/60;
-  let W=0,H=0,penX=0,base=0,pts=[],notes=[],T=0,spike=null,nextSpike=1.4,li=0,off=0,running=false,last=0;
+  let W=0,H=0,penX=0,base=0,pts=[],notes=[],T=0,spike=null,nextSpike=1.4,li=0,off=0,running=false,last=0,excite=0;
   function sampleY(){
     const a=3.1;
     let y=Math.sin(T*2.3)*a*.7+Math.sin(T*6.1+1.3)*a*.5+(Math.random()-.5)*a*1.1;
+    y+=(Math.random()-.5)*excite*1.6+Math.sin(T*31)*excite*.6;
     if(spike){
       const p=(T-spike.t0)/spike.dur;
       if(p<1){
@@ -746,7 +776,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     return base+y;
   }
   function step(dt){
-    const dx=SPEED*dt; T+=dt; off=(off+dx)%120;
+    const dx=SPEED*dt; T+=dt; off=(off+dx)%120; excite*=Math.exp(-dt*2.2);
     for(const p of pts)p.x-=dx; for(const n of notes)n.x-=dx;
     while(pts.length&&pts[0].x<-4)pts.shift();
     notes=notes.filter(n=>n.x>-260);
@@ -754,8 +784,8 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   }
   function prefill(){pts=[];notes=[];T=0;spike=null;nextSpike=1;li=0;const n=Math.ceil(penX/(SPEED*STEP));for(let i=0;i<n;i++)step(STEP);}
   function resize(){
-    const r=cv.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);
-    W=r.width;H=r.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);
+    const z=parseFloat(getComputedStyle(document.documentElement).zoom)||1,d=Math.min((window.devicePixelRatio||1)*z,3);
+    W=cv.clientWidth;H=cv.clientHeight;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);
     penX=Math.round(W*(W<700?.84:.8));base=H*.6;prefill();draw();
   }
   function draw(){
@@ -793,6 +823,10 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function frame(ts){ if(!running)return; const dt=last?Math.min((ts-last)/1000,.05):STEP; last=ts; step(dt); draw(); requestAnimationFrame(frame); }
   resize();
   let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(resize,120)});
+  let lx=null,ly=null;
+  cv.addEventListener('pointermove',e=>{if(lx!==null){excite=Math.min(H*.16,excite+Math.hypot(e.offsetX-lx,e.offsetY-ly)*.35);}lx=e.offsetX;ly=e.offsetY;});
+  cv.addEventListener('pointerleave',()=>{lx=null;});
+  cv.addEventListener('pointerdown',()=>{if(!spike)nextSpike=T;});
   if(document.fonts)document.fonts.ready.then(draw);
   if(!reduce){
     new IntersectionObserver(es=>es.forEach(e=>{
@@ -820,7 +854,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
         d+=` L${x.toFixed(1)} ${yy.toFixed(1)}`;
       }
       d+=` C${(wigEnd+(mergeX-wigEnd)*.55).toFixed(1)} ${y.toFixed(1)} ${(wigEnd+(mergeX-wigEnd)*.45).toFixed(1)} ${mid} ${mergeX.toFixed(1)} ${mid}`;
-      out+=`<text x="0" y="${(y+4).toFixed(1)}">${l}</text><path class="ch-line" pathLength="1" style="transition-delay:${i*.12}s" d="${d}"/>`;
+      out+=`<g class="chn"><text x="0" y="${(y+4).toFixed(1)}">${l}</text><path class="ch-line" pathLength="1" style="transition-delay:${i*.12}s" d="${d}"/><path class="hit" d="${d}"/></g>`;
     });
     out+=`<path class="ch-merge" pathLength="1" d="M${mergeX.toFixed(1)} ${mid} L${w} ${mid}"/>`;
     out+=`<circle cx="${mergeX.toFixed(1)}" cy="${mid}" r="4" fill="#D3241B"/>`;
@@ -890,6 +924,9 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const a=$('#annunciator');
   a.innerHTML=OPS.map((o,i)=>`<div class="cell"><div class="cell-top"><span>OP.${String(i+1).padStart(2,'0')}</span><span class="lamp" aria-hidden="true"></span></div><p class="cell-name">${o}</p></div>`).join('');
   const cells=[...a.children];
+  cells.forEach(c=>{c.tabIndex=0;c.setAttribute('role','button');c.setAttribute('aria-pressed','false');
+    const t=()=>{const on=c.classList.toggle('ack');c.setAttribute('aria-pressed',on);};
+    c.addEventListener('click',t);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});});
   if(reduce){cells.forEach(c=>c.querySelector('.lamp').style.background='#D3241B');}
   else{let k=0;const tick=()=>{cells.forEach((c,j)=>c.classList.toggle('lit',j===k%cells.length));k++;};tick();setInterval(tick,1200);}
   const clk=$('#clock');const t=()=>clk.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});t();setInterval(t,20000);
@@ -918,6 +955,47 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   let d='M0 80',x=0;const r=()=>Math.random();
   while(x<1200){x+=6;let y=80+(r()-.5)*6;if(x>740&&x<800){y=80+Math.sin(x*.6)*(30-Math.abs(x-770))*1.6;}d+=` L${x} ${y.toFixed(1)}`;}
   $('#msspPath').setAttribute('d',d);
+})();
+</script>
+<script>
+window.REVEAL='.ch,.beyond>*,.channels,.stratum,.cap-row,.caps-aside,.modular>div:first-child,.board,.ops-head>*,.cell,.ind,.ind-center,.acc-side,.acc-wrap,.specimen,.labs>*,.stat,.quotes,.q-ctrl,.mssp-in>*,.f-col';
+/* ===================== shared interaction layer ===================== */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  // reading progress
+  const bar=document.createElement('div');bar.className='progress';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
+  const prog=()=>{const h=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`;};
+  addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);prog();
+  // count-up numbers
+  const runCount=el=>{const end=+el.dataset.count,suf=el.dataset.suffix||'';if(reduce){el.textContent=end+suf;return;}
+    const t0=performance.now(),d=1500;const f=t=>{const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=Math.round(end*e)+suf;if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);};
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){runCount(e.target);cio.unobserve(e.target);}}),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(c=>cio.observe(c));
+  // carousels: swipe + autoplay (pauses on hover / focus)
+  document.querySelectorAll('[data-carousel]').forEach(c=>{
+    const prev=document.getElementById(c.dataset.prev),next=document.getElementById(c.dataset.next);let x0=null,paused=false;
+    c.addEventListener('pointerdown',e=>{x0=e.clientX;});
+    c.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;if(Math.abs(dx)>50)(dx<0?next:prev).click();x0=null;});
+    c.addEventListener('pointerenter',()=>paused=true);c.addEventListener('pointerleave',()=>{paused=false;x0=null;});
+    c.addEventListener('focusin',()=>paused=true);c.addEventListener('focusout',()=>paused=false);
+    if(!reduce)setInterval(()=>{if(!paused&&!document.hidden)next.click();},6500);
+  });
+  if(reduce)return;
+  // scroll reveal with sibling stagger
+  const els=[...document.querySelectorAll(window.REVEAL||'')];
+  els.forEach(el=>el.classList.add('rv'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;
+    const k=Math.min(Math.max(0,[...el.parentElement.children].filter(c=>c.classList.contains('rv')).indexOf(el)),6);
+    el.style.transitionDelay=k*80+'ms';el.classList.add('in');io.unobserve(el);
+    setTimeout(()=>{el.classList.remove('rv','in');el.style.transitionDelay='';},1200+k*80);}),{threshold:.08,rootMargin:'0px 0px -5% 0px'});
+  els.forEach(el=>io.observe(el));
+  if(!fine)return;
+  // magnetic buttons
+  document.querySelectorAll('.btn').forEach(b=>{
+    b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.translate=`${((e.clientX-r.left)/r.width-.5)*10}px ${((e.clientY-r.top)/r.height-.5)*8}px`;});
+    b.addEventListener('pointerleave',()=>{b.style.translate='';});
+  });
 })();
 </script>
 </body>
