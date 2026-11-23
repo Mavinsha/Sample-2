@@ -156,14 +156,19 @@ Management (laptop with a cog), Agentic SOC (assistant capsule), Log Retention
 
 ---
 
-## 7. Security That Answers To You: feature visual (1)
+## 7. Security That Answers To You: feature visual (choose one)
 
-Replaces the CSS orb. **1600 × 1600 (1:1), transparent or dark background.**
-> A clear glass sphere with a small warm amber core, cradled in two open hands made
-> of smooth brushed warm-silver metal, resting above a round sandstone plinth in calm
-> water at sunset. A single thin orange orbit ring circles the sphere. Feeling of
-> care, trust and responsibility. Soft rim light, restrained glow, dark ember-brown
-> surroundings fading to black at the edges.
+Replaces the CSS orb. **1200 × 1500 (4:5)**, placed in the right-hand column. Add the style anchor.
+Add to Avoid: `glowing orbs held in hands, crystal balls`.
+
+### 7A. Option A: The Watch (recommended)
+> Dusk over a calm lake. On a tall sandstone outcrop rising from the water stands a slender, modern lighthouse made of brushed warm-silver metal and amber glass. Its lantern room holds a small warm amber core, and a single soft beam sweeps low across the water, gently lighting a few small stone islands in the distance, each with a tiny glossy device on it: a laptop, a server stack, a phone. The beam reaches them; nothing is left in the dark. A steady, watchful, reassuring mood: always on duty, there when it matters most. Low camera angle, lighthouse in the upper-middle of the frame, calm reflections below, darker edges.
+
+### 7B. Option B: The Keystone
+> A single elegant sandstone arch standing in calm sunset water. At the very top of the arch, the keystone is a block of clear amber glass with a small warm core, the one piece holding every other stone in place. Fine hairline seams show each sandstone block fitted precisely. The arch frames a soft orange horizon. Symbol of one accountable partner holding everything together. Centred composition, quiet and solid, calm reflections, darker edges.
+
+### 7C. Option C: The Path
+> A path of flat round sandstone stepping stones crosses calm sunset water from the foreground into the distance. Each stone has a thin warm amber inlay, lit one after another, leading to a low stone pavilion with a soft amber light inside, like a home waiting with the lights on. The stones are evenly spaced and firmly set, nothing missing, nothing loose. Feeling of trust earned step by step, and a partner who is there at the end of every step. Low wide-angle view from just above the water, calm reflections, darker edges.
 
 ---
 
