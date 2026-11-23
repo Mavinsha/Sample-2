@@ -23,6 +23,12 @@ self-contained HTML file so the team can open it and compare.
   autoplay carousel) plus interactions specific to its own concept.
   Respect `prefers-reduced-motion`.
 - Each sample gets a unique concept name and must not look like a generic template.
+- A reference image from the user sets the **theme only** (palette, materials, mood).
+  Hero visuals and imagery must express K7's own content (Seventh Sense, endpoint to
+  SOC, the infrastructure it protects), not the reference's subject matter.
+- Hero: H1 is "K7 Seventh Sense"; "Unified Endpoint-To-SOC Security Platform" sits
+  beneath it. Keep section headings (e.g. "Beyond The Obvious") in their sections.
+- Keep glow restrained: no heavy bloom, halos or neon on everything.
 - File naming: `sample-NN-<name>/Sample NN · <Name> - Index.html`.
 - A small fixed "Sample NN · Name" tag identifies each sample.
 - Do not publish these pages as claude.ai artifacts (they carry K7 branding);
