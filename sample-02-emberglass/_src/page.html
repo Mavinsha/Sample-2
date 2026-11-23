@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Endpoint-To-SOC Security Platform — K7 CyberSecurity</title>
+<meta name="description" content="Sample 02 — Emberglass. Homepage design concept for K7 Seventh Sense.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#120806;
+  --bg-2:#1C0E09;
+  --text:#FFF6EE;
+  --text-2:rgba(255,240,228,.74);
+  --text-3:rgba(255,236,220,.52);
+  --glass:rgba(255,236,220,.075);
+  --glass-2:rgba(255,236,220,.12);
+  --glass-b:rgba(255,222,196,.2);
+  --o1:#FF6418;
+  --o2:#FF9136;
+  --o3:#FFC46B;
+  --grad:linear-gradient(92deg,#FF6A1F 0%,#FF9A3C 55%,#FFC872 100%);
+  --head:'Sora',system-ui,sans-serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --script:'Caveat',cursive;
+  --r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:-60px;z-index:-2;background:var(--snap,none) center/cover no-repeat;filter:blur(48px) saturate(1.2);opacity:.34;transform:scale(1.1)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:
+  radial-gradient(60% 40% at 0% 30%,rgba(255,100,24,.16),transparent 70%),
+  radial-gradient(50% 40% at 100% 70%,rgba(255,150,60,.12),transparent 70%),
+  linear-gradient(rgba(18,8,6,.55),rgba(18,8,6,.8))}
+a{color:inherit;text-decoration:none}
+button,select,input{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+ul{list-style:none}
+:focus-visible{outline:2px solid var(--o3);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:32px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.glass{background:var(--glass);border:1px solid var(--glass-b);backdrop-filter:blur(22px) saturate(1.3);-webkit-backdrop-filter:blur(22px) saturate(1.3)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- buttons: pills, text only ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:52px;padding:0 28px;border-radius:999px;font:600 15px/1 var(--sans);white-space:nowrap;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-white{background:#fff;color:#1A0C07;box-shadow:0 12px 30px -10px rgba(255,140,60,.55)}
+.btn-white:hover{box-shadow:0 16px 36px -10px rgba(255,140,60,.8)}
+.btn-glass{background:rgba(255,236,220,.08);border:1px solid rgba(255,230,210,.32);color:var(--text);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.btn-glass:hover{background:rgba(255,236,220,.16)}
+.btn-orange{background:var(--grad);color:#1A0C07;box-shadow:0 12px 30px -10px rgba(255,110,30,.8)}
+.btn-sm{height:42px;padding:0 20px;font-size:14px}
+
+/* ---------- section heads ---------- */
+.sec{padding:110px 0 0;position:relative}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--text-2);margin-bottom:14px}
+.h2{font:700 clamp(34px,4.4vw,56px)/1.06 var(--head);letter-spacing:-.025em}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:44px}
+.sec-head .side{max-width:440px;color:var(--text-2);font-size:15px}
+
+/* ---------- glossy 3D icon tiles ---------- */
+.gi{--s:76px;width:var(--s);height:var(--s);flex-shrink:0;border-radius:calc(var(--s)*.3);display:grid;place-items:center;position:relative;
+  background:linear-gradient(150deg,#FFC070 0%,#FF7A22 48%,#B8400C 100%);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.6),inset 0 -10px 18px rgba(110,28,0,.5),0 20px 40px -12px rgba(255,100,24,.75),0 0 0 1px rgba(255,255,255,.12)}
+.gi::before{content:"";position:absolute;left:12%;right:12%;top:6%;height:42%;border-radius:40% 40% 50% 50%;background:linear-gradient(rgba(255,255,255,.6),rgba(255,255,255,0))}
+.gi svg{position:relative;width:46%;height:46%;color:#fff;filter:drop-shadow(0 2px 3px rgba(110,28,0,.55))}
+.gi.glassy{background:linear-gradient(150deg,rgba(255,220,190,.35),rgba(255,140,60,.12));border:1px solid rgba(255,230,210,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 18px 40px -14px rgba(255,120,40,.6);backdrop-filter:blur(8px)}
+.gi.glassy svg{color:#FFD9B0}
+.gi.sm{--s:46px}
+.gi.xs{--s:36px}
+.gi.xl{--s:110px}
+.tilt{transform:perspective(500px) rotateX(12deg) rotateY(-16deg)}
+
+/* ---------- header / nav ---------- */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,backdrop-filter .3s,border-color .3s;border-bottom:1px solid transparent}
+.site-header.scrolled{background:rgba(24,11,7,.62);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);border-color:rgba(255,222,196,.12)}
+.header-row{display:flex;align-items:center;gap:24px;height:84px}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand-mark{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font:700 17px/1 var(--head);color:#1A0C07;background:linear-gradient(150deg,#FFC070,#FF7A22 55%,#C2480F);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 8px 22px -6px rgba(255,110,30,.8)}
+.brand-word{font:600 18px/1 var(--head);letter-spacing:-.01em}
+.primary{flex:1;align-self:stretch}
+.nav-list{display:flex;justify-content:center;height:100%}
+.nav-item{display:flex}
+.nav-item:not(.is-mega){position:relative}
+.nav-link{display:flex;align-items:center;height:100%;padding:0 13px;font:500 14.5px/1 var(--sans);color:var(--text-2);position:relative;white-space:nowrap;transition:color .2s}
+.nav-link:hover,.nav-item.open .nav-link{color:#fff}
+.nav-link::after{content:"";position:absolute;left:13px;right:13px;bottom:24px;height:2px;border-radius:2px;background:var(--grad);transform:scaleX(0);transition:transform .25s}
+.nav-item.open .nav-link::after{transform:scaleX(1)}
+.panel{display:none;position:absolute;top:100%;z-index:40;padding-top:6px}
+.nav-item.open .panel{display:block;animation:drop .2s ease-out}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.is-mega .panel{left:24px;right:24px}
+.nav-item:not(.is-mega) .panel{left:0;min-width:250px}
+.panel-in{background:rgba(30,14,9,.82);border:1px solid rgba(255,222,196,.16);border-radius:22px;backdrop-filter:blur(26px) saturate(1.4);-webkit-backdrop-filter:blur(26px) saturate(1.4);box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.mega{max-width:1192px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;padding:34px 36px 38px}
+.mega.has-intro{grid-template-columns:1.2fr 1fr 1.4fr}
+.mega-intro{padding:26px;border-radius:18px;background:linear-gradient(150deg,rgba(255,130,50,.24),rgba(255,130,50,.04));border:1px solid rgba(255,200,150,.2)}
+.intro-title{display:block;font:700 22px/1.15 var(--head);margin:18px 0 8px}
+.mega-intro p{color:var(--text-2);font-size:14px}
+.grp-title,.grp-link{display:block;font:600 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--o3);margin-bottom:14px}
+.grp-link{color:var(--text);padding:10px 14px;border-radius:12px;background:rgba(255,236,220,.06);border:1px solid rgba(255,222,196,.12);letter-spacing:.1em}
+.grp-link:hover{background:rgba(255,236,220,.12)}
+.grp li a{display:block;padding:6px 0;font-size:14.5px;color:var(--text-2);transition:color .15s}
+.grp li a:hover{color:#fff}
+.stack>.grp+.grp{margin-top:12px}
+.stack>.grp:not(.solo)+.grp.solo{margin-top:24px}
+.drop{padding:20px 22px}
+.drop .grp+.grp{margin-top:18px}
+.header-cta{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.icon-btn{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,230,210,.32);background:rgba(255,236,220,.06)}
+.icon-btn svg{width:18px;height:18px}
+.menu-btn{display:none;height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,230,210,.32);font-weight:600;font-size:14px}
+.mobile-menu{background:rgba(24,11,7,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);max-height:calc(100vh - 84px);overflow:auto;border-top:1px solid rgba(255,222,196,.12)}
+.mobile-menu .wrap{padding-top:6px;padding-bottom:28px}
+.mm-item,.mm-link{display:block;border-bottom:1px solid rgba(255,222,196,.12)}
+.mm-item summary,.mm-link{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 0;font:600 20px/1.1 var(--head);cursor:pointer}
+.mm-item summary::-webkit-details-marker{display:none}
+.mm-item summary::after{content:"+";font-weight:400;color:var(--o3)}
+.mm-item[open] summary::after{content:"\2212"}
+.mm-body{padding-bottom:18px}
+.mm-body .grp{margin-bottom:16px}
+.mobile-menu .btn{width:100%;margin-top:24px}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:max(760px,100svh);display:flex;flex-direction:column;justify-content:center;overflow:hidden;
+  background:radial-gradient(70% 60% at 70% 62%,#FF9C4A 0%,#C9461C 30%,#4A170D 62%,#160806 100%)}
+#scene{position:absolute;inset:0}
+#scene canvas{display:block;width:100%!important;height:100%!important}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(18,8,6,.72) 0%,rgba(18,8,6,.35) 38%,rgba(18,8,6,0) 60%),
+  linear-gradient(180deg,rgba(18,8,6,.35) 0%,rgba(18,8,6,0) 22%,rgba(18,8,6,0) 70%,var(--bg) 100%)}
+.hero-in{position:relative;z-index:2;padding-top:120px;padding-bottom:150px;width:100%}
+.chip{display:inline-flex;align-items:center;gap:10px;height:34px;padding:0 16px;border-radius:999px;font:600 11.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#FFE6D0;background:rgba(255,236,220,.08);border:1px solid rgba(255,222,196,.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--o2);box-shadow:0 0 10px var(--o2)}
+h1 .nw{white-space:nowrap}
+h1{font:700 clamp(40px,5.8vw,82px)/1.02 var(--head);letter-spacing:-.035em;margin:26px 0 38px;max-width:12ch;text-shadow:0 6px 40px rgba(18,8,6,.35)}
+h1 .grad{display:inline;text-shadow:none;filter:drop-shadow(0 6px 30px rgba(255,110,30,.35))}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+.script{position:absolute;right:40px;top:140px;z-index:2;font:600 44px/0.95 var(--script);color:#FFF1E4;transform:rotate(-10deg);text-align:right;text-shadow:0 0 24px rgba(255,150,70,.6);pointer-events:none}
+.searchbar{position:absolute;z-index:3;left:50%;bottom:56px;transform:translateX(-50%);width:min(720px,calc(100% - 32px));display:flex;align-items:center;gap:12px;height:66px;padding:0 8px 0 24px;border-radius:999px;background:rgba(255,248,242,.88);box-shadow:0 30px 60px -20px rgba(0,0,0,.55),0 0 0 6px rgba(255,236,220,.14);color:#2A140C}
+.searchbar svg{width:20px;height:20px;flex-shrink:0;color:#2A140C}
+.searchbar input{flex:1;min-width:0;border:0;background:none;outline:none;font-size:15px;color:#2A140C}
+.searchbar input::placeholder{color:#8B6B5C}
+.searchbar select{appearance:none;-webkit-appearance:none;height:50px;padding:0 26px;border-radius:999px;border:0;background:#1F0E09;color:#fff;font-weight:600;font-size:15px;cursor:pointer;text-align:center}
+.webgl-note{display:none}
+
+/* ---------- beyond ---------- */
+.beyond-copy .lede{font:500 clamp(19px,1.6vw,22px)/1.45 var(--sans);color:var(--text);margin-bottom:16px}
+.beyond-copy p{color:var(--text-2);font-size:15.5px}
+.beyond-copy strong{color:#FFD7B0;font-weight:600}
+.pillbar{margin-top:44px;border-radius:28px;display:grid;grid-template-columns:repeat(3,1fr);padding:10px}
+.pill{display:flex;align-items:center;gap:18px;padding:20px 24px;border-radius:20px;transition:background .25s}
+.pill+.pill{position:relative}
+.pill+.pill::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:rgba(255,222,196,.18)}
+.pill:hover{background:rgba(255,236,220,.06)}
+.pill h3{font:700 20px/1.1 var(--head);letter-spacing:-.01em}
+.pill p{color:var(--text-2);font-size:14px;margin-top:4px}
+
+/* ---------- capabilities ---------- */
+.caps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:20px}
+.cap{position:relative;border-radius:var(--r);min-height:330px;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;cursor:pointer;text-align:left;
+  background:linear-gradient(170deg,rgba(255,170,100,.22) 0%,rgba(255,236,220,.06) 45%,rgba(255,236,220,.04) 100%);border:1px solid var(--glass-b);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);transition:transform .35s,box-shadow .35s,border-color .35s}
+.cap::before{content:"";position:absolute;left:50%;top:26%;width:180px;height:180px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,130,50,.55),transparent 65%);filter:blur(10px);transition:opacity .35s}
+.cap .gi{position:absolute;left:50%;top:26%;transform:translate(-50%,-50%) perspective(500px) rotateX(14deg) rotateY(-18deg);transition:transform .5s cubic-bezier(.3,.7,.2,1),top .45s}
+.cap:hover .gi,.cap.open .gi{transform:translate(-50%,-50%) perspective(500px) rotateX(0) rotateY(0) scale(.5);top:10%}
+.cap-t{font:700 18px/1.2 var(--head);letter-spacing:-.01em;position:relative}
+.cap-d{color:var(--text-2);font-size:13.5px;line-height:1.5;margin-top:8px;position:relative}
+.cap-more{position:absolute;inset:auto 16px 16px;opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s;pointer-events:none}
+.cap:hover,.cap.open{transform:translateY(-6px);border-color:rgba(255,190,130,.45);box-shadow:0 30px 60px -30px rgba(255,110,30,.6)}
+.cap:hover .cap-more,.cap.open .cap-more{opacity:1;transform:none;pointer-events:auto}
+.cap:hover .cap-base,.cap.open .cap-base{opacity:0}
+.cap-base{transition:opacity .25s}
+.cap-more .cap-t{font-size:16px;margin:0 8px 6px}
+.cap-more .cap-d{margin:0 8px 14px;font-size:13px}
+.subs{display:flex;flex-wrap:wrap;gap:6px}
+.sub{display:inline-flex;align-items:center;gap:7px;padding:7px 11px 7px 8px;border-radius:999px;background:rgba(255,236,220,.1);border:1px solid rgba(255,222,196,.2);font-size:12.5px;font-weight:600;line-height:1.1}
+.sub svg{width:15px;height:15px;color:var(--o3);flex-shrink:0}
+.sub.fw{padding:8px 12px;color:#FFE1C4;background:linear-gradient(150deg,rgba(255,130,50,.3),rgba(255,130,50,.08));border-color:rgba(255,170,100,.4);letter-spacing:.04em}
+
+/* ---------- modular ---------- */
+.modpanel{border-radius:32px;padding:56px;display:grid;grid-template-columns:.9fr 1.3fr;gap:56px;position:relative;overflow:hidden}
+.modpanel::before{content:"";position:absolute;right:-120px;top:-160px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,120,40,.35),transparent 65%);pointer-events:none}
+.modpanel .h2{margin-bottom:18px}
+.modpanel>div:first-child p{color:var(--text-2);max-width:34ch;font-size:17px}
+.mod-count{display:flex;align-items:center;gap:16px;margin-top:36px}
+.mod-count b{font:700 56px/1 var(--head);letter-spacing:-.03em}
+.mod-count span{color:var(--text-2);font-size:14px;line-height:1.35}
+.banks{display:grid;grid-template-columns:1fr 1.25fr;gap:24px;position:relative}
+.bank-h{display:flex;align-items:center;gap:12px;margin-bottom:14px;font:600 12px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--text-2)}
+.bank ul{display:grid;gap:10px}
+.mchip{display:flex;align-items:center;gap:14px;width:100%;padding:12px 16px 12px 12px;border-radius:18px;background:rgba(255,236,220,.06);border:1px solid rgba(255,222,196,.16);text-align:left;font-weight:600;font-size:15px;line-height:1.25;transition:background .25s,border-color .25s,box-shadow .25s}
+.mchip .state{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.mchip .gi{opacity:.45;filter:grayscale(.8);transition:opacity .25s,filter .25s}
+.mchip.on{background:linear-gradient(150deg,rgba(255,130,50,.24),rgba(255,130,50,.06));border-color:rgba(255,170,100,.5);box-shadow:0 14px 30px -18px rgba(255,110,30,.9)}
+.mchip.on .gi{opacity:1;filter:none}
+.mchip.on .state{color:var(--o3)}
+button.mchip:hover{border-color:rgba(255,190,130,.5)}
+
+/* ---------- operator ---------- */
+.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.op{border-radius:22px;padding:24px;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;gap:24px;transition:transform .3s,border-color .3s}
+.op:hover{transform:translateY(-4px);border-color:rgba(255,190,130,.4)}
+.op h3{font:600 16.5px/1.3 var(--head);letter-spacing:-.005em}
+.ops-foot{display:flex;justify-content:center;margin-top:36px}
+
+/* ---------- industries ---------- */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"a b c" "d x e" "f x g";gap:18px}
+.ind{position:relative;border-radius:22px;overflow:hidden;min-height:220px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--glass-b);
+  background:radial-gradient(90% 80% at 70% 20%,rgba(255,150,70,.42),transparent 60%),linear-gradient(160deg,#3A1A10,#1E0D08);transition:transform .35s,box-shadow .35s}
+.ind:nth-child(2n){background:radial-gradient(90% 80% at 30% 15%,rgba(255,190,110,.4),transparent 60%),linear-gradient(160deg,#401C0F,#1E0D08)}
+.ind .gi{align-self:center;margin-top:18px;transition:transform .5s cubic-bezier(.3,.7,.2,1)}
+.ind:hover{transform:translateY(-5px);box-shadow:0 30px 60px -30px rgba(255,110,30,.7)}
+.ind:hover .gi{transform:perspective(500px) rotateX(0) rotateY(0) scale(1.06)}
+.ind-foot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tag{display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:999px;background:rgba(20,9,6,.5);border:1px solid rgba(255,222,196,.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-weight:600;font-size:14px}
+.lm{font-size:13px;font-weight:600;color:var(--o3);padding:8px 14px;border-radius:999px;background:rgba(255,236,220,.08);border:1px solid rgba(255,190,130,.3);transition:background .2s,color .2s}
+.ind:hover .lm{background:var(--grad);color:#1A0C07;border-color:transparent}
+.ind-center{grid-area:x;border-radius:22px;padding:40px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;position:relative;overflow:hidden}
+.ind-center::before{content:"";position:absolute;inset:auto -80px -120px auto;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(255,120,40,.45),transparent 65%)}
+.ind-center .h2{position:relative;font-size:clamp(34px,3.6vw,50px)}
+
+/* ---------- accountability ---------- */
+.acc{border-radius:32px;padding:64px;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center;position:relative;overflow:hidden}
+.acc .lede{font:600 clamp(20px,1.8vw,24px)/1.4 var(--head);margin:22px 0 18px;letter-spacing:-.01em}
+.acc p.b{color:var(--text-2);margin-top:12px;max-width:60ch}
+.acc strong{color:#FFD7B0;font-weight:700}
+.acc .btn{margin-top:32px}
+.orb-wrap{position:relative;height:340px;display:grid;place-items:center}
+.orb{width:220px;height:220px;border-radius:50%;position:relative;
+  background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0%,rgba(255,220,170,.7) 8%,rgba(255,150,60,.35) 30%,rgba(255,100,24,.15) 55%,rgba(255,100,24,.05) 70%),radial-gradient(circle at 60% 70%,rgba(255,120,40,.7),transparent 60%);
+  border:1px solid rgba(255,230,210,.45);box-shadow:inset 0 0 50px rgba(255,170,90,.6),inset -20px -30px 60px rgba(120,30,0,.5),0 0 90px rgba(255,120,40,.55);animation:float 7s ease-in-out infinite}
+.orb::after{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff,rgba(255,200,130,.9) 35%,rgba(255,120,40,0) 70%);filter:blur(1px);animation:pulse 3s ease-in-out infinite}
+.ring{position:absolute;width:320px;height:90px;border-radius:50%;border:1.5px solid rgba(255,200,150,.45);transform:rotate(-14deg);box-shadow:0 0 30px rgba(255,140,60,.3)}
+.ring.r2{width:270px;height:270px;border-color:rgba(255,200,150,.18);transform:none}
+@keyframes float{50%{transform:translateY(-14px)}}
+@keyframes pulse{50%{transform:translate(-50%,-50%) scale(1.25);opacity:.8}}
+
+/* ---------- research ---------- */
+.res{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rcard{border-radius:26px;overflow:hidden;display:grid;grid-template-columns:200px 1fr;align-items:center;gap:8px}
+.rvis{height:100%;min-height:230px;display:grid;place-items:center;position:relative;background:radial-gradient(80% 70% at 50% 40%,rgba(255,140,60,.45),transparent 70%),rgba(20,9,6,.35)}
+.ph{position:absolute;left:12px;top:12px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.rbody{padding:30px 30px 30px 20px}
+.rbody h3{font:700 22px/1.2 var(--head);letter-spacing:-.01em}
+.rbody p{color:var(--text-2);font-size:14px;margin-top:8px}
+.rbody .btn{margin-top:22px}
+.labs{margin-top:20px;border-radius:28px;padding:10px;display:grid;grid-template-columns:1.25fr repeat(3,1fr);align-items:center}
+.labs-copy{padding:22px 26px;font-size:15px;color:var(--text-2)}
+.stat{display:flex;align-items:center;gap:16px;padding:20px 22px;position:relative}
+.stat::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:1px;background:rgba(255,222,196,.18)}
+.stat b{display:block;font:700 26px/1.05 var(--head);letter-spacing:-.02em}
+.stat span{display:block;font-size:13px;color:var(--text-2);line-height:1.35;margin-top:3px}
+
+/* ---------- testimonials ---------- */
+.tq{border-radius:30px;padding:56px;position:relative;overflow:hidden}
+.tq-track{display:flex;transition:transform .6s cubic-bezier(.6,0,.2,1)}
+.tq-slide{flex:0 0 100%;display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:start;padding-right:8px}
+.tq-slide p{font:600 clamp(22px,2.4vw,32px)/1.3 var(--head);letter-spacing:-.015em;color:rgba(255,240,228,.6);max-width:34ch}
+.tq-slide footer{margin-top:24px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.tq-ctrl{display:flex;align-items:center;gap:12px;margin-top:40px}
+.dots{display:flex;gap:8px;margin-left:auto}
+.dots i{width:8px;height:8px;border-radius:99px;background:rgba(255,236,220,.25);transition:width .3s,background .3s}
+.dots i.on{width:28px;background:var(--grad)}
+.ph-note{position:absolute;right:24px;top:22px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+
+/* ---------- MSSP banner ---------- */
+.mssp{margin:110px auto 0;border-radius:34px;overflow:hidden;position:relative;min-height:420px;display:flex;align-items:center;border:1px solid rgba(255,222,196,.22);
+  background:radial-gradient(70% 90% at 75% 70%,#FF9C4A 0%,#B53E18 35%,#3A120A 75%);box-shadow:0 50px 100px -40px rgba(255,100,24,.45)}
+.mssp-bg{position:absolute;inset:0;background:center/cover no-repeat;background-position:85% 55%;background-size:150% auto}
+.mssp::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(18,8,6,.8) 0%,rgba(18,8,6,.45) 45%,rgba(18,8,6,0) 75%)}
+.mssp-in{position:relative;z-index:2;padding:56px;max-width:560px}
+.mssp .h2{font-size:clamp(40px,5vw,64px);margin-bottom:16px}
+.mssp p{color:var(--text-2);margin-bottom:30px;font-size:16.5px}
+
+/* ---------- footer ---------- */
+.site-footer{margin-top:110px;border-top:1px solid rgba(255,222,196,.12);background:rgba(16,7,5,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:64px 0 36px}
+.f-top{display:grid;grid-template-columns:1.3fr 3fr;gap:48px}
+.f-brand p{color:var(--text-2);font-size:14px;margin-top:16px;max-width:30ch}
+.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px 24px}
+.f-col h4{font:600 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--o3);margin-bottom:14px}
+.f-col a{display:block;padding:4px 0;font-size:14px;color:var(--text-2)}
+.f-col a:hover{color:#fff}
+.f-base{margin-top:56px;padding-top:22px;border-top:1px solid rgba(255,222,196,.12);display:flex;justify-content:space-between;gap:16px;font-size:13px;color:var(--text-3)}
+
+.sample-tag{position:fixed;left:16px;bottom:16px;z-index:60;padding:9px 14px;border-radius:999px;background:var(--grad);color:#1A0C07;font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;box-shadow:0 10px 24px -8px rgba(255,100,24,.8)}
+
+/* ---------- responsive ---------- */
+@media (max-width:1180px){
+  .primary{display:none}
+  .menu-btn{display:inline-flex;align-items:center}
+  .header-row{justify-content:space-between}
+  .caps{grid-template-columns:repeat(2,1fr)}
+  .labs{grid-template-columns:repeat(3,1fr)}
+  .labs-copy{grid-column:1/-1}
+  .labs .stat:nth-child(2)::before{display:none}
+}
+@media (max-width:900px){
+  .sec{padding-top:84px}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .script{display:none}
+  .pillbar{grid-template-columns:1fr}
+  .pill+.pill::before{left:22%;right:22%;top:0;bottom:auto;width:auto;height:1px}
+  .modpanel{grid-template-columns:1fr;padding:36px 24px;gap:36px}
+  .ops{grid-template-columns:repeat(2,1fr)}
+  .ind-grid{grid-template-columns:1fr 1fr;grid-template-areas:"x x" "a b" "c d" "e f" "g g"}
+  .acc{grid-template-columns:1fr;padding:40px 26px}
+  .orb-wrap{height:260px;order:-1}
+  .res{grid-template-columns:1fr}
+  .tq{padding:36px 26px}
+  .f-top{grid-template-columns:1fr}
+  .mssp{margin-top:84px}
+}
+@media (max-width:640px){
+  .wrap{padding-inline:16px}
+  .header-row{height:72px}
+  .brand-word{display:none}
+  .header-cta .btn{display:none}
+  .icon-btn{display:none}
+  .hero{min-height:760px}
+  .hero-in{padding-top:110px;padding-bottom:140px}
+  .hero::after{background:linear-gradient(180deg,rgba(18,8,6,.75) 0%,rgba(18,8,6,.6) 52%,rgba(18,8,6,.05) 68%,var(--bg) 100%)}
+  .mssp-bg{background-size:auto 130%;background-position:78% 50%}
+  .hero-actions .btn{flex:1}
+  .searchbar{height:58px;padding-left:18px;bottom:36px}
+  .searchbar select{height:44px;padding:0 16px}
+  .caps{grid-template-columns:1fr}
+  .cap{min-height:300px}
+  .banks{grid-template-columns:1fr}
+  .ops{grid-template-columns:1fr 1fr;gap:12px}
+  .op{padding:18px;min-height:170px}
+  .op h3{font-size:15px}
+  .ind-grid{grid-template-columns:1fr;grid-template-areas:"x" "a" "b" "c" "d" "e" "f" "g"}
+  .ind{min-height:190px}
+  .ind-center{padding:30px 24px}
+  .rcard{grid-template-columns:1fr}
+  .rvis{min-height:200px}
+  .rbody{padding:24px}
+  .labs{grid-template-columns:1fr}
+  .stat::before{left:22px;right:22px;top:0;bottom:auto;width:auto;height:1px}
+  .labs .stat:nth-child(2)::before{display:block}
+  .tq-slide{grid-template-columns:1fr;gap:18px}
+  .tq-ctrl .btn{flex:1}
+  .dots{display:none}
+  .mssp{border-radius:26px;min-height:460px;align-items:flex-end}
+  .mssp::after{background:linear-gradient(0deg,rgba(18,8,6,.88) 0%,rgba(18,8,6,.5) 55%,rgba(18,8,6,0) 85%)}
+  .mssp-in{padding:30px 24px}
+  .f-cols{grid-template-columns:1fr 1fr}
+  .f-base{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header" id="header">
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="K7 CyberSecurity home"><span class="brand-mark">K7</span><span class="brand-word">CyberSecurity</span></a>
+    <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
+    <div class="header-cta">
+      <button class="icon-btn" type="button" aria-label="Search"><i data-lucide="search"></i></button>
+      <a class="btn btn-white btn-sm" href="#">Request Trial</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden></div>
+</header>
+
+<main id="top">
+<!-- HERO -->
+<section class="hero" aria-labelledby="heroTitle">
+  <div id="scene" aria-hidden="true"></div>
+  <div class="script" aria-hidden="true">Beyond<br>the Obvious</div>
+  <div class="wrap hero-in">
+    <span class="chip"><i></i>K7 Seventh Sense</span>
+    <h1 id="heroTitle">Unified <span class="grad"><span class="nw">Endpoint-To-SOC</span> Security Platform</span></h1>
+    <div class="hero-actions">
+      <a class="btn btn-white" href="#platform">Explore Platform</a>
+      <a class="btn btn-glass" href="#">Request Trial</a>
+    </div>
+  </div>
+  <form class="searchbar" role="search" onsubmit="return false">
+    <i data-lucide="search"></i>
+    <label class="vh" for="q">Search</label>
+    <input id="q" type="search" placeholder="Search platform, solutions, services...">
+    <label class="vh" for="qs">Search in</label>
+    <select id="qs"><option>All</option><option>Platform</option><option>Solutions</option><option>Services</option><option>Resources</option></select>
+  </form>
+</section>
+
+<!-- BEYOND THE OBVIOUS -->
+<section class="sec" id="platform" aria-labelledby="beyondTitle">
+  <div class="wrap">
+    <div class="sec-head" style="align-items:flex-start">
+      <div>
+        <p class="eyebrow">K7 Seventh Sense</p>
+        <h2 class="h2" id="beyondTitle">Beyond The <span class="grad">Obvious</span></h2>
+      </div>
+      <div class="side beyond-copy">
+        <p class="lede">Cybersecurity is getting lost in a complex puzzle of technologies and reports, with too many tools and not enough qualified people.</p>
+        <p>K7 Seventh Sense is a Unified Endpoint-To-SOC Security Platform that was created to solve this puzzle. Our platform goes beyond the obvious to understand security by connecting intelligence across <strong>endpoints, identities, data, vulnerabilities,</strong> and <strong>behaviour,</strong> to help enterprises make cybersecurity simpler and trustable.</p>
+      </div>
+    </div>
+
+    <div class="pillbar glass">
+      <div class="pill"><span class="gi sm tilt"><i data-lucide="bot"></i></span><div><h3>Agentic SOC</h3><p>Simplified Cybersecurity</p></div></div>
+      <div class="pill"><span class="gi sm tilt"><i data-lucide="layers"></i></span><div><h3>Platform</h3><p>Where It All Lives</p></div></div>
+      <div class="pill"><span class="gi sm tilt"><i data-lucide="radar"></i></span><div><h3>Sensor</h3><p>Proprietary, Unified</p></div></div>
+    </div>
+
+    <div class="caps" id="caps"></div>
+  </div>
+</section>
+
+<!-- MODULAR -->
+<section class="sec" id="modules" aria-labelledby="modTitle">
+  <div class="wrap">
+    <div class="modpanel glass">
+      <div>
+        <p class="eyebrow">Platform</p>
+        <h2 class="h2" id="modTitle">Modular by <span class="grad">Design</span></h2>
+        <p>Switch on capabilities as required, managed from the same console.</p>
+        <div class="mod-count" aria-live="polite"><b id="modNum">6</b><span id="modTxt">modules active<br>in one console</span></div>
+      </div>
+      <div class="banks">
+        <div class="bank"><div class="bank-h"><span class="gi xs"><i data-lucide="check"></i></span>Core</div><ul id="coreBank"></ul></div>
+        <div class="bank"><div class="bank-h"><span class="gi xs glassy"><i data-lucide="plus"></i></span>Add-ons</div><ul id="addBank"></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATOR -->
+<section class="sec" id="operations" aria-labelledby="opsTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Managed Security Services</p>
+        <h2 class="h2" id="opsTitle" style="max-width:14ch">One Platform. One Operator. <span class="grad">Every Endpoint.</span></h2>
+      </div>
+      <p class="side">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+    </div>
+    <div class="ops" id="ops"></div>
+    <div class="ops-foot"><a class="btn btn-glass" href="#">Learn More</a></div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="sec" id="industries" aria-labelledby="indTitle">
+  <div class="wrap">
+    <div class="ind-grid" id="indGrid">
+      <div class="ind-center glass"><p class="eyebrow">Industry Solutions</p><h2 class="h2" id="indTitle">Built For <span class="grad">Your Industry</span></h2></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCOUNTABILITY -->
+<section class="sec" id="accountability" aria-labelledby="accTitle">
+  <div class="wrap">
+    <div class="acc glass">
+      <div>
+        <p class="eyebrow">Why K7</p>
+        <h2 class="h2" id="accTitle">Security That <span class="grad">Answers To You</span></h2>
+        <p class="lede">We believe trust must be earned through accountability.</p>
+        <p class="b">Organisations do not just buy security technology; they entrust a partner with their data, operations, reputation, and business continuity.</p>
+        <p class="b">We build cybersecurity around one responsibility: protecting our customers and being there when security matters most.</p>
+        <p class="b">When you trust K7 CyberSecurity, you gain a <strong>single accountable partner</strong> focused on <strong>customer-centricity, trust, and accountability</strong>.</p>
+        <a class="btn btn-white" href="#">Learn More</a>
+      </div>
+      <div class="orb-wrap" aria-hidden="true"><span class="ring r2"></span><span class="orb"></span><span class="ring"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="sec" id="research" aria-labelledby="resTitle">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">K7 Labs</p>
+        <h2 class="h2" id="resTitle" style="max-width:16ch">Globally Recognised <span class="grad">Cyberthreat Research</span></h2>
+      </div>
+    </div>
+    <div class="res">
+      <article class="rcard glass">
+        <div class="rvis"><span class="ph">AMTSO award image</span><span class="gi xl tilt"><i data-lucide="trophy"></i></span></div>
+        <div class="rbody"><h3>Real Time Threat List Contributor of the Year</h3><p>Anti-Malware Testing Standards Organization</p></div>
+      </article>
+      <article class="rcard glass">
+        <div class="rvis"><span class="ph">Report image</span><span class="gi xl glassy tilt"><i data-lucide="file-text"></i></span></div>
+        <div class="rbody"><h3>K7 Cyber Threat Monitor Report</h3><a class="btn btn-white btn-sm" href="#">View Reports</a></div>
+      </article>
+    </div>
+    <div class="labs glass">
+      <p class="labs-copy">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
+      <div class="stat"><span class="gi sm"><i data-lucide="history"></i></span><div><b>30+ Years</b><span>Multi-decade expertise</span></div></div>
+      <div class="stat"><span class="gi sm"><i data-lucide="monitor-smartphone"></i></span><div><b>Millions of Devices</b><span>Extensive sources of telemetry</span></div></div>
+      <div class="stat"><span class="gi sm"><i data-lucide="globe"></i></span><div><b>32 Countries</b><span>Geographically distributed threat intelligence</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="testimonials" aria-label="Customer testimonials">
+  <div class="wrap">
+    <div class="tq glass">
+      <span class="ph-note">Placeholder content</span>
+      <div style="overflow:hidden"><div class="tq-track" id="tqTrack">
+        <blockquote class="tq-slide"><span class="gi sm"><i data-lucide="quote"></i></span><div><p>Customer testimonial to be supplied — a short, specific quote from a named enterprise customer.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
+        <blockquote class="tq-slide"><span class="gi sm"><i data-lucide="quote"></i></span><div><p>Second testimonial placeholder — ideally from a different industry than the first.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
+        <blockquote class="tq-slide"><span class="gi sm"><i data-lucide="quote"></i></span><div><p>Third testimonial placeholder — ideally speaking to the managed SOC experience.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
+      </div></div>
+      <div class="tq-ctrl">
+        <button class="btn btn-glass btn-sm" id="tqPrev" type="button">Previous</button>
+        <button class="btn btn-glass btn-sm" id="tqNext" type="button">Next</button>
+        <div class="dots" id="tqDots" aria-hidden="true"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MSSP -->
+<div class="wrap">
+  <section class="mssp" id="mssp" aria-labelledby="msspTitle">
+    <div class="mssp-bg" aria-hidden="true"></div>
+    <div class="mssp-in">
+      <p class="eyebrow">Partners</p>
+      <h2 class="h2" id="msspTitle">K7 for <span class="grad">MSSPs</span></h2>
+      <p>Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
+      <a class="btn btn-white" href="#">Learn More</a>
+    </div>
+  </section>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="f-top">
+      <div class="f-brand"><a class="brand" href="#top"><span class="brand-mark">K7</span><span class="brand-word">CyberSecurity</span></a><p>Unified Endpoint-To-SOC Security Platform</p></div>
+      <div class="f-cols" id="fCols"></div>
+    </div>
+    <div class="f-base"><span>© 2026 K7 CyberSecurity</span><span>Sample 02 — Emberglass</span></div>
+  </div>
+</footer>
+
+<div class="sample-tag" aria-hidden="true">Sample 02 · Emberglass</div>
+
+<script>
+/* ===================== content ===================== */
+const NAV=[
+  {label:'Platform',mega:true,intro:{title:'K7 Seventh Sense',text:'Unified Endpoint-To-SOC Security Platform'},groups:[
+    {title:'Core',items:['K7 Seventh Sense MDR','K7 Seventh Sense XDR','K7 Seventh Sense EDR','K7 Seventh Sense EPP']},
+    {title:'Addons',items:['K7 Data Loss Protection','K7 Identity and Access Management','K7 Patch Management','K7 Advanced Endpoint Management','K7 Agentic SOC','K7 Log Retention','K7 File Security Monitoring']}]},
+  {label:'Solutions',mega:true,groups:[
+    {title:'Compliance Solutions',items:['ADHICS','CBUAE','DPDP']},
+    {title:'Industry Solutions',items:['BFSI','Education','Government','Healthcare','Manufacturing','Professional Services','Retail']},
+    {title:'Network Security Solutions',items:['K7 SD-WAN','K7 Next Generation Firewall','K7 VPN Concentrator','K7 Connect 500','K7 AAA']},
+    {title:'SMB',items:['K7 InfiniShield']},
+    {title:'File Security Solution',items:[]}]},
+  {label:'Services',mega:true,groups:[
+    {title:'Consulting Services',items:['K7 GRC','K7 vCISO','K7 Enterprise Risk Management','K7 Incident Response']},
+    {title:'Security Assessment Services',items:['K7 Cyber Defence Assessment','K7 Red Team Assessment','K7 VAPT']},
+    {title:'AI Security Services',items:['K7 AI Readiness Assessment','K7 AI Maturity Assessment']},
+    {title:'Managed Security Services',items:[]},
+    {title:'K7 ISAP',items:[]}]},
+  {label:'Partners',groups:[{items:['Integration Partners','Solution Partners','Distribution Partners']}]},
+  {label:'Resources',groups:[{items:['Insight','Research']},{title:'Media Room',items:['News','Press Releases','Events','Media Centre']}]},
+  {label:'Why K7',groups:[{title:'Competitor Comparison',items:['K7 vs CrowdStrike']},{items:['Certifications','Testimonials']}]},
+  {label:'About Us',groups:[{items:['About K7','Leadership','Careers','Contact Us']}]},
+  {label:'Support'}
+];
+const CAPS=[
+  {t:'Comprehensive Infrastructure Protection',i:'network',d:'Prevention, detection, and response across your IT ecosystem.',items:[['Endpoints','laptop'],['Servers','server'],['Operational Technology','factory'],['Network','network'],['Mobile Devices','smartphone'],['Cloud','cloud']]},
+  {t:'Security for Sensitive Data',i:'lock-keyhole',d:'Complete control over where data lives and moves.',items:[['Data Loss Prevention','file-lock'],['Compliance-oriented Reporting','clipboard-list']]},
+  {t:'Multi-OS Patch Management',i:'bandage',d:'Close vulnerabilities before they can be exploited.',items:[['Vulnerability Identification','scan-search'],['Automated Patching','wrench']]},
+  {t:'Integrated Compliance',i:'badge-check',d:'With one platform, compliance is continuous, auditable, and mapped to frameworks that matter.',fw:['DPDP','PCI DSS','ISO 27001','GDPR','CBUAE','ADHICS']}
+];
+const CORE=[['EPP','shield'],['EDR','scan-eye'],['XDR','waypoints'],['MDR','users']];
+const ADDS=[['DLP','file-lock'],['IAM','key-round'],['Patch Management','bandage'],['Advanced Endpoint Management','laptop'],['Agentic SOC','bot'],['Log Retention','database'],['File Security Monitoring','file-search']];
+const OPS=[['24×7 Threat Detection and Response','radar'],['Exposure Management','scan-eye'],['Patch and Remediation Oversight','wrench'],['Data-risk and Privileged-access Context','key-round'],['Proactive Threat Hunting','crosshair'],['Security Posture Improvement','gauge'],['Ongoing Security Governance','scale'],['Digital Forensics and Incident Response','fingerprint']];
+const INDS=[['BFSI','landmark'],['Education','graduation-cap'],['Government','building-2'],['Healthcare','heart-pulse'],['Manufacturing','factory'],['IT/ITES','cpu'],['Retail','shopping-bag']];
+const $=(s,r=document)=>r.querySelector(s);
+const ic=n=>`<i data-lucide="${n}"></i>`;
+
+/* ---------- nav ---------- */
+(function(){
+  const list=$('#navList');
+  const links=a=>'<ul>'+a.map(i=>`<li><a href="#">${i}</a></li>`).join('')+'</ul>';
+  const groupHTML=g=>{
+    if(!g.title) return `<div class="grp">${links(g.items)}</div>`;
+    if(!g.items.length) return `<div class="grp solo"><a class="grp-link" href="#">${g.title}</a></div>`;
+    return `<div class="grp"><p class="grp-title">${g.title}</p>${links(g.items)}</div>`;
+  };
+  NAV.forEach((n,i)=>{
+    const li=document.createElement('li');li.className='nav-item'+(n.mega?' is-mega':'');
+    if(!n.groups){li.innerHTML=`<a class="nav-link" href="#">${n.label}</a>`;list.appendChild(li);return;}
+    let inner;
+    if(n.mega){
+      const intro=n.intro?`<div class="mega-intro"><span class="gi sm">${ic('radar')}</span><a class="intro-title" href="#">${n.intro.title}</a><p>${n.intro.text}</p></div>`:'';
+      const full=n.groups.filter(g=>g.items.length),solo=n.groups.filter(g=>!g.items.length);
+      const cols=full.map(groupHTML);
+      if(solo.length){const last=cols.pop();cols.push(`<div class="stack">${last}${solo.map(groupHTML).join('')}</div>`);}
+      inner=`<div class="panel-in"><div class="mega${n.intro?' has-intro':''}">${intro}${cols.join('')}</div></div>`;
+    } else inner=`<div class="panel-in drop">${n.groups.map(groupHTML).join('')}</div>`;
+    li.innerHTML=`<button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="np${i}">${n.label}</button><div class="panel" id="np${i}">${inner}</div>`;
+    list.appendChild(li);
+  });
+  const items=[...list.querySelectorAll('.nav-item')];
+  const closeAll=ex=>items.forEach(li=>{if(li!==ex){li.classList.remove('open');li.querySelector('.nav-trigger')?.setAttribute('aria-expanded','false');}});
+  const canHover=matchMedia('(hover:hover)').matches;
+  items.forEach(li=>{
+    const b=li.querySelector('.nav-trigger');if(!b)return;let t;
+    const open=()=>{clearTimeout(t);closeAll(li);li.classList.add('open');b.setAttribute('aria-expanded','true');};
+    const close=()=>{li.classList.remove('open');b.setAttribute('aria-expanded','false');};
+    b.addEventListener('click',()=>li.classList.contains('open')?close():open());
+    if(canHover){li.addEventListener('mouseenter',open);li.addEventListener('mouseleave',()=>{t=setTimeout(close,160)});}
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+  document.addEventListener('click',e=>{if(!e.target.closest('.nav-item'))closeAll()});
+  const mm=$('#mobileMenu'),mb=$('#menuBtn');
+  mm.innerHTML='<div class="wrap">'+NAV.map(n=>{
+    if(!n.groups)return `<a class="mm-link" href="#">${n.label}</a>`;
+    const intro=n.intro?`<div class="grp"><a class="grp-link" href="#">${n.intro.title}</a></div>`:'';
+    return `<details class="mm-item"><summary>${n.label}</summary><div class="mm-body">${intro}${n.groups.map(groupHTML).join('')}</div></details>`;
+  }).join('')+'<a class="btn btn-white" href="#">Request Trial</a></div>';
+  mb.addEventListener('click',()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';$('#header').classList.toggle('scrolled',o||scrollY>20);});
+  $('#fCols').innerHTML=NAV.map(n=>{
+    const l=[];if(n.intro)l.push(n.intro.title);
+    (n.groups||[]).forEach(g=>g.title?l.push(g.title):l.push(...g.items));
+    if(!n.groups)l.push(n.label);
+    return `<div class="f-col"><h4>${n.label}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+  }).join('');
+  const hd=$('#header');const onS=()=>hd.classList.toggle('scrolled',scrollY>20||!mm.hidden);onS();addEventListener('scroll',onS,{passive:true});
+})();
+
+/* ---------- capabilities (hover / tap opens card) ---------- */
+(function(){
+  const box=$('#caps');
+  box.innerHTML=CAPS.map((c,k)=>{
+    const subs=c.fw?c.fw.map(f=>`<span class="sub fw">${f}</span>`).join(''):c.items.map(([n,i])=>`<span class="sub">${ic(i)}${n}</span>`).join('');
+    return `<article class="cap" tabindex="0" aria-label="${c.t}">
+      <span class="gi">${ic(c.i)}</span>
+      <div class="cap-base"><h3 class="cap-t">${c.t}</h3></div>
+      <div class="cap-more"><h3 class="cap-t">${c.t}</h3><p class="cap-d">${c.d}</p><div class="subs">${subs}</div></div>
+    </article>`;}).join('');
+  const cards=[...box.children];
+  const canHover=matchMedia('(hover:hover)').matches;
+  cards.forEach(c=>{
+    c.addEventListener('click',()=>{ if(canHover) return; const o=c.classList.contains('open'); cards.forEach(x=>x.classList.remove('open')); if(!o)c.classList.add('open'); });
+    c.addEventListener('focus',()=>c.classList.add('open'));
+    c.addEventListener('blur',()=>c.classList.remove('open'));
+  });
+})();
+
+/* ---------- modular ---------- */
+(function(){
+  const on=new Set(['DLP','Agentic SOC']);
+  $('#coreBank').innerHTML=CORE.map(([n,i])=>`<li><div class="mchip on"><span class="gi xs">${ic(i)}</span>${n}<span class="state">Included</span></div></li>`).join('');
+  const add=$('#addBank');
+  add.innerHTML=ADDS.map(([n,i])=>`<li><button type="button" class="mchip${on.has(n)?' on':''}" aria-pressed="${on.has(n)}" data-m="${n}"><span class="gi xs">${ic(i)}</span>${n}<span class="state">${on.has(n)?'On':'Off'}</span></button></li>`).join('');
+  const upd=()=>{$('#modNum').textContent=CORE.length+on.size;};
+  add.addEventListener('click',e=>{const b=e.target.closest('.mchip');if(!b)return;const m=b.dataset.m,now=!on.has(m);now?on.add(m):on.delete(m);
+    b.classList.toggle('on',now);b.setAttribute('aria-pressed',now);b.querySelector('.state').textContent=now?'On':'Off';upd();});
+  upd();
+})();
+
+/* ---------- operator, industries ---------- */
+$('#ops').innerHTML=OPS.map(([n,i])=>`<div class="op glass"><span class="gi sm tilt">${ic(i)}</span><h3>${n}</h3></div>`).join('');
+(function(){
+  const g=$('#indGrid'),areas='abcdefg';
+  INDS.forEach(([n,i],k)=>{const a=document.createElement('a');a.href='#';a.className='ind';a.style.gridArea=areas[k];
+    a.innerHTML=`<span class="gi tilt">${ic(i)}</span><span class="ind-foot"><span class="tag">${n}</span><span class="lm">Learn More</span></span>`;g.appendChild(a);});
+})();
+
+/* ---------- testimonials ---------- */
+(function(){
+  const tr=$('#tqTrack'),n=tr.children.length,dots=[...$('#tqDots').children];let i=0;
+  const go=k=>{i=(k+n)%n;tr.style.transform=`translateX(-${i*100}%)`;dots.forEach((d,j)=>d.classList.toggle('on',j===i));[...tr.children].forEach((c,j)=>c.setAttribute('aria-hidden',j!==i));};
+  $('#tqPrev').onclick=()=>go(i-1);$('#tqNext').onclick=()=>go(i+1);go(0);
+})();
+
+/*ICONS*/
+document.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
+</script>
+
+<!-- ===================== 3D hero scene ===================== -->
+<script>/*SCENE*/</script>
+</body>
+</html>
