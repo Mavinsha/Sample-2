@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Endpoint-To-SOC Security Platform — K7 CyberSecurity</title>
+<meta name="description" content="Sample 01 — Tremorline. Homepage design concept for K7 Seventh Sense.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F1EEE5;
+  --paper-2:#E8E3D5;
+  --paper-hi:#FAF8F2;
+  --ink:#16140F;
+  --ink-2:#4B473E;
+  --ink-3:#7C7668;
+  --rule:rgba(22,20,15,.16);
+  --grid:rgba(22,20,15,.06);
+  --signal:#D3241B;
+  --lamp:#FBF0CC;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+  --sans:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --header:72px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img,svg{display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+.wrap{max-width:1280px;margin:0 auto;padding-inline:32px}
+.mono{font-family:var(--mono)}
+.serif{font-family:var(--serif)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- buttons (text only, no arrows) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;font:500 15px/1 var(--sans);letter-spacing:.01em;padding:16px 24px;border:1.5px solid var(--ink);text-decoration:none;cursor:pointer;transition:background .18s,color .18s,border-color .18s;white-space:nowrap}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:var(--signal);border-color:var(--signal)}
+.btn-line{background:transparent;color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-paper{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+.btn-paper:hover{background:var(--signal);border-color:var(--signal);color:var(--paper)}
+.btn-sm{padding:11px 16px;font-size:14px}
+
+/* ---------- section chrome ---------- */
+.sec{padding:120px 0;border-bottom:1px solid var(--ink)}
+.sec-alt{background:var(--paper-2)}
+.ch{display:flex;align-items:center;gap:14px;font:500 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin-bottom:48px}
+.ch::after{content:"";flex:1;height:1px;background:var(--rule)}
+.ch b{color:var(--signal);font-weight:500}
+.h2{font:400 clamp(38px,5.2vw,72px)/1.0 var(--serif);letter-spacing:-.022em}
+.lede{font:400 clamp(22px,2.2vw,28px)/1.32 var(--serif);letter-spacing:-.005em}
+.body{color:var(--ink-2);max-width:60ch}
+.body strong{color:var(--ink);font-weight:600}
+
+/* ---------- header / nav ---------- */
+.site-header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--ink)}
+.header-row{display:flex;align-items:center;height:var(--header);gap:28px}
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none;flex-shrink:0}
+.brand-mark{font:600 26px/1 var(--mono);letter-spacing:-.04em;color:var(--ink);position:relative}
+.brand-mark::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;background:var(--signal)}
+.brand-word{font:500 15px/1 var(--sans);color:var(--ink-2)}
+.primary{flex:1;align-self:stretch}
+.nav-list{display:flex;height:100%;justify-content:center}
+.nav-item{display:flex}
+.nav-item:not(.is-mega){position:relative}
+.nav-link{display:flex;align-items:center;gap:7px;height:100%;padding:0 13px;font:500 15px/1 var(--sans);text-decoration:none;color:var(--ink);position:relative;white-space:nowrap}
+.nav-link::after{content:"";position:absolute;left:13px;right:13px;bottom:-1px;height:2px;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .2s}
+.nav-item.open .nav-link::after,.nav-link:hover::after{transform:scaleX(1)}
+.plus{font:400 14px/1 var(--mono);color:var(--ink-3);width:9px;display:inline-block;text-align:center}
+.nav-item.open .plus{color:var(--signal)}
+.panel{display:none;position:absolute;top:100%;z-index:40}
+.nav-item.open .panel{display:block;animation:drop .18s ease-out}
+.is-mega .panel{left:0;right:0;background:var(--paper);border-bottom:1px solid var(--ink);box-shadow:0 30px 60px -40px rgba(22,20,15,.35)}
+.nav-item:not(.is-mega) .panel{left:0;min-width:250px;background:var(--paper);border:1px solid var(--ink);margin-top:1px}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.mega{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;padding-top:40px;padding-bottom:44px}
+.mega.has-intro{grid-template-columns:1.3fr 1fr 1.4fr}
+.mega-intro{padding-right:24px;border-right:1px solid var(--rule)}
+.intro-title{font:400 30px/1.05 var(--serif);text-decoration:none;display:inline-block;margin-bottom:10px}
+.intro-title:hover{color:var(--signal)}
+.mega-intro p{color:var(--ink-2);font-size:15px;max-width:30ch}
+.mega-intro svg{margin-top:26px;width:100%;max-width:280px;height:44px}
+.grp-title{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.grp-link{display:block;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding-bottom:12px;margin-bottom:18px;border-bottom:1px solid var(--rule)}
+.grp-link:hover{color:var(--signal)}
+.grp li a{display:block;padding:6px 0;font-size:15px;text-decoration:none;color:var(--ink)}
+.grp li a:hover{color:var(--signal)}
+.mega .grp+.grp-solo{margin-top:0}
+.drop{padding:20px 22px 18px}
+.drop .grp+.grp{margin-top:18px}
+.header-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.menu-btn{display:none;font:500 14px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:11px 14px;border:1.5px solid var(--ink)}
+.mobile-menu{border-top:1px solid var(--rule);max-height:calc(100vh - var(--header));overflow:auto;background:var(--paper)}
+.mobile-menu .wrap{padding-top:8px;padding-bottom:28px}
+.mm-item,.mm-link{display:block;border-bottom:1px solid var(--rule)}
+.mm-item summary,.mm-link{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:18px 0;font:400 24px/1.1 var(--serif);text-decoration:none;cursor:pointer}
+.mm-item summary::-webkit-details-marker{display:none}
+.mm-item summary::after{content:"+";font:400 18px/1 var(--mono);color:var(--ink-3)}
+.mm-item[open] summary::after{content:"\2212";color:var(--signal)}
+.mm-body{padding:0 0 20px}
+.mm-body .grp{margin-bottom:18px}
+.mm-body .grp-title,.mm-body .grp-link{margin-bottom:8px;padding-bottom:8px}
+.mobile-menu .btn{margin-top:24px;width:100%}
+
+/* ---------- hero ---------- */
+.hero{border-bottom:1px solid var(--ink)}
+.hero-head{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:end;padding-top:84px;padding-bottom:56px}
+.product{font:italic 400 clamp(22px,2.4vw,30px)/1 var(--serif);color:var(--signal);margin-bottom:26px;display:flex;align-items:center;gap:14px}
+.product::before{content:"";width:34px;height:1.5px;background:var(--signal)}
+h1{font:300 clamp(42px,8.2vw,124px)/.93 var(--serif);letter-spacing:-.035em;max-width:12.5ch}
+h1 em{font-style:normal;position:relative;white-space:nowrap}
+h1 em::after{content:"";position:absolute;left:0;right:0;bottom:.04em;height:.06em;background:var(--signal);transform-origin:left;animation:rule 1.4s .4s cubic-bezier(.6,0,.2,1) both}
+@keyframes rule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero-actions{display:flex;gap:12px;padding-bottom:10px}
+.recorder{position:relative;height:290px;border-top:1px solid var(--ink);background:var(--paper)}
+.recorder canvas{display:block;width:100%;height:100%}
+.rec-meta{position:absolute;left:32px;right:32px;top:14px;display:flex;justify-content:space-between;gap:16px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);pointer-events:none}
+.rec-meta.bottom{top:auto;bottom:14px;color:var(--ink-3);justify-content:flex-end;gap:72px}
+.rec-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:1px;animation:blink 1.4s steps(2,jump-none) infinite}
+@keyframes blink{50%{opacity:.15}}
+
+/* ---------- beyond ---------- */
+.beyond{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:start}
+.beyond .body{margin-top:24px}
+.channels{margin:88px 0 0;position:relative}
+.channels svg{width:100%;overflow:visible}
+.channels .ch-line{fill:none;stroke:var(--ink);stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.4s cubic-bezier(.55,0,.25,1)}
+.channels .ch-merge{fill:none;stroke:var(--signal);stroke-width:2.4;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s 1.9s cubic-bezier(.55,0,.25,1)}
+.channels.drawn .ch-line,.channels.drawn .ch-merge{stroke-dashoffset:0}
+.channels text{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;fill:var(--ink-2)}
+.channels .merge-label{font-family:var(--serif);font-style:italic;font-size:20px;letter-spacing:0;text-transform:none;fill:var(--signal)}
+.channels figcaption{margin-top:14px;font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.strata{margin-top:96px;border-bottom:1px solid var(--ink)}
+.stratum{display:grid;grid-template-columns:120px 1.1fr 1fr 1.1fr;align-items:center;gap:32px;padding:30px 0;border-top:1px solid var(--ink)}
+.stratum .code{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.stratum h3{font:400 clamp(30px,3.3vw,44px)/1 var(--serif);letter-spacing:-.015em}
+.stratum p{color:var(--ink-2)}
+.hatch{height:58px;border:1px solid var(--ink)}
+.s3 .hatch{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 16px)}
+.s2 .hatch{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 8px)}
+.s1 .hatch{background:repeating-linear-gradient(135deg,var(--ink) 0 1px,transparent 1px 4px),repeating-linear-gradient(45deg,var(--ink) 0 1px,transparent 1px 8px)}
+
+/* ---------- capabilities ---------- */
+.caps{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start}
+.caps-list{border-top:1px solid var(--ink)}
+.cap-row{display:grid;grid-template-columns:52px 44px 1fr 24px;align-items:center;width:100%;text-align:left;padding:30px 0;border-bottom:1px solid var(--ink);font:400 clamp(22px,2.4vw,32px)/1.12 var(--serif);letter-spacing:-.01em;transition:color .2s}
+.cap-row .idx{font:500 12px/1 var(--mono);letter-spacing:.1em;color:var(--ink-3)}
+.cap-row .glyph{width:28px;height:28px;color:var(--ink-2)}
+.cap-row .mark{font:400 18px/1 var(--mono);color:var(--ink-3);text-align:right}
+.cap-row:hover .cap-t{color:var(--signal)}
+.cap-row.active .idx,.cap-row.active .mark,.cap-row.active .glyph{color:var(--signal)}
+.cap-row.active .cap-t{font-style:italic}
+.caps-aside{position:sticky;top:calc(var(--header) + 32px)}
+.caps-panel{background:var(--paper-hi);border:1px solid var(--ink);padding:40px}
+.caps-panel.swap{animation:swap .35s ease-out}
+@keyframes swap{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cp-k{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--signal);margin-bottom:18px}
+.caps-panel h3{font:400 32px/1.08 var(--serif);letter-spacing:-.012em;margin-bottom:12px}
+.caps-panel .cp-d{color:var(--ink-2);margin-bottom:30px;max-width:44ch}
+.cp-items{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule)}
+.cp-items li{display:flex;align-items:center;gap:14px;padding:18px 12px 18px 0;border-bottom:1px solid var(--rule);font-weight:500;font-size:16px;line-height:1.25}
+.cp-items li:nth-child(odd){border-right:1px solid var(--rule)}
+.cp-items li:nth-child(even){padding-left:18px}
+.cp-items svg{width:24px;height:24px;flex-shrink:0;color:var(--ink-2)}
+.stamps{display:flex;flex-wrap:wrap;gap:20px 18px;padding:8px 4px}
+.stamp{font:600 14px/1 var(--mono);letter-spacing:.12em;color:var(--signal);border:2px solid var(--signal);outline:1px solid var(--signal);outline-offset:3px;padding:13px 16px;transform:rotate(var(--r,0deg));opacity:.9}
+
+/* ---------- modules / switchboard ---------- */
+.modular{display:grid;grid-template-columns:1fr 1.15fr;gap:72px;align-items:start}
+.mod-sub{margin-top:22px}
+.console{margin-top:44px;background:var(--ink);color:var(--paper);padding:22px 24px 24px;font:400 13px/1.5 var(--mono)}
+.console-head{display:flex;justify-content:space-between;gap:12px;padding-bottom:14px;margin-bottom:12px;border-bottom:1px solid rgba(241,238,229,.2);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(241,238,229,.65)}
+.console-head b{color:var(--paper);font-weight:500}
+.console li{display:flex;align-items:baseline;gap:10px;padding:3px 0}
+.console li .lead{flex:1;border-bottom:1px dotted rgba(241,238,229,.3);transform:translateY(-4px)}
+.console li .st{color:#8FD19E}
+.console li.addon .nm{color:#F6C9C4}
+.console li.new{animation:typein .5s ease-out}
+@keyframes typein{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+.board{display:grid;grid-template-columns:1fr 1.25fr;border:1px solid var(--ink);background:var(--paper-hi)}
+.bank+.bank{border-left:1px solid var(--ink)}
+.bank-head{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--ink);font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.bank-sym{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border:1.5px solid var(--ink);font:500 15px/1 var(--mono)}
+.bank-add .bank-sym{border-color:var(--signal);color:var(--signal)}
+.sw{display:grid;grid-template-columns:1fr auto;align-items:center;gap:14px;width:100%;text-align:left;padding:18px 22px;border-bottom:1px solid var(--rule);font-weight:500;font-size:16px;line-height:1.2;min-height:68px}
+.bank li:last-child .sw{border-bottom:0}
+.sw small{display:block;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+.track{position:relative;width:54px;height:28px;border:1.5px solid var(--ink);background:var(--paper);transition:background .2s,border-color .2s}
+.knob{position:absolute;top:3px;left:3px;width:19px;height:19px;background:var(--ink);transition:transform .22s cubic-bezier(.5,0,.2,1),background .2s}
+.sw[aria-pressed="true"] .track{background:var(--signal);border-color:var(--signal)}
+.sw[aria-pressed="true"] .knob{transform:translateX(26px);background:var(--paper)}
+.sw.fixed{cursor:default}
+.sw.fixed .track{background:var(--ink)}
+.sw.fixed .knob{transform:translateX(26px);background:var(--paper)}
+button.sw:hover .track{border-color:var(--signal)}
+
+/* ---------- operations / annunciator ---------- */
+.ops-head{display:grid;grid-template-columns:1.25fr 1fr;gap:64px;align-items:end;margin-bottom:64px}
+.ops-head .h2{max-width:13ch}
+.duty{display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;margin:26px 0 28px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.annunciator{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);background:var(--ink);gap:1px}
+.cell{background:var(--paper);min-height:168px;padding:20px 22px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:22px;transition:background .7s,box-shadow .7s}
+.cell-top{display:flex;justify-content:space-between;align-items:center;font:500 11px/1 var(--mono);letter-spacing:.1em;color:var(--ink-3)}
+.lamp{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;transition:background .5s,box-shadow .5s}
+.cell-name{font:500 18px/1.25 var(--sans);letter-spacing:-.005em;max-width:16ch}
+.cell.lit{background:var(--lamp);box-shadow:inset 0 0 50px rgba(240,180,60,.35)}
+.cell.lit .lamp{background:var(--signal);border-color:var(--signal);box-shadow:0 0 0 4px rgba(211,36,27,.15)}
+
+/* ---------- industries ---------- */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-areas:"a b c" "d x e" "f x g";border-top:1px solid var(--ink);border-left:1px solid var(--ink)}
+.ind,.ind-center{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.ind{display:flex;flex-direction:column;justify-content:space-between;gap:40px;min-height:220px;padding:26px 28px 28px;text-decoration:none;position:relative;transition:background .25s}
+.ind .no{font:500 11px/1 var(--mono);letter-spacing:.1em;color:var(--ink-3)}
+.ind .nm{font:400 clamp(30px,3.2vw,44px)/1 var(--serif);letter-spacing:-.015em;transition:color .2s}
+.ind .lm{font:500 14px/1 var(--sans);text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1px}
+.ind::after{content:"";position:absolute;left:28px;right:28px;bottom:0;height:3px;background:var(--signal);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.ind:hover{background:var(--paper-hi)}
+.ind:hover .nm{color:var(--signal);font-style:italic}
+.ind:hover::after{transform:scaleX(1)}
+.ind-center{grid-area:x;display:flex;flex-direction:column;justify-content:center;padding:40px;background:var(--ink);color:var(--paper)}
+.ind-center .h2{font-size:clamp(40px,4.6vw,66px)}
+.ind-center p{margin-top:22px;font:500 11px/1.5 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(241,238,229,.6)}
+
+/* ---------- accountability ---------- */
+.acc{display:grid;grid-template-columns:.85fr 1.15fr;gap:72px;align-items:start}
+.acc>*,.research>*,.labs>*,.caps>*,.modular>*{min-width:0}
+.acc-side{position:sticky;top:calc(var(--header) + 40px)}
+.acc-side .btn{margin-top:36px}
+.sheet{position:relative;background:var(--paper-hi);border:1px solid var(--ink);padding:56px 56px 48px}
+.sheet::before,.sheet::after{content:"";position:absolute;inset:0;border:1px solid var(--ink);background:var(--paper-hi);z-index:-1}
+.sheet::before{transform:translate(8px,8px)}
+.sheet::after{transform:translate(16px,16px);z-index:-2}
+.acc-wrap{position:relative;z-index:0}
+.sheet-k{display:flex;justify-content:space-between;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding-bottom:20px;margin-bottom:36px;border-bottom:1px solid var(--rule)}
+.sheet .lede{margin-bottom:28px;font-size:clamp(26px,2.6vw,34px)}
+.sheet p+p{margin-top:18px}
+.sheet .body{max-width:none}
+.sheet strong{background:linear-gradient(transparent 80%,rgba(211,36,27,.5) 80%);padding:0 1px}
+.sign{margin-top:48px;display:flex;align-items:flex-end;gap:24px}
+.sign svg{width:220px;height:70px;color:var(--ink)}
+.sign path{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 2.2s cubic-bezier(.6,0,.3,1)}
+.sign.drawn path{stroke-dashoffset:0}
+.sign-cap{flex:1;border-top:1px solid var(--ink);padding-top:10px;font:500 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2)}
+
+/* ---------- research ---------- */
+.research{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:64px}
+.specimen{border:1px solid var(--ink);display:grid;grid-template-rows:auto 1fr}
+.spec-img{position:relative;height:340px;display:flex;align-items:center;justify-content:center;background:var(--paper-2);border-bottom:1px solid var(--ink)}
+.spec-tag{position:absolute;left:14px;top:14px;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.seal{width:210px;height:210px;color:var(--ink)}
+.seal-spin{transform-origin:100px 100px;animation:spin 40s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cover{width:196px;aspect-ratio:3/4;background:var(--ink);color:var(--paper);padding:20px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:10px 10px 0 -1px var(--paper-2),10px 10px 0 0 var(--ink)}
+.cover .mono{font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.cover svg{width:100%;height:46px}
+.cover svg path{fill:none;stroke:var(--signal);stroke-width:1.6}
+.cover p{font:400 22px/1.05 var(--serif)}
+.spec-cap{padding:28px 32px 32px;display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.spec-t{font:400 26px/1.15 var(--serif);letter-spacing:-.01em}
+.spec-s{font:500 12px/1.4 var(--mono);letter-spacing:.06em;color:var(--ink-2)}
+.spec-cap .btn{margin-top:14px}
+.labs{display:grid;grid-template-columns:1fr 1.6fr;gap:64px;margin-top:96px;align-items:start}
+.labs .lede{max-width:28ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--ink)}
+.stat{padding:24px 24px 0 0}
+.stat+.stat{padding-left:24px;border-left:1px solid var(--rule)}
+.stat dt{display:flex;flex-direction:column}
+.stat .num{font:300 clamp(48px,5.4vw,80px)/1 var(--serif);letter-spacing:-.035em}
+.stat .unit{font:500 15px/1.3 var(--sans);margin-top:10px}
+.stat dd{margin-top:6px;color:var(--ink-2);font-size:15px;line-height:1.4}
+
+/* ---------- testimonials ---------- */
+.quotes{overflow:hidden;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.q-track{display:flex;transition:transform .6s cubic-bezier(.6,0,.2,1)}
+.q{flex:0 0 100%;padding:64px 0 56px;display:grid;grid-template-columns:120px 1fr;gap:24px}
+.q-mark{font:400 140px/.7 var(--serif);color:var(--signal)}
+.q p{font:400 clamp(28px,3.4vw,46px)/1.15 var(--serif);letter-spacing:-.015em;max-width:24ch;color:var(--ink-3)}
+.q footer{margin-top:30px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.q-ctrl{display:flex;align-items:center;gap:20px;margin-top:28px}
+.q-count{font:500 13px/1 var(--mono);letter-spacing:.1em;margin-left:auto;color:var(--ink-2)}
+
+/* ---------- MSSP ---------- */
+.mssp{background:var(--ink);color:var(--paper);padding:120px 0 0;position:relative;overflow:hidden}
+.mssp .ch{color:rgba(241,238,229,.6)}
+.mssp .ch::after{background:rgba(241,238,229,.2)}
+.mssp-in{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end}
+.mssp .h2{font-size:clamp(48px,7vw,104px)}
+.mssp p{color:rgba(241,238,229,.78);max-width:46ch;margin-bottom:32px}
+.mssp-trace{width:100%;height:120px;margin-top:80px}
+.mssp-trace path{fill:none;stroke:var(--signal);stroke-width:1.6}
+
+/* ---------- footer ---------- */
+.site-footer{background:var(--ink);color:var(--paper);border-top:1px solid rgba(241,238,229,.18);padding:72px 0 40px}
+.f-cols{display:grid;grid-template-columns:repeat(8,1fr);gap:28px}
+.f-col h4{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(241,238,229,.55);margin-bottom:16px}
+.f-col a{display:block;padding:4px 0;font-size:14px;line-height:1.35;text-decoration:none;color:rgba(241,238,229,.9)}
+.f-col a:hover{color:#fff;text-decoration:underline}
+.f-base{margin-top:64px;padding-top:22px;border-top:1px solid rgba(241,238,229,.18);display:flex;justify-content:space-between;gap:16px;font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:rgba(241,238,229,.55)}
+
+.sample-tag{position:fixed;left:16px;bottom:16px;z-index:60;background:var(--signal);color:#fff;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 11px}
+
+/* ---------- responsive ---------- */
+@media (max-width:1180px){
+  .primary{display:none}
+  .menu-btn{display:inline-flex}
+  .header-row{justify-content:space-between}
+  .f-cols{grid-template-columns:repeat(4,1fr);row-gap:44px}
+}
+@media (max-width:900px){
+  .sec{padding:84px 0}
+  .hero-head{grid-template-columns:1fr;gap:36px;padding-top:56px;padding-bottom:40px}
+  .beyond,.caps,.modular,.ops-head,.acc,.labs,.mssp-in,.research{grid-template-columns:1fr;gap:40px}
+  .channels{margin-top:56px}
+  .strata{margin-top:64px}
+  .stratum{grid-template-columns:1fr auto;gap:10px 20px;padding:24px 0}
+  .stratum .code{grid-column:1/-1}
+  .stratum p{grid-column:1}
+  .stratum .hatch{grid-column:2;grid-row:2/4;width:80px;height:72px}
+  .caps-aside{position:static}
+  .caps-panel{padding:28px 22px;margin:0 0 4px;border-top:0}
+  .caps-list .caps-panel{border:0;border-bottom:1px solid var(--ink);background:var(--paper-hi);margin:0}
+  .annunciator{grid-template-columns:repeat(2,1fr)}
+  .ind-grid{grid-template-columns:1fr 1fr;grid-template-areas:"x x" "a b" "c d" "e f" "g g"}
+  .ind{min-height:170px}
+  .acc-side{position:static}
+  .sheet{padding:36px 26px 32px}
+  .stats{grid-template-columns:1fr}
+  .stat,.stat+.stat{padding:22px 0;border-left:0;border-bottom:1px solid var(--rule)}
+  .q{grid-template-columns:1fr;gap:0;padding:48px 0 40px}
+  .q-mark{font-size:100px;height:56px}
+  .mssp{padding-top:84px}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding-inline:16px}
+  .brand-word{display:none}
+  .header-cta .btn{display:none}
+  .recorder{height:210px}
+  .rec-meta{left:16px;right:16px}
+  .rec-meta .hide-s{display:none}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .cap-row{grid-template-columns:36px 36px 1fr 20px;padding:24px 0}
+  .cp-items{grid-template-columns:1fr}
+  .cp-items li:nth-child(odd){border-right:0}
+  .cp-items li:nth-child(even){padding-left:0}
+  .board{grid-template-columns:1fr}
+  .bank+.bank{border-left:0;border-top:1px solid var(--ink)}
+  .annunciator{grid-template-columns:1fr 1fr}
+  .cell{min-height:140px;padding:16px}
+  .cell-name{font-size:16px}
+  .ind-grid{grid-template-columns:1fr;grid-template-areas:"x" "a" "b" "c" "d" "e" "f" "g"}
+  .ind{min-height:0;gap:22px;padding:22px 20px}
+  .ind-center{padding:32px 20px}
+  .spec-img{height:300px;align-items:flex-end;padding-bottom:28px}
+  .cover{width:150px}
+  .cover p{font-size:18px}
+  .sign{flex-direction:column;align-items:stretch;gap:12px}
+  .sign svg{width:180px;height:58px}
+  .sheet::before{transform:translate(4px,4px)}
+  .sheet::after{transform:translate(8px,8px)}
+  .rec-meta.bottom{gap:40px}
+  .f-cols{grid-template-columns:1fr 1fr}
+  .f-base{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .channels .ch-line,.channels .ch-merge,.sign path{stroke-dashoffset:0}
+}
+</style>
+</head>
+<body id="top">
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="#top" aria-label="K7 CyberSecurity home"><span class="brand-mark">K7</span><span class="brand-word">CyberSecurity</span></a>
+    <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
+    <div class="header-cta">
+      <a class="btn btn-ink btn-sm" href="#">Request Trial</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden></div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" aria-labelledby="heroTitle">
+  <div class="wrap hero-head">
+    <div>
+      <p class="product">K7 Seventh Sense</p>
+      <h1 id="heroTitle">Unified <em>Endpoint-To-SOC</em> Security Platform</h1>
+    </div>
+    <div class="hero-actions">
+      <a class="btn btn-ink" href="#platform">Explore Platform</a>
+      <a class="btn btn-line" href="#">Request Trial</a>
+    </div>
+  </div>
+  <div class="recorder" aria-hidden="true">
+    <canvas id="trace"></canvas>
+    <div class="rec-meta"><span><span class="rec-dot"></span>Live trace</span><span class="hide-s">Endpoint to SOC</span></div>
+    <div class="rec-meta bottom"><span>Detect</span><span>Contain</span><span class="hide-s">Respond</span><span class="hide-s">Recover</span></div>
+  </div>
+</section>
+
+<!-- BEYOND THE OBVIOUS -->
+<section class="sec" id="platform" aria-labelledby="beyondTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.01</b> Signal</p>
+    <div class="beyond">
+      <h2 class="h2" id="beyondTitle">Beyond The Obvious</h2>
+      <div>
+        <p class="lede">Cybersecurity is getting lost in a complex puzzle of technologies and reports, with too many tools and not enough qualified people.</p>
+        <p class="body">K7 Seventh Sense is a Unified Endpoint-To-SOC Security Platform that was created to solve this puzzle. Our platform goes beyond the obvious to understand security by connecting intelligence across <strong>endpoints, identities, data, vulnerabilities,</strong> and <strong>behaviour,</strong> to help enterprises make cybersecurity simpler and trustable.</p>
+      </div>
+    </div>
+
+    <figure class="channels" id="channels">
+      <svg role="img" aria-label="Five intelligence channels — endpoints, identities, data, vulnerabilities and behaviour — converging into K7 Seventh Sense"></svg>
+    </figure>
+
+    <div class="strata">
+      <div class="stratum s3"><span class="code">Layer 03</span><h3>Agentic SOC</h3><p>Simplified Cybersecurity</p><span class="hatch" aria-hidden="true"></span></div>
+      <div class="stratum s2"><span class="code">Layer 02</span><h3>Platform</h3><p>Where It All Lives</p><span class="hatch" aria-hidden="true"></span></div>
+      <div class="stratum s1"><span class="code">Layer 01</span><h3>Sensor</h3><p>Proprietary, Unified</p><span class="hatch" aria-hidden="true"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="sec sec-alt" id="capabilities" aria-label="Capabilities">
+  <div class="wrap">
+    <p class="ch"><b>CH.02</b> Coverage</p>
+    <div class="caps">
+      <div class="caps-list" id="capsList"></div>
+      <div class="caps-aside" id="capsAside"><div class="caps-panel" id="capsPanel" aria-live="polite"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULAR -->
+<section class="sec" id="modules" aria-labelledby="modTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.03</b> Switchboard</p>
+    <div class="modular">
+      <div>
+        <h2 class="h2" id="modTitle">Modular by Design</h2>
+        <p class="lede mod-sub">Switch on capabilities as required, managed from the same console.</p>
+        <div class="console" aria-live="polite">
+          <div class="console-head"><span>Console</span><b id="modCount">—</b></div>
+          <ol id="consoleLog"></ol>
+        </div>
+      </div>
+      <div class="board">
+        <div class="bank"><div class="bank-head"><span class="bank-sym" aria-hidden="true">✓</span>Core</div><ul id="coreBank"></ul></div>
+        <div class="bank bank-add"><div class="bank-head"><span class="bank-sym" aria-hidden="true">+</span>Add-ons</div><ul id="addBank"></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATIONS -->
+<section class="sec sec-alt" id="operations" aria-labelledby="opsTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.04</b> Operator</p>
+    <div class="ops-head">
+      <h2 class="h2" id="opsTitle">One Platform. One Operator. Every Endpoint.</h2>
+      <div>
+        <p class="body">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+        <p class="duty"><span class="rec-dot"></span>On duty now&nbsp;·&nbsp;<span id="clock">--:--</span>&nbsp;your time</p>
+        <a class="btn btn-line" href="#">Learn More</a>
+      </div>
+    </div>
+    <div class="annunciator" id="annunciator"></div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="sec" id="industries" aria-labelledby="indTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.05</b> Sectors</p>
+    <div class="ind-grid" id="indGrid">
+      <div class="ind-center"><h2 class="h2" id="indTitle">Built For Your Industry</h2><p>Seven sectors · One platform</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCOUNTABILITY -->
+<section class="sec sec-alt" id="accountability" aria-labelledby="accTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.06</b> Accountability</p>
+    <div class="acc">
+      <div class="acc-side">
+        <h2 class="h2" id="accTitle">Security That Answers To You</h2>
+        <a class="btn btn-ink" href="#">Learn More</a>
+      </div>
+      <div class="acc-wrap">
+        <article class="sheet">
+          <div class="sheet-k"><span>K7 CyberSecurity</span><span>Our responsibility</span></div>
+          <p class="lede">We believe trust must be earned through accountability.</p>
+          <p class="body">Organisations do not just buy security technology; they entrust a partner with their data, operations, reputation, and business continuity.</p>
+          <p class="body">We build cybersecurity around one responsibility: protecting our customers and being there when security matters most.</p>
+          <p class="body">When you trust K7 CyberSecurity, you gain a <strong>single accountable partner</strong> focused on <strong>customer-centricity, trust, and accountability</strong>.</p>
+          <div class="sign" id="sign">
+            <svg viewBox="0 0 220 70" aria-hidden="true"><path pathLength="1" d="M6 52 C 18 20, 34 14, 38 40 S 46 66, 58 38 S 74 8, 84 36 S 92 60, 104 40 C 112 28, 118 26, 122 40 S 132 56, 142 34 S 160 18, 168 38 C 174 50, 186 46, 214 30"/></svg>
+            <span class="sign-cap">Signed, K7 CyberSecurity</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section class="sec" id="research" aria-labelledby="resTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.07</b> K7 Labs</p>
+    <h2 class="h2" id="resTitle" style="max-width:16ch">Globally Recognised Cyberthreat Research</h2>
+    <div class="research">
+      <figure class="specimen">
+        <div class="spec-img">
+          <span class="spec-tag">Placeholder · AMTSO award image</span>
+          <svg class="seal" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><path id="ring" d="M100,100 m-73,0 a73,73 0 1,1 146,0 a73,73 0 1,1 -146,0"/></defs>
+            <circle cx="100" cy="100" r="94" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="100" cy="100" r="86" fill="none" stroke="currentColor" stroke-width=".75"/>
+            <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" stroke-width=".75"/>
+            <g class="seal-spin"><text font-family="IBM Plex Mono, monospace" font-size="10.5" letter-spacing="2.3" fill="currentColor"><textPath href="#ring">REAL TIME THREAT LIST · CONTRIBUTOR OF THE YEAR · </textPath></text></g>
+            <text x="100" y="99" text-anchor="middle" font-family="Newsreader, Georgia, serif" font-size="28" fill="currentColor">AMTSO</text>
+            <path d="M74 110 h52" stroke="#D3241B" stroke-width="1.5"/>
+            <text x="100" y="126" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="2" fill="currentColor">K7 LABS</text>
+          </svg>
+        </div>
+        <figcaption class="spec-cap">
+          <p class="spec-t">Real Time Threat List Contributor of the Year</p>
+          <p class="spec-s">Anti-Malware Testing Standards Organization</p>
+        </figcaption>
+      </figure>
+      <figure class="specimen">
+        <div class="spec-img">
+          <span class="spec-tag">Placeholder · report image</span>
+          <div class="cover" aria-hidden="true">
+            <span class="mono">K7 Labs</span>
+            <svg viewBox="0 0 200 50" preserveAspectRatio="none"><path d="M0 34 L48 34 L54 31 L60 37 L66 30 L72 6 L78 46 L84 22 L90 36 L96 32 L104 34 L200 34"/></svg>
+            <p>K7 Cyber Threat Monitor Report</p>
+          </div>
+        </div>
+        <figcaption class="spec-cap">
+          <p class="spec-t">K7 Cyber Threat Monitor Report</p>
+          <a class="btn btn-line" href="#">View Reports</a>
+        </figcaption>
+      </figure>
+    </div>
+    <div class="labs">
+      <p class="lede">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
+      <dl class="stats">
+        <div class="stat"><dt><span class="num">30+</span><span class="unit">Years</span></dt><dd>Multi-decade expertise</dd></div>
+        <div class="stat"><dt><span class="num">Millions</span><span class="unit">of Devices</span></dt><dd>Extensive sources of telemetry</dd></div>
+        <div class="stat"><dt><span class="num">32</span><span class="unit">Countries</span></dt><dd>Geographically distributed threat intelligence</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec sec-alt" id="testimonials" aria-label="Customer testimonials">
+  <div class="wrap">
+    <p class="ch"><b>CH.08</b> Field reports</p>
+    <div class="quotes"><div class="q-track" id="qTrack">
+      <blockquote class="q"><span class="q-mark" aria-hidden="true">“</span><div><p>Customer testimonial to be supplied — a short, specific quote from a named enterprise customer.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
+      <blockquote class="q"><span class="q-mark" aria-hidden="true">“</span><div><p>Second testimonial placeholder — ideally from a different industry than the first.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
+      <blockquote class="q"><span class="q-mark" aria-hidden="true">“</span><div><p>Third testimonial placeholder — ideally speaking to the managed SOC experience.</p><footer>Name · Designation · Organisation</footer></div></blockquote>
+    </div></div>
+    <div class="q-ctrl">
+      <button class="btn btn-line btn-sm" id="qPrev" type="button">Previous</button>
+      <button class="btn btn-line btn-sm" id="qNext" type="button">Next</button>
+      <span class="q-count" id="qCount">01 / 03</span>
+    </div>
+  </div>
+</section>
+
+<!-- MSSP -->
+<section class="mssp" id="mssp" aria-labelledby="msspTitle">
+  <div class="wrap">
+    <p class="ch"><b>CH.09</b> Partners</p>
+    <div class="mssp-in">
+      <h2 class="h2" id="msspTitle">K7 for MSSPs</h2>
+      <div>
+        <p>Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
+        <a class="btn btn-paper" href="#">Learn More</a>
+      </div>
+    </div>
+  </div>
+  <svg class="mssp-trace" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true"><path id="msspPath" d=""/></svg>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="f-cols" id="fCols"></div>
+    <div class="f-base"><span>© 2026 K7 CyberSecurity</span><span>Sample 01 — Tremorline</span></div>
+  </div>
+</footer>
+
+<div class="sample-tag" aria-hidden="true">Sample 01 · Tremorline</div>
+
+<script>
+/* ===================== content ===================== */
+const NAV=[
+  {label:'Platform',mega:true,intro:{title:'K7 Seventh Sense',text:'Unified Endpoint-To-SOC Security Platform'},groups:[
+    {title:'Core',items:['K7 Seventh Sense MDR','K7 Seventh Sense XDR','K7 Seventh Sense EDR','K7 Seventh Sense EPP']},
+    {title:'Addons',items:['K7 Data Loss Protection','K7 Identity and Access Management','K7 Patch Management','K7 Advanced Endpoint Management','K7 Agentic SOC','K7 Log Retention','K7 File Security Monitoring']}]},
+  {label:'Solutions',mega:true,groups:[
+    {title:'Compliance Solutions',items:['ADHICS','CBUAE','DPDP']},
+    {title:'Industry Solutions',items:['BFSI','Education','Government','Healthcare','Manufacturing','Professional Services','Retail']},
+    {title:'Network Security Solutions',items:['K7 SD-WAN','K7 Next Generation Firewall','K7 VPN Concentrator','K7 Connect 500','K7 AAA']},
+    {title:'SMB',items:['K7 InfiniShield']},
+    {title:'File Security Solution',items:[]}]},
+  {label:'Services',mega:true,groups:[
+    {title:'Consulting Services',items:['K7 GRC','K7 vCISO','K7 Enterprise Risk Management','K7 Incident Response']},
+    {title:'Security Assessment Services',items:['K7 Cyber Defence Assessment','K7 Red Team Assessment','K7 VAPT']},
+    {title:'AI Security Services',items:['K7 AI Readiness Assessment','K7 AI Maturity Assessment']},
+    {title:'Managed Security Services',items:[]},
+    {title:'K7 ISAP',items:[]}]},
+  {label:'Partners',groups:[{items:['Integration Partners','Solution Partners','Distribution Partners']}]},
+  {label:'Resources',groups:[{items:['Insight','Research']},{title:'Media Room',items:['News','Press Releases','Events','Media Centre']}]},
+  {label:'Why K7',groups:[{title:'Competitor Comparison',items:['K7 vs CrowdStrike']},{items:['Certifications','Testimonials']}]},
+  {label:'About Us',groups:[{items:['About K7','Leadership','Careers','Contact Us']}]},
+  {label:'Support'}
+];
+
+const G={
+  infra:'<path d="M12 3 21 7.5 12 12 3 7.5z"/><path d="M3 12 12 16.5 21 12"/><path d="M3 16.5 12 21 21 16.5"/>',
+  data:'<rect x="5" y="10.5" width="14" height="10" rx="1"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/><path d="M12 14.5v2"/>',
+  patch:'<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M10.6 10.6h.01M13.4 13.4h.01M13.4 10.6h.01M10.6 13.4h.01"/>',
+  comply:'<circle cx="12" cy="12" r="8.5"/><path d="M8 12.3l2.7 2.7L16.2 9.5"/>',
+  laptop:'<rect x="4" y="5" width="16" height="11" rx="1"/><path d="M2 19h20"/>',
+  server:'<rect x="4" y="3.5" width="16" height="7" rx="1"/><rect x="4" y="13.5" width="16" height="7" rx="1"/><path d="M8 7h.01M8 17h.01"/>',
+  ot:'<circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/>',
+  network:'<circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v5M12 12l-5.6 5.6M12 12l5.6 5.6"/>',
+  mobile:'<rect x="7" y="2.5" width="10" height="19" rx="1.5"/><path d="M11 18.5h2"/>',
+  cloud:'<path d="M7 18.5h10.5a4 4 0 0 0 .4-7.98A6 6 0 0 0 6.3 10 4.25 4.25 0 0 0 7 18.5z"/>',
+  dlp:'<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16.5h4"/>',
+  report:'<path d="M6 3h12v18H6z"/><path d="M9.5 17v-3M12 17v-6M14.5 17v-4"/>',
+  vuln:'<circle cx="12" cy="12" r="7"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="1.4"/>',
+  auto:'<path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/>'
+};
+const svgI=(k)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${G[k]}</svg>`;
+
+const CAPS=[
+  {t:'Comprehensive Infrastructure Protection',g:'infra',d:'Prevention, detection, and response across your IT ecosystem.',items:[['Endpoints','laptop'],['Servers','server'],['Operational Technology','ot'],['Network','network'],['Mobile Devices','mobile'],['Cloud','cloud']]},
+  {t:'Security for Sensitive Data',g:'data',d:'Complete control over where data lives and moves.',items:[['Data Loss Prevention','dlp'],['Compliance-oriented Reporting','report']]},
+  {t:'Multi-OS Patch Management',g:'patch',d:'Close vulnerabilities before they can be exploited.',items:[['Vulnerability Identification','vuln'],['Automated Patching','auto']]},
+  {t:'Integrated Compliance',g:'comply',d:'With one platform, compliance is continuous, auditable, and mapped to frameworks that matter.',stamps:['DPDP','PCI DSS','ISO 27001','GDPR','CBUAE','ADHICS']}
+];
+const CORE=['EPP','EDR','XDR','MDR'];
+const ADDS=['DLP','IAM','Patch Management','Advanced Endpoint Management','Agentic SOC','Log Retention','File Security Monitoring'];
+const OPS=['24×7 Threat Detection and Response','Exposure Management','Patch and Remediation Oversight','Data-risk and Privileged-access Context','Proactive Threat Hunting','Security Posture Improvement','Ongoing Security Governance','Digital Forensics and Incident Response'];
+const INDS=['BFSI','Education','Government','Healthcare','Manufacturing','IT/ITES','Retail'];
+
+const $=(s,r=document)=>r.querySelector(s);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ===================== navigation ===================== */
+(function(){
+  const list=$('#navList');
+  const links=a=>'<ul>'+a.map(i=>`<li><a href="#">${i}</a></li>`).join('')+'</ul>';
+  const groupHTML=g=>{
+    if(!g.title) return `<div class="grp">${links(g.items)}</div>`;
+    if(!g.items.length) return `<div class="grp grp-solo"><a class="grp-link" href="#">${g.title}</a></div>`;
+    return `<div class="grp"><p class="grp-title">${g.title}</p>${links(g.items)}</div>`;
+  };
+  NAV.forEach((n,i)=>{
+    const li=document.createElement('li');
+    li.className='nav-item'+(n.mega?' is-mega':'');
+    if(!n.groups){li.innerHTML=`<a class="nav-link" href="#">${n.label}</a>`;list.appendChild(li);return;}
+    let inner;
+    if(n.mega){
+      const intro=n.intro?`<div class="mega-intro"><a class="intro-title" href="#">${n.intro.title}</a><p>${n.intro.text}</p><svg viewBox="0 0 280 44" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 H96 l6 -3 l6 6 l6 -26 l6 34 l6 -18 l6 7 H280" fill="none" stroke="#D3241B" stroke-width="1.5"/></svg></div>`:'';
+      // stack link-only groups together in one column
+      const full=n.groups.filter(g=>!g.title||g.items.length), solo=n.groups.filter(g=>g.title&&!g.items.length);
+      let cols=full.map(groupHTML);
+      if(solo.length){ const last=cols.pop(); cols.push(`<div>${last?last.replace('class="grp"','class="grp" style="margin-bottom:28px"'):''}${solo.map(groupHTML).join('')}</div>`); }
+      inner=`<div class="wrap mega${n.intro?' has-intro':''}">${intro}${cols.join('')}</div>`;
+    } else inner=`<div class="drop">${n.groups.map(groupHTML).join('')}</div>`;
+    li.innerHTML=`<button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="np${i}">${n.label}<span class="plus" aria-hidden="true">+</span></button><div class="panel" id="np${i}">${inner}</div>`;
+    list.appendChild(li);
+  });
+  const items=[...list.querySelectorAll('.nav-item')];
+  const closeAll=(except)=>items.forEach(li=>{if(li!==except){li.classList.remove('open');const b=li.querySelector('.nav-trigger');if(b){b.setAttribute('aria-expanded','false');b.querySelector('.plus').textContent='+';}}});
+  const canHover=matchMedia('(hover:hover)').matches;
+  items.forEach(li=>{
+    const b=li.querySelector('.nav-trigger'); if(!b) return;
+    let t;
+    const open=()=>{clearTimeout(t);closeAll(li);li.classList.add('open');b.setAttribute('aria-expanded','true');b.querySelector('.plus').textContent='−';};
+    const close=()=>{li.classList.remove('open');b.setAttribute('aria-expanded','false');b.querySelector('.plus').textContent='+';};
+    b.addEventListener('click',()=>li.classList.contains('open')?close():open());
+    if(canHover){li.addEventListener('mouseenter',open);li.addEventListener('mouseleave',()=>{t=setTimeout(close,160)});}
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+  document.addEventListener('click',e=>{if(!e.target.closest('.nav-item'))closeAll()});
+
+  // mobile menu
+  const mm=$('#mobileMenu'),mb=$('#menuBtn');
+  mm.innerHTML='<div class="wrap">'+NAV.map(n=>{
+    if(!n.groups) return `<a class="mm-link" href="#">${n.label}</a>`;
+    const intro=n.intro?`<div class="grp"><a class="grp-link" href="#">${n.intro.title}</a></div>`:'';
+    return `<details class="mm-item"><summary>${n.label}</summary><div class="mm-body">${intro}${n.groups.map(groupHTML).join('')}</div></details>`;
+  }).join('')+'<a class="btn btn-ink" href="#">Request Trial</a></div>';
+  mb.addEventListener('click',()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';});
+
+  // footer sitemap (sub menu 1 level)
+  $('#fCols').innerHTML=NAV.map(n=>{
+    let l=[];
+    if(n.intro) l.push(n.intro.title);
+    (n.groups||[]).forEach(g=>{ if(g.title) l.push(g.title); else l.push(...g.items); });
+    if(!n.groups) l.push(n.label);
+    return `<div class="f-col"><h4>${n.label}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+  }).join('');
+})();
+
+/* ===================== hero recorder ===================== */
+(function(){
+  const cv=$('#trace'); const ctx=cv.getContext('2d');
+  const LABELS=['EPP · Malicious file blocked','EDR · Process isolated','XDR · Signals correlated','SOC · Analyst triage closed','DLP · Data transfer stopped','IAM · Privileged access revoked','Patch · Vulnerability closed'];
+  const SPEED=72; const STEP=1/60;
+  let W=0,H=0,penX=0,base=0,pts=[],notes=[],T=0,spike=null,nextSpike=1.4,li=0,off=0,running=false,last=0;
+  function sampleY(){
+    const a=3.1;
+    let y=Math.sin(T*2.3)*a*.7+Math.sin(T*6.1+1.3)*a*.5+(Math.random()-.5)*a*1.1;
+    if(spike){
+      const p=(T-spike.t0)/spike.dur;
+      if(p<1){
+        const env=p<.1?p/.1:Math.exp(-(p-.1)*3.6);
+        y+=Math.sin((T-spike.t0)*44)*env*spike.amp+(Math.random()-.5)*env*spike.amp*.3;
+        if(!spike.noted&&p>=.1){spike.noted=true;notes.push({x:penX,peak:base-spike.amp,text:LABELS[li++%LABELS.length]});}
+      } else if(p<1.9){ y*=.15; }
+      else { spike=null; nextSpike=T+2.4+Math.random()*2; }
+    } else if(T>=nextSpike){ spike={t0:T,dur:1.1,amp:H*(.22+Math.random()*.1),noted:false}; }
+    return base+y;
+  }
+  function step(dt){
+    const dx=SPEED*dt; T+=dt; off=(off+dx)%120;
+    for(const p of pts)p.x-=dx; for(const n of notes)n.x-=dx;
+    while(pts.length&&pts[0].x<-4)pts.shift();
+    notes=notes.filter(n=>n.x>-260);
+    pts.push({x:penX,y:sampleY()});
+  }
+  function prefill(){pts=[];notes=[];T=0;spike=null;nextSpike=1;li=0;const n=Math.ceil(penX/(SPEED*STEP));for(let i=0;i<n;i++)step(STEP);}
+  function resize(){
+    const r=cv.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);
+    W=r.width;H=r.height;cv.width=Math.round(W*d);cv.height=Math.round(H*d);ctx.setTransform(d,0,0,d,0,0);
+    penX=Math.round(W*(W<700?.84:.8));base=H*.6;prefill();draw();
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // moving chart paper
+    ctx.lineWidth=1;
+    for(let x=-(off%24),k=0;x<W;x+=24){
+      const idx=Math.round((x+off)/24);
+      ctx.strokeStyle=idx%5===0?'rgba(22,20,15,.11)':'rgba(22,20,15,.05)';
+      ctx.beginPath();ctx.moveTo(Math.round(x)+.5,0);ctx.lineTo(Math.round(x)+.5,H);ctx.stroke();
+    }
+    for(let y=H,i=0;y>0;y-=24,i++){
+      ctx.strokeStyle=i%5===0?'rgba(22,20,15,.11)':'rgba(22,20,15,.05)';
+      ctx.beginPath();ctx.moveTo(0,Math.round(y)+.5);ctx.lineTo(W,Math.round(y)+.5);ctx.stroke();
+    }
+    // annotations
+    ctx.font='500 11px "IBM Plex Mono", monospace';ctx.textBaseline='middle';
+    for(const n of notes){
+      ctx.strokeStyle='rgba(22,20,15,.55)';ctx.setLineDash([3,3]);
+      ctx.beginPath();ctx.moveTo(Math.round(n.x)+.5,n.peak-8);ctx.lineTo(Math.round(n.x)+.5,58);ctx.stroke();ctx.setLineDash([]);
+      const t=n.text.toUpperCase(),w=ctx.measureText(t).width+18;
+      ctx.fillStyle='#FAF8F2';ctx.fillRect(n.x,38,w,22);ctx.strokeStyle='#16140F';ctx.strokeRect(Math.round(n.x)+.5,38.5,w,22);
+      ctx.fillStyle='#16140F';ctx.fillText(t,n.x+9,50);
+      ctx.fillStyle='#D3241B';ctx.beginPath();ctx.arc(n.x,n.peak-4,2.5,0,Math.PI*2);ctx.fill();
+    }
+    // trace
+    ctx.strokeStyle='#D3241B';ctx.lineWidth=1.7;ctx.lineJoin='round';ctx.beginPath();
+    pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
+    // stylus
+    const lp=pts[pts.length-1];
+    ctx.strokeStyle='#16140F';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(penX,lp.y);ctx.lineTo(W+2,base-40);ctx.stroke();
+    ctx.fillStyle='#16140F';ctx.beginPath();ctx.arc(penX,lp.y,4,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(22,20,15,.35)';ctx.beginPath();ctx.moveTo(penX+.5,0);ctx.lineTo(penX+.5,H);ctx.stroke();
+  }
+  function frame(ts){ if(!running)return; const dt=last?Math.min((ts-last)/1000,.05):STEP; last=ts; step(dt); draw(); requestAnimationFrame(frame); }
+  resize();
+  let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(resize,120)});
+  if(document.fonts)document.fonts.ready.then(draw);
+  if(!reduce){
+    new IntersectionObserver(es=>es.forEach(e=>{
+      if(e.isIntersecting&&!running){running=true;last=0;requestAnimationFrame(frame);}
+      else if(!e.isIntersecting)running=false;
+    })).observe(cv);
+  }
+})();
+
+/* ===================== converging channels ===================== */
+(function(){
+  const fig=$('#channels'),svg=fig.querySelector('svg');
+  const labels=['Endpoints','Identities','Data','Vulnerabilities','Behaviour'];
+  function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+  function draw(){
+    const w=fig.clientWidth,s=w<640,h=s?250:310,mid=h/2,top=s?28:34,gap=(h-top*2)/4;
+    const x0=s?132:170, mergeX=w*(s?.72:.7), wigEnd=mergeX-(s?70:150);
+    const r=rng(7);let out='';
+    labels.forEach((l,i)=>{
+      const y=top+i*gap;let d=`M${x0} ${y.toFixed(1)}`;
+      const spikeAt=x0+(wigEnd-x0)*(.2+.13*i);
+      for(let x=x0+5;x<=wigEnd;x+=5){
+        let yy=y+(r()-.5)*5;
+        const dd=Math.abs(x-spikeAt); if(dd<22){yy+=Math.sin(dd*.9)*(22-dd)*.75*(r()>.5?1:-1);}
+        d+=` L${x.toFixed(1)} ${yy.toFixed(1)}`;
+      }
+      d+=` C${(wigEnd+(mergeX-wigEnd)*.55).toFixed(1)} ${y.toFixed(1)} ${(wigEnd+(mergeX-wigEnd)*.45).toFixed(1)} ${mid} ${mergeX.toFixed(1)} ${mid}`;
+      out+=`<text x="0" y="${(y+4).toFixed(1)}">${l}</text><path class="ch-line" pathLength="1" style="transition-delay:${i*.12}s" d="${d}"/>`;
+    });
+    out+=`<path class="ch-merge" pathLength="1" d="M${mergeX.toFixed(1)} ${mid} L${w} ${mid}"/>`;
+    out+=`<circle cx="${mergeX.toFixed(1)}" cy="${mid}" r="4" fill="#D3241B"/>`;
+    out+=`<text class="merge-label" x="${w}" y="${s?h-2:mid-16}" text-anchor="end">K7 Seventh Sense</text>`;
+    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('height',h);svg.innerHTML=out;
+  }
+  draw();let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(draw,150)});
+  new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){fig.classList.add('drawn');o.disconnect();}}),{threshold:.35}).observe(fig);
+  const sg=$('#sign');
+  new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){sg.classList.add('drawn');o.disconnect();}}),{threshold:.6}).observe(sg);
+})();
+
+/* ===================== capabilities ===================== */
+(function(){
+  const list=$('#capsList'),panel=$('#capsPanel'),aside=$('#capsAside');
+  const mq=matchMedia('(max-width: 900px)'),canHover=matchMedia('(hover:hover)').matches;
+  let active=0;
+  const rows=CAPS.map((c,i)=>{
+    const b=document.createElement('button');b.type='button';b.className='cap-row';b.setAttribute('aria-controls','capsPanel');
+    b.innerHTML=`<span class="idx">0${i+1}</span><span class="glyph">${svgI(c.g)}</span><span class="cap-t">${c.t}</span><span class="mark" aria-hidden="true">+</span>`;
+    b.addEventListener('click',()=>{ if(mq.matches&&active===i){set(-1);} else set(i); });
+    b.addEventListener('mouseenter',()=>{ if(canHover&&!mq.matches) set(i); });
+    b.addEventListener('focus',()=>{ if(!mq.matches) set(i); });
+    list.appendChild(b);return b;
+  });
+  function render(c,i){
+    const body=c.stamps
+      ?`<div class="stamps">${c.stamps.map((s,k)=>`<span class="stamp" style="--r:${[-3,2,-1.5,3,-2.5,1.5][k]}deg">${s}</span>`).join('')}</div>`
+      :`<ul class="cp-items">${c.items.map(([n,g])=>`<li>${svgI(g)}<span>${n}</span></li>`).join('')}</ul>`;
+    return `<p class="cp-k">0${i+1} / 04</p><h3>${c.t}</h3><p class="cp-d">${c.d}</p>${body}`;
+  }
+  function place(){ if(active<0){panel.hidden=true;return;} panel.hidden=false; if(mq.matches) rows[active].after(panel); else if(panel.parentNode!==aside) aside.appendChild(panel); }
+  function set(i){
+    if(i===active&&!panel.hidden&&panel.innerHTML) return;
+    active=i;
+    rows.forEach((r,j)=>{r.classList.toggle('active',j===i);r.setAttribute('aria-expanded',j===i);r.querySelector('.mark').textContent=j===i?'−':'+';});
+    if(i>=0){panel.innerHTML=render(CAPS[i],i);panel.classList.remove('swap');void panel.offsetWidth;panel.classList.add('swap');}
+    place();
+  }
+  set(0);
+  mq.addEventListener('change',()=>{ if(active<0&&!mq.matches) set(0); else place(); });
+})();
+
+/* ===================== switchboard ===================== */
+(function(){
+  const on=new Set(['DLP','Agentic SOC']);
+  $('#coreBank').innerHTML=CORE.map(c=>`<li><div class="sw fixed"><span>${c}<small>Included</small></span><span class="track" aria-hidden="true"><span class="knob"></span></span></div></li>`).join('');
+  const add=$('#addBank');
+  add.innerHTML=ADDS.map(a=>`<li><button type="button" class="sw" aria-pressed="${on.has(a)}" data-m="${a}"><span>${a}<small>${on.has(a)?'Active':'Available'}</small></span><span class="track" aria-hidden="true"><span class="knob"></span></span></button></li>`).join('');
+  let fresh=null;
+  function log(){
+    const lines=[...CORE.map(c=>({n:c,a:false})),...ADDS.filter(a=>on.has(a)).map(a=>({n:a,a:true}))];
+    $('#consoleLog').innerHTML=lines.map(l=>`<li class="${l.a?'addon':''}${l.n===fresh?' new':''}"><span class="nm">${l.n}</span><span class="lead"></span><span class="st">online</span></li>`).join('');
+    $('#modCount').textContent=`${lines.length} of ${CORE.length+ADDS.length} modules online`;
+  }
+  add.addEventListener('click',e=>{
+    const b=e.target.closest('.sw');if(!b)return;
+    const m=b.dataset.m,now=!on.has(m);
+    now?on.add(m):on.delete(m);fresh=now?m:null;
+    b.setAttribute('aria-pressed',now);b.querySelector('small').textContent=now?'Active':'Available';log();
+  });
+  log();
+})();
+
+/* ===================== operator annunciator ===================== */
+(function(){
+  const a=$('#annunciator');
+  a.innerHTML=OPS.map((o,i)=>`<div class="cell"><div class="cell-top"><span>OP.${String(i+1).padStart(2,'0')}</span><span class="lamp" aria-hidden="true"></span></div><p class="cell-name">${o}</p></div>`).join('');
+  const cells=[...a.children];
+  if(reduce){cells.forEach(c=>c.querySelector('.lamp').style.background='#D3241B');}
+  else{let k=0;const tick=()=>{cells.forEach((c,j)=>c.classList.toggle('lit',j===k%cells.length));k++;};tick();setInterval(tick,1200);}
+  const clk=$('#clock');const t=()=>clk.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});t();setInterval(t,20000);
+})();
+
+/* ===================== industries ===================== */
+(function(){
+  const g=$('#indGrid'),areas='abcdefg';
+  INDS.forEach((n,i)=>{
+    const el=document.createElement('a');el.className='ind';el.href='#';el.style.gridArea=areas[i];
+    el.innerHTML=`<span class="no">S.${String(i+1).padStart(2,'0')}</span><span class="nm">${n}</span><span class="lm">Learn More</span>`;
+    g.appendChild(el);
+  });
+})();
+
+/* ===================== testimonials ===================== */
+(function(){
+  const tr=$('#qTrack'),n=tr.children.length;let i=0;
+  const go=k=>{i=(k+n)%n;tr.style.transform=`translateX(-${i*100}%)`;$('#qCount').textContent=`${String(i+1).padStart(2,'0')} / ${String(n).padStart(2,'0')}`;
+    [...tr.children].forEach((c,j)=>c.setAttribute('aria-hidden',j!==i));};
+  $('#qPrev').onclick=()=>go(i-1);$('#qNext').onclick=()=>go(i+1);go(0);
+})();
+
+/* ===================== MSSP trace ===================== */
+(function(){
+  let d='M0 80',x=0;const r=()=>Math.random();
+  while(x<1200){x+=6;let y=80+(r()-.5)*6;if(x>740&&x<800){y=80+Math.sin(x*.6)*(30-Math.abs(x-770))*1.6;}d+=` L${x} ${y.toFixed(1)}`;}
+  $('#msspPath').setAttribute('d',d);
+})();
+</script>
+</body>
+</html>
