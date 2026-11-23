@@ -1,0 +1,466 @@
+K7 SEVENTH SENSE - SAMPLE 02 EMBERGLASS - IMAGE PROMPTS
+Each prompt below is complete: the shared style is already included. Paste the PROMPT text as-is, and the AVOID text into the negative prompt field (or add it as "Avoid: ..." at the end if your tool has no negative field).
+
+DO NOT GENERATE (use real assets): AMTSO award image, K7 Cyber Threat Monitor Report cover, K7 logo and favicon, testimonial photos and customer logos.
+
+PRIORITY ORDER: 1a, 1b, 4a-4h, 3a-3d, 10, then the rest.
+
+==============================================================================
+[1a] Hero, desktop
+Size: 2560 x 1440 (16:9)
+
+PROMPT:
+Wide cinematic landscape at sunset: a calm lake with low sandstone mountains on the horizon and soft orange clouds. On the right two-thirds of the frame, a round sandstone platform rises from the water. On it stands a clear glass sphere with a small warm amber core, circled by seven thin metallic orbit rings at different angles; one ring is orange. Around it on smaller round stone pads in the water stand six small glossy ivory-and-dark-bronze objects: a laptop, a three-unit server stack, an industrial gear, a network hub of linked spheres, a smartphone, and a small cloud shape floating higher in the sky. Fine glowing threads arc from each object into the glass sphere, with tiny light pulses travelling along them. A faint circular radar ripple spreads on the water around the sphere. The left third of the frame is calm sky and water, darker, left empty for headline text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[1b] Hero, mobile
+Size: 1170 x 2532 (9:19.5)
+
+PROMPT:
+Vertical composition at sunset: the top 45% of the frame is calm darkened sky left empty for text. In the lower-middle, a round sandstone platform in a calm lake holds a clear glass sphere with a small warm amber core, circled by seven thin metallic orbit rings at different angles, one ring orange. Around it on smaller stone pads in the water stand six small glossy ivory-and-dark-bronze objects: a laptop, a three-unit server stack, an industrial gear, a network hub of linked spheres, a smartphone, and a small cloud shape floating above. Fine glowing threads arc from each object into the sphere. Reflections in calm water at the bottom. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[1c] Hero loop video (optional)
+Size: 1920 x 1080, 8-10 s seamless loop
+
+PROMPT:
+Wide cinematic landscape at sunset: a calm lake with low sandstone mountains on the horizon and soft orange clouds. On the right two-thirds of the frame, a round sandstone platform rises from the water. On it stands a clear glass sphere with a small warm amber core, circled by seven thin metallic orbit rings at different angles; one ring is orange. Around it on smaller round stone pads in the water stand six small glossy ivory-and-dark-bronze objects: a laptop, a three-unit server stack, an industrial gear, a network hub of linked spheres, a smartphone, and a small cloud shape floating higher in the sky. Fine glowing threads arc from each object into the glass sphere, with tiny light pulses travelling along them. A faint circular radar ripple spreads on the water around the sphere. The left third of the frame is calm sky and water, darker, left empty for headline text. Slow motion: the seven rings rotate gently, light pulses travel along the threads into the sphere, the radar ripple sweeps once around the water, clouds drift slowly. Camera locked, subtle parallax only. Seamless loop. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[2a] Pillar icon - Agentic SOC
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a friendly abstract assistant: a rounded capsule head with two small light dots, inside a circular scan ring. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[2b] Pillar icon - Platform
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: three stacked rounded layers, slightly separated. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[2c] Pillar icon - Sensor
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a radar dish with three concentric arcs. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[3a] Capability card - Comprehensive Infrastructure Protection
+Size: 1024 x 1024, transparent PNG
+
+PROMPT:
+A small premium 3D object floating on a transparent background, made of clear amber glass and brushed warm-silver metal, soft warm rim light, gentle shadow below: a glass shield hovering over a tiny cluster of a laptop, a server stack and a cloud. Minimal, centred, no text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[3b] Capability card - Security for Sensitive Data
+Size: 1024 x 1024, transparent PNG
+
+PROMPT:
+A small premium 3D object floating on a transparent background, made of clear amber glass and brushed warm-silver metal, soft warm rim light, gentle shadow below: a glass document folder sealed by a metal clasp, with a soft amber core inside. Minimal, centred, no text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[3c] Capability card - Multi-OS Patch Management
+Size: 1024 x 1024, transparent PNG
+
+PROMPT:
+A small premium 3D object floating on a transparent background, made of clear amber glass and brushed warm-silver metal, soft warm rim light, gentle shadow below: a metal shield with a glass patch piece fitting into a gap, small spark where it seals. Minimal, centred, no text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[3d] Capability card - Integrated Compliance
+Size: 1024 x 1024, transparent PNG
+
+PROMPT:
+A small premium 3D object floating on a transparent background, made of clear amber glass and brushed warm-silver metal, soft warm rim light, gentle shadow below: a metal seal medallion with a checkmark in glass, resting on three stacked document sheets. Minimal, centred, no text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4a] Industry card - BFSI
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a classical bank building with columns, a small vault door ajar, and stacked glass coins. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4b] Industry card - Education
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a small campus hall with a clock tower, an open book and a graduation cap resting on the steps. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4c] Industry card - Government
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a domed civic building with a wide staircase and two flagpoles without flags. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4d] Industry card - Healthcare
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a modern hospital wing with a rooftop helipad and a glass heart-pulse sculpture in front. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4e] Industry card - Manufacturing
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a compact factory with a robotic arm, a conveyor belt and two chimneys with soft steam. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4f] Industry card - IT/ITES
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a glass office tower beside a small data-centre block with rows of tiny server racks. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4g] Industry card - Retail
+Size: 1600 x 1200 (4:3)
+
+PROMPT:
+Miniature diorama on a round sandstone platform standing in calm sunset water, warm orange sky with soft clouds behind. On the platform: a shopfront with an awning, shopping bags and a small delivery van. A thin glowing amber thread rises from the scene and arcs out of frame toward the right, as if connected to a distant sensor. Tilt-shift miniature look, soft golden rim light, glossy ivory and bronze materials, no people's faces, no text or signage. Bottom quarter of the frame is calm water. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[4h] Industry centre card background
+Size: 2000 x 2000 (1:1)
+
+PROMPT:
+Wide calm sunset water with a single faint circular radar ripple spreading across it, very dark and minimal, deep ember-brown tones with a thin warm horizon glow, mostly empty space for text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5a] Service icon - 24x7 Threat Detection and Response
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a radar sweep inside a clock face. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5b] Service icon - Exposure Management
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: an eye inside a scanning frame. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5c] Service icon - Patch and Remediation Oversight
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a wrench crossing a small shield. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5d] Service icon - Data-risk and Privileged-access Context
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a key resting on a document. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5e] Service icon - Proactive Threat Hunting
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a crosshair over a magnifying glass. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5f] Service icon - Security Posture Improvement
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a gauge dial with the needle rising. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5g] Service icon - Ongoing Security Governance
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a balance scale. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[5h] Service icon - Digital Forensics and Incident Response
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a fingerprint under a magnifying glass. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6a] Module icon (optional) - EPP
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a shield. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6b] Module icon (optional) - EDR
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: an eye in a scan frame. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6c] Module icon (optional) - XDR
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: linked nodes. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6d] Module icon (optional) - MDR
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: two figures in silhouette with a headset. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6e] Module icon (optional) - DLP
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a locked file. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6f] Module icon (optional) - IAM
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a key. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6g] Module icon (optional) - Patch Management
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a bandage on a shield. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6h] Module icon (optional) - Advanced Endpoint Management
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a laptop with a cog. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6i] Module icon (optional) - Agentic SOC
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: an assistant capsule. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6j] Module icon (optional) - Log Retention
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: stacked database discs. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[6k] Module icon (optional) - File Security Monitoring
+Size: 256 x 256, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a file with a magnifier. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[7] Security That Answers To You - feature visual
+Size: 1600 x 1600 (1:1)
+
+PROMPT:
+A clear glass sphere with a small warm amber core, cradled in two open hands made of smooth brushed warm-silver metal, resting above a round sandstone plinth in calm water at sunset. A single thin orange orbit ring circles the sphere. Feeling of care, trust and responsibility. Soft rim light, restrained glow, dark ember-brown surroundings fading to black at the edges. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[8a] Research - award plinth (award itself is the real AMTSO image)
+Size: 1200 x 900
+
+PROMPT:
+A low round sandstone plinth on a dark ember-brown background with a soft amber spotlight from above and a faint reflection, empty, ready for an award to be composited on top. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[8b] Research - report mock-up (use the real cover)
+Size: 1200 x 900
+
+PROMPT:
+A printed A4 report standing upright at a slight angle on a sandstone surface, with a blank matte cover to be replaced with the real cover, soft sunset rim light, dark warm background. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[8c] Stat icon - 30+ Years
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: an hourglass. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[8d] Stat icon - Millions of Devices
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a laptop and phone side by side. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[8e] Stat icon - 32 Countries
+Size: 512 x 512, transparent PNG
+
+PROMPT:
+A single glossy 3D app-icon tile: a rounded square of orange-to-amber gradient glass with a soft top highlight, tilted slightly toward the viewer, floating on a transparent background. Embossed on its face in white frosted glass: a globe with small orange points. Soft warm drop shadow, studio lighting, minimal, centred. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[10] K7 for MSSPs banner
+Size: 2400 x 1000 (12:5)
+
+PROMPT:
+Wide sunset lake landscape seen from slightly above: on the right, several small round sandstone islands, each holding a small glass sphere with an amber core and a thin orbit ring, all linked by fine glowing amber threads to one larger central glass sphere with seven orbit rings, a partner managing many customers' security from one place. Calm water reflections, soft clouds, the left 45% of the frame fading into dark ember-brown shadow, empty for text. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[11a] Social share image
+Size: 1200 x 630
+
+PROMPT:
+Tight crop of a clear glass sphere with a small warm amber core circled by seven thin metallic orbit rings, one orange, on a round sandstone platform in a calm sunset lake, with fine glowing threads arriving from out of frame. The left half of the frame is dark and empty for a title. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
+
+==============================================================================
+[11b] Page backdrop texture
+Size: 2560 x 1440
+
+PROMPT:
+Abstract soft bokeh of warm orange and amber sunset light on deep ember brown, completely out of focus, no shapes or objects. Warm sunset palette of burnt orange #FF6418, amber #FF9136 and soft gold #FFC46B over deep ember brown #120806. Polished 3D render, soft global illumination, gentle rim light from a low sun behind the subject. Materials: clear amber glass, brushed warm-silver metal, matte sandstone pebbles, calm reflective water. Restrained glow, only small accent highlights. Clean, premium, calm, uncluttered. Shallow depth of field, octane or blender cycles look, high detail, no text.
+
+AVOID:
+text, letters, numbers, logos, watermarks, brand names, padlocks over globes, hooded hackers, binary code rain, matrix green, blue or purple tones, neon overload, heavy bloom, lens flare streaks, lightning, skulls, cartoon style, clip art, busy backgrounds, people's faces, distorted hands
