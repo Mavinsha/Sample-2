@@ -112,7 +112,6 @@ ul,ol{list-style:none}
 .search svg{width:16px;height:16px;flex-shrink:0}
 .search input{flex:1;min-width:0;border:0;background:none;outline:none;font-size:13.5px;color:var(--text)}
 .search input::placeholder{color:var(--text-3)}
-.kbd{font:500 11px/1 var(--mono);padding:4px 6px;border-radius:5px;border:1px solid var(--line-2);color:var(--text-3)}
 .top-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .menu-btn{display:none;height:38px;padding:0 14px;border-radius:9px;border:1px solid var(--line-2);font-weight:700;font-size:13.5px}
 .mobile-menu{position:absolute;left:0;right:0;top:100%;background:var(--bg-2);border-bottom:1px solid var(--line);max-height:calc(100vh - var(--top));overflow:auto}
@@ -465,8 +464,7 @@ h1 .o{display:block}
    In a pair, only the primary button is cut. */
 :root{--cut:20px;--cut-s:9px}
 .panel-box,.panel-in,.matrix,.console,.own,.cov-detail,.labs-main,.globe-card,.award-card,.report-card,.partner,.mega-intro,.hub,.socn{border-radius:0 0 var(--cut) 0;corner-shape:bevel}
-.node,.tier,.sig,.cov-tab,.cov-item,.sw,.mod-bar,.svc li,.ind-kpis span,.stat,.ev,.tile-link,.tile-grp,.grp-link,.search,.rail-nav a,.cover,.kbd{border-radius:0 0 var(--cut-s) 0;corner-shape:bevel}
-.gi{border-radius:0 0 7px 0;corner-shape:bevel}
+.node,.tier,.sig,.cov-tab,.cov-item,.sw,.mod-bar,.svc li,.ind-kpis span,.stat,.ev,.tile-link,.tile-grp,.grp-link,.search,.rail-nav a,.cover,.gi{border-radius:0 0 7px 0;corner-shape:bevel}
 .gi.lg{border-radius:0 0 10px 0}
 .tag,.owner,.chip-link{border-radius:0 0 5px 0;corner-shape:bevel}
 .orbit-hub{corner-shape:round}
@@ -492,7 +490,7 @@ h1 .o{display:block}
   <div class="top-row">
     <a class="brand" href="#overview" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="149" height="38"></a>
     <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
-    <label class="search" for="q"><i data-lucide="search"></i><span class="vh">Search</span><input id="q" type="search" placeholder="Search platform, solutions, services"><span class="kbd" id="kbd">Ctrl K</span></label>
+    <label class="search" for="q"><i data-lucide="search"></i><span class="vh">Search</span><input id="q" type="search" placeholder="Search platform, solutions, services"></label>
     <div class="top-cta">
       <a class="btn btn-k7 btn-sm" href="#">Request Trial</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
@@ -843,9 +841,6 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     (n.groups||[]).forEach(g=>g.title?l.push(g.title):l.push(...g.items));
     return `<div class="f-col"><h4>${n.groups?n.label:`<a href="#">${n.label}</a>`}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
   }).join('');
-  // search shortcut
-  const mac=/Mac|iPhone|iPad/.test(navigator.platform);$('#kbd').textContent=mac?'⌘ K':'Ctrl K';
-  addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){e.preventDefault();$('#q').focus();}});
 })();
 
 /* ---------- rail: scroll-spy + endpoint-to-SOC progress ---------- */
