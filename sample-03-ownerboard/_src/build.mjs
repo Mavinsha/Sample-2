@@ -16,7 +16,3 @@ page=page.replace('/*ICONS*/','const ICONS='+JSON.stringify(icons)+';')
   .split('__LOGO_WHITE__').join('data:image/svg+xml;base64,'+Buffer.from(logo).toString('base64'));
 const out=path.join(here,'..','Sample 03 · Ownerboard - Index.html');
 fs.writeFileSync(out,page);console.log('icons',names.size,'bytes',page.length);
-// V2: same page with the angled-corner layer appended
-const v2=path.join(here,'v2.css');
-if(fs.existsSync(v2)){const p2=page.replace('</style>',()=>fs.readFileSync(v2,'utf8')+'\n</style>');
-  fs.writeFileSync(path.join(here,'..','Sample 03 · Ownerboard V2 - Index.html'),p2);console.log('v2 bytes',p2.length);}

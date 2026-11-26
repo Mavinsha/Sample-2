@@ -38,6 +38,9 @@ self-contained HTML file so the team can open it and compare.
   Resources, Why K7 and About Us open as full-width horizontal panels (items laid out
   side by side), not narrow vertical lists.
 - Autoplay and other scripted actions must not fire synthetic clicks that close menus.
+- Every design is standalone, including versions such as "V2": its own folder,
+  source and build (e.g. `sample-03-ownerboard-v2/`). Never derive one sample from
+  another at build time; copy and then edit.
 - File naming: `sample-NN-<name>/Sample NN · <Name> - Index.html`.
 - Treat every page as final copy: no "placeholder", "illustrative" or "image to be
   supplied" labels, and no sample name or tag anywhere in the page (Sample 03 onward;
