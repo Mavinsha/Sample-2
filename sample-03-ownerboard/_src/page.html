@@ -68,7 +68,9 @@ ul,ol{list-style:none}
 /* ---------- K7 owner mark ---------- */
 .mark{display:inline-block;width:22px;height:16px;vertical-align:-3px}
 .owner{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 10px 0 6px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line-2);font:600 11px/1 var(--mono);letter-spacing:.04em;color:var(--text-2);white-space:nowrap}
-.owner .mark{width:18px;height:13px}
+.owner .mark{width:20px;height:14px}
+.owner{padding:0 8px 0 10px}
+.owner.solo{padding:0 8px}
 .owner b{color:var(--text);font-weight:600}
 
 /* ---------- top bar + nav ---------- */
@@ -162,7 +164,9 @@ ul,ol{list-style:none}
 .ph-l{display:flex;align-items:center;gap:10px;min-width:0;font:600 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ph-l svg{width:15px;height:15px;color:var(--k7-2);flex-shrink:0}
 .pb{padding:22px}
-.h2{font:800 clamp(26px,2.4vw,38px)/1.1 var(--sans);letter-spacing:-.025em}
+.h2{font:800 clamp(32px,3.6vw,58px)/1.02 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.h2 .o{background:linear-gradient(var(--k7),var(--k7)) left 94%/0% .09em no-repeat;padding-bottom:.04em;transition:background-size .9s cubic-bezier(.3,.7,.2,1) .25s}
+.h2.seen .o{background-size:100% .09em}
 .lede{font:700 clamp(17px,1.35vw,21px)/1.45 var(--sans);letter-spacing:-.01em}
 .copy{color:var(--text-2);margin-top:12px;max-width:66ch}
 .copy strong{color:var(--text);font-weight:700}
@@ -174,7 +178,10 @@ ul,ol{list-style:none}
 /* ---------- overview / hero ---------- */
 .hero-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:stretch}
 .hero-card{padding:30px 30px 28px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:linear-gradient(150deg,rgba(236,106,35,.16),rgba(236,106,35,0) 55%),var(--panel)}
-.hero-k{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.lockup{display:flex;align-items:center;gap:12px;font:800 clamp(22px,2vw,30px)/1 var(--sans);letter-spacing:-.025em}
+.lockup .mark{width:46px;height:33px;flex-shrink:0}
+.lockup.sm{font-size:18px;gap:9px}
+.lockup.sm .mark{width:30px;height:22px}
 h1{font:800 clamp(38px,4.4vw,72px)/1.02 var(--sans);letter-spacing:-.04em;margin:18px 0 14px}
 h1 .o{display:block}
 .hero-sub{font-weight:600;font-size:clamp(16px,1.3vw,19px);color:var(--text-2)}
@@ -197,7 +204,6 @@ h1 .o{display:block}
 .node.src.alert .gi{background:rgba(255,90,71,.15);color:var(--bad);border-color:rgba(255,90,71,.35)}
 .hub,.socn{flex-direction:column;align-items:flex-start;gap:6px;padding:18px}
 .hub{background:linear-gradient(150deg,rgba(236,106,35,.2),rgba(236,106,35,.04)),var(--panel-2);border-color:rgba(236,106,35,.45)}
-.hub .mark{width:38px;height:28px}
 .hub b,.socn b{font-size:17px;letter-spacing:-.01em}
 .hub small,.socn small{font-size:12.5px;color:var(--text-2);font-weight:500}
 .hub.flash{box-shadow:0 0 0 4px rgba(236,106,35,.22)}
@@ -217,7 +223,7 @@ h1 .o{display:block}
 .tier{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);transition:border-color .25s,transform .25s}
 .tier:hover{border-color:var(--k7);transform:translateX(4px)}
 .tier b{display:block;font-size:17px;letter-spacing:-.01em}
-.tier span{display:block;font-size:13.5px;color:var(--text-2)}
+.tier div>span{display:block;font-size:13.5px;color:var(--text-2)}
 .tier .lv{font:600 10.5px/1 var(--mono);color:var(--text-3);letter-spacing:.1em}
 .tier:nth-child(1){margin-right:0}
 .tier:nth-child(2){margin-left:18px}
@@ -226,7 +232,10 @@ h1 .o{display:block}
 .sig{padding:12px;border-radius:11px;background:var(--panel-2);border:1px solid var(--line-2)}
 .sig b{display:block;font-size:13px;font-weight:700;text-transform:capitalize}
 .spark{display:flex;align-items:flex-end;gap:2px;height:26px;margin-top:10px}
-.spark i{flex:1;background:linear-gradient(var(--k7-2),rgba(236,106,35,.25));border-radius:1px;transition:height .8s ease}
+.spark i{flex:1;background:rgba(255,255,255,.13);border-radius:1px;transition:height 1.2s cubic-bezier(.4,.1,.2,1)}
+.spark i:last-child{background:var(--k7-2)}
+.sig:hover .spark i{background:rgba(255,255,255,.22)}
+.sig:hover .spark i:last-child{background:var(--k7-2)}
 
 /* ---------- coverage ---------- */
 .cov-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
@@ -279,12 +288,32 @@ h1 .o{display:block}
 .svc .owner{margin-left:auto}
 
 /* ---------- industries ---------- */
-.inds{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.ind{display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:150px;padding:16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);transition:border-color .2s,transform .25s}
-.ind:hover{border-color:var(--k7);transform:translateY(-3px)}
-.ind b{font-size:18px;letter-spacing:-.01em}
-.ind .lm{font-size:13px;font-weight:700;color:var(--k7-2)}
-.ind-head{display:flex;flex-direction:column;justify-content:center;padding:16px 6px}
+.ind-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center}
+.ind-card{margin:22px 0 18px;padding:22px;border-radius:14px;border:1px solid var(--line-2);background:linear-gradient(150deg,rgba(236,106,35,.14),rgba(236,106,35,0) 60%),var(--panel-2);display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:center;animation:evin .35s ease-out}
+.ind-card .gi{grid-row:span 2;width:64px;height:64px;border-radius:16px}
+.ind-card .gi svg{width:30px;height:30px}
+.ind-card .k{font:600 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
+.ind-card b{font-size:clamp(26px,2.2vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.ind-card .btn{grid-column:1/-1;justify-self:start;margin-top:14px}
+.ind-chips{display:flex;flex-wrap:wrap;gap:6px}
+.ind-chip{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel-2);font-size:13px;font-weight:700;color:var(--text-2);transition:all .2s}
+.ind-chip:hover{color:#fff;border-color:var(--text-3)}
+.ind-chip[aria-selected="true"]{background:var(--k7);border-color:var(--k7);color:#fff}
+.orbit{position:relative;aspect-ratio:1;width:min(100%,520px);justify-self:center}
+.orbit-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.orbit-lines line{stroke:var(--line-2);stroke-width:.35;vector-effect:non-scaling-stroke}
+.orbit-lines line.on{stroke:var(--k7);stroke-width:1.6;stroke-dasharray:6 6;animation:flow 1s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-12}}
+.orbit-ring{position:absolute;inset:11%;border-radius:50%;border:1px dashed var(--line-2);animation:spin 60s linear infinite}
+.orbit-hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:38%;aspect-ratio:1;border-radius:50%;display:grid;place-content:center;justify-items:center;gap:6px;text-align:center;background:radial-gradient(circle at 50% 35%,rgba(236,106,35,.22),rgba(236,106,35,.04) 70%),var(--panel-2);border:1px solid rgba(236,106,35,.45)}
+.orbit-hub small{font-size:11.5px;color:var(--text-2);font-weight:600;max-width:12ch;line-height:1.3}
+.onode{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:6px;width:96px;text-align:center;font-size:12.5px;font-weight:700;color:var(--text-2);transition:color .2s}
+.onode .gi{width:52px;height:52px;border-radius:50%;background:var(--panel-2);color:var(--text-2);border-color:var(--line-2);transition:all .25s}
+.onode .gi svg{width:22px;height:22px}
+.onode:hover{color:#fff}
+.onode:hover .gi{border-color:var(--text-3);color:#fff}
+.onode.on{color:#fff}
+.onode.on .gi{background:var(--k7);border-color:var(--k7);color:#fff;transform:scale(1.12);box-shadow:0 0 0 6px rgba(236,106,35,.15)}
 
 /* ---------- accountability ---------- */
 .acc{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
@@ -300,16 +329,32 @@ h1 .o{display:block}
 .own-f span{display:block;font-size:12.5px;color:var(--text-2)}
 
 /* ---------- research ---------- */
-.res{display:grid;grid-template-columns:1fr 1fr 1.2fr;gap:16px}
-.rc{padding:20px;display:flex;flex-direction:column;gap:14px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);position:relative}
-.rc .ph-note{position:absolute;right:12px;top:12px;font:500 10px/1 var(--mono);color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
-.rc b{font-size:17px;line-height:1.3}
-.rc span{font-size:13.5px;color:var(--text-2)}
+.labs{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.labs-main{padding:22px;border-radius:14px;background:var(--panel-2);border:1px solid var(--line-2);display:flex;flex-direction:column;gap:16px}
+.labs-copy{font:700 clamp(17px,1.4vw,21px)/1.45 var(--sans);letter-spacing:-.01em}
+.labs-main .stats{margin-top:auto}
+.globe-card{position:relative;border-radius:14px;background:radial-gradient(circle at 50% 45%,rgba(236,106,35,.1),transparent 60%),var(--bg-2);border:1px solid var(--line-2);min-height:320px;overflow:hidden;cursor:grab}
+.globe-card:active{cursor:grabbing}
+.globe-card canvas{position:absolute;inset:0;width:100%;height:100%}
+.globe-cap{position:absolute;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:var(--text-3);pointer-events:none}
+.award-card,.report-card{position:relative;display:flex;align-items:center;gap:20px;padding:20px;border-radius:14px;background:var(--panel-2);border:1px solid var(--line-2)}
+.award-card b,.report-card b{display:block;font-size:17px;line-height:1.3;margin-bottom:6px}
+.award-card span:not(.ph-note){display:block;font-size:13.5px;color:var(--text-2)}
+.report-card .btn{margin-top:6px}
+.ph-note{position:absolute;right:12px;top:12px;font:500 10px/1 var(--mono);color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
+.seal{width:118px;height:118px;flex-shrink:0}
+.seal-spin{transform-origin:100px 100px;animation:spin 40s linear infinite}
+.cover{width:96px;aspect-ratio:3/4;flex-shrink:0;border-radius:6px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(160deg,#2A1A12,#120C09);border:1px solid var(--line-2);box-shadow:6px 6px 0 -1px var(--panel-2),6px 6px 0 0 var(--line-2);transition:transform .35s}
+.report-card:hover .cover{transform:rotate(-3deg) translateY(-3px)}
+.cover .mono{font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.cover svg{width:100%;height:18px}
+.cover polyline{fill:none;stroke:var(--k7);stroke-width:1.4}
+.cover b{font-size:9.5px!important;line-height:1.15!important;margin:0!important;color:var(--text)}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
 .stat{padding:16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2)}
 .stat b{display:block;font:800 28px/1.05 var(--sans);letter-spacing:-.02em}
 .stat b .n{font-variant-numeric:tabular-nums}
-.stat span{display:block;font-size:13px;color:var(--text-2);margin-top:6px;line-height:1.35}
+.stat>span{display:block;font-size:13px;color:var(--text-2);margin-top:6px;line-height:1.35}
 
 /* ---------- testimonials ---------- */
 .tq-track{display:flex;transition:transform .55s cubic-bezier(.6,0,.2,1)}
@@ -336,6 +381,7 @@ h1 .o{display:block}
 .f-col h4{font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--k7-2);margin-bottom:12px}
 .f-col a{display:block;padding:3px 0;font-size:13.5px;color:var(--text-2)}
 .f-col a:hover{color:#fff}
+.f-col h4 a{display:inline;padding:0;font:inherit;color:inherit}
 .f-base{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font:500 12px/1.4 var(--mono);color:var(--text-3)}
 
 .sample-tag{position:fixed;right:16px;bottom:16px;z-index:60;padding:8px 12px;border-radius:8px;background:var(--k7);color:#fff;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
@@ -351,9 +397,8 @@ h1 .o{display:block}
 @media (max-width:1180px){
   .hero-row{grid-template-columns:1fr}
   .s8,.s4,.s7,.s5{grid-column:span 12}
-  .res{grid-template-columns:1fr 1fr}
-  .res .rc:last-child{grid-column:span 2}
-  .inds{grid-template-columns:repeat(3,1fr)}
+  .labs{grid-template-columns:1fr}
+  .ind-wrap{grid-template-columns:1fr}
 }
 @media (max-width:980px){
   .shell{grid-template-columns:minmax(0,1fr)}
@@ -379,6 +424,7 @@ h1 .o{display:block}
   .top-cta .btn{display:none}
   .logo{height:32px}
   .main{padding:14px 12px 40px}
+  .h2{font-size:clamp(30px,8.4vw,40px)}
   .pb{padding:16px}
   .hero-card{padding:22px 18px}
   .hero-actions .btn{flex:1}
@@ -387,11 +433,14 @@ h1 .o{display:block}
   .bank.add ul{grid-template-columns:1fr}
   .cov-items{grid-template-columns:1fr}
   .svc{grid-template-columns:1fr}
-  .inds{grid-template-columns:1fr 1fr}
+  .onode{width:72px;font-size:11px}
+  .onode .gi{width:40px;height:40px}
+  .onode .gi svg{width:18px;height:18px}
+  .orbit-hub small{display:none}
   .signals{grid-template-columns:1fr 1fr}
   .tier:nth-child(2),.tier:nth-child(3){margin-left:0}
-  .res{grid-template-columns:1fr}
-  .res .rc:last-child{grid-column:auto}
+  .award-card,.report-card{flex-direction:column;align-items:flex-start}
+  .globe-card{min-height:280px}
   .stats{grid-template-columns:1fr}
   .mod-bar{flex-wrap:wrap}
   .mod-bar .btn{width:100%}
@@ -455,7 +504,7 @@ h1 .o{display:block}
       <div class="hero-row">
         <div class="panel-box hero-card">
           <div>
-            <div class="hero-k"><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span><span class="tag ok"><span class="pulse" style="width:6px;height:6px"></span>Endpoint to SOC</span></div>
+            <p class="lockup"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p>
             <h1 id="heroTitle">One Accountable Partner. <span class="o">Endpoint To SOC.</span></h1>
             <p class="hero-sub">Unified Endpoint-To-SOC Security Platform</p>
           </div>
@@ -474,12 +523,12 @@ h1 .o{display:block}
 
       <div class="grid" style="margin-top:16px">
         <div class="panel-box s8">
-          <div class="ph"><span class="ph-l"><i data-lucide="workflow"></i>Endpoint to SOC · live flow</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+          <div class="ph"><span class="ph-l"><i data-lucide="workflow"></i>Endpoint to SOC · live flow</span></div>
           <div class="pipe" id="pipe">
             <canvas id="pipeCanvas" aria-hidden="true"></canvas>
             <div class="pcol srcs" id="srcs"><p class="pcol-h">Endpoint</p></div>
             <div class="pcol"><p class="pcol-h">Platform</p>
-              <div class="node hub" id="hub"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><b>K7 Seventh Sense</b><small>Sensor · Platform · Agentic SOC</small>
+              <div class="node hub" id="hub"><p class="lockup sm"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><small>Sensor · Platform · Agentic SOC</small>
                 <div class="layers"><span class="tag k7">Detect</span><span class="tag k7">Correlate</span></div></div>
             </div>
             <div class="pcol"><p class="pcol-h">SOC</p>
@@ -498,7 +547,7 @@ h1 .o{display:block}
 
     <!-- ============ PLATFORM ============ -->
     <section class="sec panel-box" id="platform" aria-labelledby="beyondTitle">
-      <div class="ph"><span class="ph-l"><i data-lucide="layers"></i>Platform</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="layers"></i>Platform</span></div>
       <div class="pb">
         <div class="grid">
           <div class="s7">
@@ -520,7 +569,7 @@ h1 .o{display:block}
 
     <!-- ============ COVERAGE ============ -->
     <section class="sec panel-box" id="coverage" aria-label="Coverage">
-      <div class="ph"><span class="ph-l"><i data-lucide="shield-check"></i>Coverage</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="shield-check"></i>Coverage</span></div>
       <div class="pb">
         <div class="cov-tabs" id="covTabs" role="tablist"></div>
         <div class="cov-detail" id="covDetail" role="tabpanel"></div>
@@ -529,7 +578,7 @@ h1 .o{display:block}
 
     <!-- ============ MODULES ============ -->
     <section class="sec panel-box" id="modules" aria-labelledby="modTitle">
-      <div class="ph"><span class="ph-l"><i data-lucide="toggle-right"></i>Modules</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="toggle-right"></i>Modules</span></div>
       <div class="pb">
         <h2 class="h2" id="modTitle">Modular by <span class="o">Design</span></h2>
         <p class="copy" style="margin-bottom:22px">Switch on capabilities as required, managed from the same console.</p>
@@ -547,7 +596,7 @@ h1 .o{display:block}
 
     <!-- ============ OPERATIONS ============ -->
     <section class="sec panel-box" id="operations" aria-labelledby="opsTitle">
-      <div class="ph"><span class="ph-l"><i data-lucide="radar"></i>Managed Security Services</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="radar"></i>Managed Security Services</span></div>
       <div class="pb ops">
         <div>
           <h2 class="h2" id="opsTitle">One Platform. One Operator. <span class="o">Every Endpoint.</span></h2>
@@ -564,15 +613,26 @@ h1 .o{display:block}
 
     <!-- ============ INDUSTRIES ============ -->
     <section class="sec panel-box" id="industries" aria-labelledby="indTitle">
-      <div class="ph"><span class="ph-l"><i data-lucide="building-2"></i>Industry Solutions</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="building-2"></i>Industry Solutions</span></div>
       <div class="pb">
-        <div class="inds" id="inds"><div class="ind-head"><h2 class="h2" id="indTitle">Built For <span class="o">Your Industry</span></h2></div></div>
+        <div class="ind-wrap">
+          <div class="ind-side">
+            <h2 class="h2" id="indTitle">Built For <span class="o">Your Industry</span></h2>
+            <div class="ind-card" id="indCard" aria-live="polite"></div>
+            <div class="ind-chips" id="indChips" role="tablist" aria-label="Industries"></div>
+          </div>
+          <div class="orbit" id="orbit">
+            <svg class="orbit-lines" id="orbitLines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+            <div class="orbit-ring" aria-hidden="true"></div>
+            <div class="orbit-hub"><p class="lockup sm"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><small>One accountable partner</small></div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============ ACCOUNTABILITY ============ -->
     <section class="sec panel-box" id="accountability" aria-labelledby="accTitle">
-      <div class="ph"><span class="ph-l"><i data-lucide="handshake"></i>Why K7</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="handshake"></i>Why K7</span></div>
       <div class="pb acc">
         <div>
           <h2 class="h2" id="accTitle">Security That <span class="o">Answers To You</span></h2>
@@ -585,10 +645,10 @@ h1 .o{display:block}
         <div class="own" id="own">
           <div class="own-h"><span>What you entrust</span><span>Accountable</span></div>
           <ul>
-            <li><span class="gi xs"><i data-lucide="database"></i></span><b>data</b><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><b>K7</b></span></li>
-            <li><span class="gi xs"><i data-lucide="settings"></i></span><b>operations</b><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><b>K7</b></span></li>
-            <li><span class="gi xs"><i data-lucide="star"></i></span><b>reputation</b><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><b>K7</b></span></li>
-            <li><span class="gi xs"><i data-lucide="life-buoy"></i></span><b>business continuity</b><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><b>K7</b></span></li>
+            <li><span class="gi xs"><i data-lucide="database"></i></span><b>data</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+            <li><span class="gi xs"><i data-lucide="settings"></i></span><b>operations</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+            <li><span class="gi xs"><i data-lucide="star"></i></span><b>reputation</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+            <li><span class="gi xs"><i data-lucide="life-buoy"></i></span><b>business continuity</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
           </ul>
           <div class="own-f"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><div><b>Single accountable partner</b><span>Customer-centricity, trust, and accountability</span></div></div>
         </div>
@@ -597,18 +657,36 @@ h1 .o{display:block}
 
     <!-- ============ RESEARCH ============ -->
     <section class="sec panel-box" id="research" aria-labelledby="resTitle">
-      <div class="ph"><span class="ph-l"><i data-lucide="microscope"></i>K7 Labs</span><span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Owner · <b>K7</b></span></div>
+      <div class="ph"><span class="ph-l"><i data-lucide="microscope"></i>K7 Labs</span></div>
       <div class="pb">
         <h2 class="h2" id="resTitle" style="margin-bottom:20px">Globally Recognised <span class="o">Cyberthreat Research</span></h2>
-        <div class="res">
-          <div class="rc"><span class="ph-note">AMTSO award image</span><span class="gi lg"><i data-lucide="trophy"></i></span><b>Real Time Threat List Contributor of the Year</b><span>Anti-Malware Testing Standards Organization</span></div>
-          <div class="rc"><span class="ph-note">Report image</span><span class="gi lg"><i data-lucide="file-text"></i></span><b>K7 Cyber Threat Monitor Report</b><a class="btn btn-line btn-sm" href="#" style="align-self:flex-start">View Reports</a></div>
-          <div class="rc"><span class="gi lg"><i data-lucide="flask-conical"></i></span><span style="color:var(--text);font-size:15px;line-height:1.55">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</span></div>
-        </div>
-        <div class="stats">
-          <div class="stat"><b><span class="n" data-count="30" data-suffix="+">30+</span> Years</b><span>Multi-decade expertise</span></div>
-          <div class="stat"><b>Millions of Devices</b><span>Extensive sources of telemetry</span></div>
-          <div class="stat"><b><span class="n" data-count="32">32</span> Countries</b><span>Geographically distributed threat intelligence</span></div>
+        <div class="labs">
+          <div class="labs-main">
+            <span class="gi lg"><i data-lucide="flask-conical"></i></span>
+            <p class="labs-copy">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
+            <div class="stats">
+              <div class="stat"><b><span class="n" data-count="30" data-suffix="+">30+</span> Years</b><span>Multi-decade expertise</span></div>
+              <div class="stat"><b>Millions of Devices</b><span>Extensive sources of telemetry</span></div>
+              <div class="stat"><b><span class="n" data-count="32">32</span> Countries</b><span>Geographically distributed threat intelligence</span></div>
+            </div>
+          </div>
+          <div class="globe-card">
+            <canvas id="globe" aria-label="Globe with 32 highlighted points representing geographically distributed threat intelligence" role="img"></canvas>
+            <div class="globe-cap"><span class="tag k7">32 Countries</span><span class="mono">Drag to rotate · illustrative</span></div>
+          </div>
+          <div class="award-card">
+            <span class="ph-note">AMTSO award image</span>
+            <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringp" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+              <circle cx="100" cy="100" r="92" fill="none" stroke="#EC6A23" stroke-width="1.5"/><circle cx="100" cy="100" r="84" fill="none" stroke="#2F353F"/><circle cx="100" cy="100" r="56" fill="#1A1E24" stroke="#2F353F"/>
+              <g class="seal-spin"><text font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2.2" fill="#A3ABB6"><textPath href="#ringp">REAL TIME THREAT LIST · CONTRIBUTOR OF THE YEAR · </textPath></text></g>
+              <text x="100" y="98" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="800" font-size="24" fill="#ECEEF1">AMTSO</text><text x="100" y="118" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="#FF8B47">K7 LABS</text></svg>
+            <div><b>Real Time Threat List Contributor of the Year</b><span>Anti-Malware Testing Standards Organization</span></div>
+          </div>
+          <div class="report-card">
+            <span class="ph-note">Report image</span>
+            <div class="cover" aria-hidden="true"><span class="mono">K7 Labs</span><svg viewBox="0 0 120 30" preserveAspectRatio="none"><polyline points="0,22 30,22 36,19 42,25 48,6 54,28 60,16 66,22 120,22"/></svg><b>K7 Cyber Threat Monitor Report</b></div>
+            <div><b>K7 Cyber Threat Monitor Report</b><a class="btn btn-line btn-sm" href="#">View Reports</a></div>
+          </div>
         </div>
       </div>
     </section>
@@ -629,7 +707,7 @@ h1 .o{display:block}
     <!-- ============ MSSP ============ -->
     <section class="sec panel-box mssp" id="mssp" aria-labelledby="msspTitle">
       <div>
-        <span class="owner"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>Partners</span>
+        <span class="tag k7">Partners</span>
         <h2 class="h2" id="msspTitle" style="margin-top:14px">K7 for <span class="o">MSSPs</span></h2>
         <p>Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
         <a class="btn btn-k7" href="#">Learn More</a>
@@ -694,7 +772,7 @@ const NAVICON={'Integration Partners':'plug','Solution Partners':'handshake','Di
 const $=(s,r=document)=>r.querySelector(s);
 const ic=n=>`<i data-lucide="${n}"></i>`;
 const MARK='<svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>';
-const OWNER=`<span class="owner">${MARK}<b>K7</b></span>`;
+const OWNER='';
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- nav ---------- */
@@ -742,8 +820,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   $('#fCols').innerHTML=NAV.map(n=>{
     const l=[];if(n.intro)l.push(n.intro.title);
     (n.groups||[]).forEach(g=>g.title?l.push(g.title):l.push(...g.items));
-    if(!n.groups)l.push(n.label);
-    return `<div class="f-col"><h4>${n.label}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+    return `<div class="f-col"><h4>${n.groups?n.label:`<a href="#">${n.label}</a>`}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
   }).join('');
   // search shortcut
   const mac=/Mac|iPhone|iPad/.test(navigator.platform);$('#kbd').textContent=mac?'⌘ K':'Ctrl K';
@@ -837,7 +914,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const set=k=>{const c=CAPS[k];bs.forEach((b,j)=>{b.classList.toggle('on',j===k);b.setAttribute('aria-selected',j===k);});
     const body=c.fw?c.fw.map(f=>`<div class="cov-item"><span class="gi xs">${ic('badge-check')}</span>${f}<span class="tag ok">Mapped</span></div>`).join('')
       :c.items.map(([n,i])=>`<div class="cov-item"><span class="gi xs">${ic(i)}</span>${n}<span class="tag ok">Covered</span></div>`).join('');
-    det.innerHTML=`<div class="top"><div><h3>${c.t}</h3><p>${c.d}</p></div>${OWNER.replace('<b>K7</b>','Owner · <b>K7</b>')}</div><div class="cov-items">${body}</div>`;
+    det.innerHTML=`<div class="top"><div><h3>${c.t}</h3><p>${c.d}</p></div></div><div class="cov-items">${body}</div>`;
     det.style.animation='none';void det.offsetWidth;det.style.animation='';
     if(window.renderIcons)renderIcons(det);};
   bs.forEach((b,k)=>{b.addEventListener('click',()=>set(k));if(canHover)b.addEventListener('mouseenter',()=>set(k));b.addEventListener('focus',()=>set(k));});
@@ -859,7 +936,21 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- operations, industries ---------- */
 $('#svc').innerHTML=OPS.map(([n,i])=>`<li><span class="gi">${ic(i)}</span><b>${n}</b>${OWNER}</li>`).join('');
-$('#inds').insertAdjacentHTML('beforeend',INDS.map(([n,i])=>`<a class="ind" href="#"><span class="gi lg">${ic(i)}</span><span><b>${n}</b><br><span class="lm">Learn More</span></span></a>`).join(''));
+(function(){
+  const orbit=$('#orbit'),lines=$('#orbitLines'),card=$('#indCard'),chips=$('#indChips');const N=INDS.length;let cur=0,hold=false;
+  const pos=k=>{const a=-Math.PI/2+k/N*Math.PI*2;return [50+Math.cos(a)*41,50+Math.sin(a)*41];};
+  lines.innerHTML=INDS.map((_,k)=>{const [x,y]=pos(k);return `<line x1="50" y1="50" x2="${x}" y2="${y}"/>`;}).join('');
+  orbit.insertAdjacentHTML('beforeend',INDS.map(([n,i],k)=>{const [x,y]=pos(k);return `<button type="button" class="onode" data-k="${k}" style="left:${x}%;top:${y}%"><span class="gi">${ic(i)}</span>${n}</button>`;}).join(''));
+  chips.innerHTML=INDS.map(([n],k)=>`<button type="button" class="ind-chip" role="tab" data-k="${k}">${n}</button>`).join('');
+  const nodes=[...orbit.querySelectorAll('.onode')],ls=[...lines.children],cs=[...chips.children];
+  const set=k=>{cur=k;const [n,i]=INDS[k];
+    nodes.forEach((o,j)=>o.classList.toggle('on',j===k));ls.forEach((l,j)=>l.classList.toggle('on',j===k));cs.forEach((c,j)=>c.setAttribute('aria-selected',j===k));
+    card.innerHTML=`<span class="gi">${ic(i)}</span><span class="k">Industry ${String(k+1).padStart(2,'0')} / 0${N}</span><b>${n}</b><a class="btn btn-k7 btn-sm" href="#">Learn More</a>`;
+    card.style.animation='none';void card.offsetWidth;card.style.animation='';};
+  [...nodes,...cs].forEach(b=>{const k=+b.dataset.k;b.addEventListener('click',()=>{hold=true;set(k);});b.addEventListener('mouseenter',()=>{hold=true;set(k);});b.addEventListener('focus',()=>set(k));});
+  orbit.addEventListener('mouseleave',()=>hold=false);chips.addEventListener('mouseleave',()=>hold=false);
+  set(0);if(!reduce)setInterval(()=>{if(!hold&&!document.hidden)set((cur+1)%N);},2800);
+})();
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').classList.add('go');o.disconnect();}}),{threshold:.5}).observe($('#ring'));
 
 /* ---------- accountability: highlight rows in turn ---------- */
@@ -869,6 +960,31 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').
   if(!reduce)setInterval(step,1600);
 })();
 
+/* ---------- K7 Labs globe ---------- */
+(function(){
+  const card=document.querySelector('.globe-card'),cv=$('#globe'),ctx=cv.getContext('2d');
+  const pts=[],N=900,ga=Math.PI*(3-Math.sqrt(5));
+  for(let i=0;i<N;i++){const y=1-(i/(N-1))*2,r=Math.sqrt(1-y*y),t=ga*i;pts.push([Math.cos(t)*r,y,Math.sin(t)*r]);}
+  let sd=7;const rnd=()=>{sd=(sd*16807)%2147483647;return sd/2147483647;};
+  const hot=[];for(let i=0;i<32;i++){const lat=(rnd()*1.7-.85)*.9,lon=rnd()*Math.PI*2;hot.push([Math.cos(lat)*Math.cos(lon),Math.sin(lat),Math.cos(lat)*Math.sin(lon),rnd()*6]);}
+  let W,H,R,rot=0,tilt=-.35,vel=.0025,drag=null;
+  const size=()=>{const d=Math.min(devicePixelRatio||1,2);W=card.clientWidth;H=card.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);R=Math.min(W,H)*.38;};
+  const proj=([x,y,z])=>{const c=Math.cos(rot),s=Math.sin(rot);let X=x*c-z*s,Z=x*s+z*c;const ct=Math.cos(tilt),st=Math.sin(tilt);const Y=y*ct-Z*st;Z=y*st+Z*ct;return [W/2+X*R,H/2-12-Y*R,Z];};
+  function draw(t){ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(255,255,255,.06)';ctx.beginPath();ctx.arc(W/2,H/2-12,R,0,7);ctx.stroke();
+    for(const p of pts){const [x,y,z]=proj(p);if(z<-.05)continue;ctx.fillStyle=`rgba(163,171,182,${.12+z*.4})`;ctx.fillRect(x-.8,y-.8,1.6,1.6);}
+    for(const h of hot){const [x,y,z]=proj(h);if(z<0)continue;const pu=(Math.sin(t/500+h[3])+1)/2;
+      ctx.fillStyle=`rgba(236,106,35,${.5+z*.5})`;ctx.beginPath();ctx.arc(x,y,2.4+z,0,7);ctx.fill();
+      ctx.strokeStyle=`rgba(236,106,35,${(1-pu)*.5*z})`;ctx.beginPath();ctx.arc(x,y,3+pu*9,0,7);ctx.stroke();}}
+  size();new ResizeObserver(size).observe(card);
+  card.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,r:rot,t:tilt};card.setPointerCapture(e.pointerId);});
+  card.addEventListener('pointermove',e=>{if(!drag)return;rot=drag.r+(e.clientX-drag.x)*.008;tilt=Math.max(-1.2,Math.min(1.2,drag.t+(e.clientY-drag.y)*.006));});
+  card.addEventListener('pointerup',()=>drag=null);card.addEventListener('pointercancel',()=>drag=null);
+  let vis=true;new IntersectionObserver(es=>es.forEach(e=>vis=e.isIntersecting)).observe(card);
+  if(reduce){draw(0);return;}
+  (function loop(t){if(vis){if(!drag)rot+=vel;draw(t);}requestAnimationFrame(loop);})(0);
+})();
+
 /* ---------- testimonials ---------- */
 (function(){
   const tr=$('#tqTrack'),n=tr.children.length,dots=[...$('#tqDots').children];let i=0;
@@ -876,6 +992,7 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').
   $('#tqPrev').onclick=()=>go(i-1);$('#tqNext').onclick=()=>go(i+1);go(0);
 })();
 
+document.querySelectorAll('.h2').forEach(h=>{const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('seen');o.disconnect();}}),{threshold:.6});io.observe(h);});
 /*ICONS*/
 window.renderIcons=(root=document)=>root.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
 renderIcons();

@@ -302,6 +302,7 @@ button.sw:hover .track{border-color:var(--signal)}
 .f-cols{display:grid;grid-template-columns:repeat(8,1fr);gap:28px}
 .f-col h4{font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(241,238,229,.55);margin-bottom:16px}
 .f-col a{display:block;padding:4px 0;font-size:14px;line-height:1.35;text-decoration:none;color:rgba(241,238,229,.9)}
+.f-col h4 a{display:inline;padding:0;font:inherit;color:inherit}
 .f-col a:hover{color:#fff;text-decoration:underline}
 .f-base{margin-top:64px;padding-top:22px;border-top:1px solid rgba(241,238,229,.18);display:flex;justify-content:space-between;gap:16px;font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:rgba(241,238,229,.55)}
 
@@ -749,8 +750,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     let l=[];
     if(n.intro) l.push(n.intro.title);
     (n.groups||[]).forEach(g=>{ if(g.title) l.push(g.title); else l.push(...g.items); });
-    if(!n.groups) l.push(n.label);
-    return `<div class="f-col"><h4>${n.label}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+    return `<div class="f-col"><h4>${n.groups?n.label:`<a href="#">${n.label}</a>`}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
   }).join('');
 })();
 
