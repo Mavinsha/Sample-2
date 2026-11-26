@@ -28,6 +28,8 @@ self-contained HTML file so the team can open it and compare.
   SOC, the infrastructure it protects), not the reference's subject matter.
 - Hero: H1 is "K7 Seventh Sense"; "Unified Endpoint-To-SOC Security Platform" sits
   beneath it. Keep section headings (e.g. "Beyond The Obvious") in their sections.
+  Exception: Sample 03 (Ownerboard) leads with the accountability line "One
+  Accountable Partner. Endpoint To SOC." at the user's request.
 - Keep glow restrained: no heavy bloom, halos or neon on everything.
 - Logo: use the official files in `_shared/brand/` (`k7-logo-white.svg` on dark
   backgrounds, `k7-logo.svg` on light). The footer shows the logo with the line
