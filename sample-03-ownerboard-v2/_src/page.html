@@ -450,6 +450,23 @@ h1 .o{display:block}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
+
+/* rail: line drawn per item so it always meets the dots (any zoom, any scroll) */
+.rail-line{display:none}
+.rail-nav{scrollbar-width:none}
+.rail-nav::-webkit-scrollbar{display:none}
+.rail-nav a{isolation:isolate}
+.rail-nav a::before{z-index:1}
+.rail-nav a::after{content:"";position:absolute;left:8px;top:50%;width:2px;height:calc(100% + 2px);background:var(--line-2);z-index:-1;transition:background .3s}
+.rail-nav{flex:0 1 auto;padding-bottom:16px}
+.rail-end.bot{margin-top:-12px}
+.partner{margin-top:auto}
+.rail-nav a:last-of-type::after{height:calc(50% + 14px)}
+.rail-nav a.done::after{background:var(--k7)}
+.rail-nav a.on::after{background:linear-gradient(var(--k7),var(--line-2))}
+@media (max-height:820px){.rail-nav a{padding-top:7px;padding-bottom:7px}.rail{padding-top:12px}}
+@media (max-height:700px){.rail-nav a{padding-top:5px;padding-bottom:5px;font-size:13.5px}}
+@media (max-width:980px){.rail-nav a::after{display:none}.rail-nav{padding-bottom:0}}
 /*SHARED_CSS*/
 /* ===================== V2: angled corners =====================
    Bottom-right corner cut on panels and parts.
