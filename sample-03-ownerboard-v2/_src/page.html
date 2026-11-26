@@ -454,6 +454,9 @@ h1 .o{display:block}
 /* rail: original full-height track; no scrollbar, and the list tightens on
    shorter screens so it fits without scrolling (keeps dots on the line) */
 .rail-nav{scrollbar-width:none}
+@media (min-width:981px){.rail-nav{overflow:visible}}
+.rail-line{top:var(--lt,-17px);bottom:var(--lb,-15px)}
+.rail-nav a.on{box-shadow:inset 3px 0 0 var(--k7)}
 .rail-nav::-webkit-scrollbar{display:none}
 @media (max-height:820px){.rail-nav a{padding-top:7px;padding-bottom:7px}.rail{padding-top:12px}}
 @media (max-height:700px){.rail-nav a{padding-top:5px;padding-bottom:5px;font-size:13.5px}}
@@ -853,6 +856,11 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
     const top=main.offsetTop,h=main.offsetHeight-innerHeight;const p=Math.max(0,Math.min(1,(scrollY-top+innerHeight*.2)/Math.max(1,h)));
     fill.style.height=(p*100)+'%';
   };
+  const nav=$('#railNav'),ends=[...document.querySelectorAll('.rail-end i')];
+  const fit=()=>{if(matchMedia('(max-width:980px)').matches)return;const n=nav.getBoundingClientRect(),t=ends[0].getBoundingClientRect(),b=ends[1].getBoundingClientRect();
+    const z=parseFloat(getComputedStyle(document.documentElement).zoom)||1;const k=(n.height&&nav.offsetHeight)?nav.offsetHeight/n.height:1/z;
+    nav.style.setProperty('--lt',(t.top+t.height/2-n.top)*k+'px');nav.style.setProperty('--lb',(n.bottom-(b.top+b.height/2))*k+'px');};
+  fit();addEventListener('resize',fit);if(document.fonts)document.fonts.ready.then(fit);
   addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
   const c=$('#clock');const t=()=>c.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});t();setInterval(t,20000);
 })();
