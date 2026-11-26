@@ -39,7 +39,9 @@ self-contained HTML file so the team can open it and compare.
   side by side), not narrow vertical lists.
 - Autoplay and other scripted actions must not fire synthetic clicks that close menus.
 - File naming: `sample-NN-<name>/Sample NN · <Name> - Index.html`.
-- A small fixed "Sample NN · Name" tag identifies each sample.
+- Treat every page as final copy: no "placeholder", "illustrative" or "image to be
+  supplied" labels, and no sample name or tag anywhere in the page (Sample 03 onward;
+  the folder and file name identify the sample).
 - Do not publish these pages as claude.ai artifacts (they carry K7 branding);
   deliver the HTML file.
 

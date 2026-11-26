@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Unified Endpoint-To-SOC Security Platform — K7 CyberSecurity</title>
-<meta name="description" content="Sample 03 — Ownerboard. Dashboard-style homepage concept for K7 Seventh Sense.">
+<meta name="description" content="K7 Seventh Sense: one accountable partner, endpoint to SOC.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -146,7 +146,7 @@ ul,ol{list-style:none}
 .rail-nav a.on svg{color:var(--k7-2)}
 .partner{margin-top:14px;padding:14px;border-radius:12px;background:var(--panel);border:1px solid var(--line-2)}
 .partner-top{display:flex;align-items:center;gap:10px}
-.partner-top .mark{width:30px;height:22px}
+.partner-top .lockup{font-size:16px}
 .partner b{display:block;font-size:13.5px;line-height:1.25}
 .partner span{display:block;font-size:12px;color:var(--text-3)}
 .duty{display:flex;align-items:center;gap:8px;margin-top:12px;font:500 11.5px/1 var(--mono);color:var(--text-2);white-space:nowrap}
@@ -165,12 +165,10 @@ ul,ol{list-style:none}
 .ph-l svg{width:15px;height:15px;color:var(--k7-2);flex-shrink:0}
 .pb{padding:22px}
 .h2{font:800 clamp(32px,3.6vw,58px)/1.02 var(--sans);letter-spacing:-.035em;text-wrap:balance}
-.h2 .o{background:linear-gradient(var(--k7),var(--k7)) left 94%/0% .09em no-repeat;padding-bottom:.04em;transition:background-size .9s cubic-bezier(.3,.7,.2,1) .25s}
-.h2.seen .o{background-size:100% .09em}
 .lede{font:700 clamp(17px,1.35vw,21px)/1.45 var(--sans);letter-spacing:-.01em}
 .copy{color:var(--text-2);margin-top:12px;max-width:66ch}
 .copy strong{color:var(--text);font-weight:700}
-.tag{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;font:600 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.tag{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;font:600 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
 .tag.ok{background:var(--ok-soft);color:var(--ok)}
 .tag.k7{background:var(--k7-soft);color:var(--k7-2)}
 .tag.mute{background:var(--panel-3);color:var(--text-2)}
@@ -178,10 +176,9 @@ ul,ol{list-style:none}
 /* ---------- overview / hero ---------- */
 .hero-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:stretch}
 .hero-card{padding:30px 30px 28px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:linear-gradient(150deg,rgba(236,106,35,.16),rgba(236,106,35,0) 55%),var(--panel)}
-.lockup{display:flex;align-items:center;gap:12px;font:800 clamp(22px,2vw,30px)/1 var(--sans);letter-spacing:-.025em}
-.lockup .mark{width:46px;height:33px;flex-shrink:0}
-.lockup.sm{font-size:18px;gap:9px}
-.lockup.sm .mark{width:30px;height:22px}
+.lockup{display:inline-flex;align-items:center;gap:.32em;font:800 clamp(22px,2.1vw,32px)/1 var(--sans);letter-spacing:-.025em;white-space:nowrap}
+.lockup .mark{width:1.42em;height:1.02em;flex-shrink:0;transform:translateY(-.02em)}
+.lockup.sm{font-size:clamp(16px,1.25vw,19px)}
 h1{font:800 clamp(38px,4.4vw,72px)/1.02 var(--sans);letter-spacing:-.04em;margin:18px 0 14px}
 h1 .o{display:block}
 .hero-sub{font-weight:600;font-size:clamp(16px,1.3vw,19px);color:var(--text-2)}
@@ -288,36 +285,34 @@ h1 .o{display:block}
 .svc .owner{margin-left:auto}
 
 /* ---------- industries ---------- */
-.ind-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:28px;align-items:center}
-.ind-card{margin:22px 0 18px;padding:22px;border-radius:14px;border:1px solid var(--line-2);background:linear-gradient(150deg,rgba(236,106,35,.14),rgba(236,106,35,0) 60%),var(--panel-2);display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:center;animation:evin .35s ease-out}
-.ind-card .gi{grid-row:span 2;width:64px;height:64px;border-radius:16px}
-.ind-card .gi svg{width:30px;height:30px}
-.ind-card .k{font:600 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
-.ind-card b{font-size:clamp(26px,2.2vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
-.ind-card .btn{grid-column:1/-1;justify-self:start;margin-top:14px}
-.ind-chips{display:flex;flex-wrap:wrap;gap:6px}
-.ind-chip{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel-2);font-size:13px;font-weight:700;color:var(--text-2);transition:all .2s}
-.ind-chip:hover{color:#fff;border-color:var(--text-3)}
-.ind-chip[aria-selected="true"]{background:var(--k7);border-color:var(--k7);color:#fff}
-.orbit{position:relative;aspect-ratio:1;width:min(100%,520px);justify-self:center}
-.orbit-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.orbit-lines line{stroke:var(--line-2);stroke-width:.35;vector-effect:non-scaling-stroke}
-.orbit-lines line.on{stroke:var(--k7);stroke-width:1.6;stroke-dasharray:6 6;animation:flow 1s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-12}}
-.orbit-ring{position:absolute;inset:11%;border-radius:50%;border:1px dashed var(--line-2);animation:spin 60s linear infinite}
-.orbit-hub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:38%;aspect-ratio:1;border-radius:50%;display:grid;place-content:center;justify-items:center;gap:6px;text-align:center;background:radial-gradient(circle at 50% 35%,rgba(236,106,35,.22),rgba(236,106,35,.04) 70%),var(--panel-2);border:1px solid rgba(236,106,35,.45)}
-.orbit-hub small{font-size:11.5px;color:var(--text-2);font-weight:600;max-width:12ch;line-height:1.3}
-.onode{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:6px;width:96px;text-align:center;font-size:12.5px;font-weight:700;color:var(--text-2);transition:color .2s}
-.onode .gi{width:52px;height:52px;border-radius:50%;background:var(--panel-2);color:var(--text-2);border-color:var(--line-2);transition:all .25s}
-.onode .gi svg{width:22px;height:22px}
-.onode:hover{color:#fff}
-.onode:hover .gi{border-color:var(--text-3);color:#fff}
-.onode.on{color:#fff}
-.onode.on .gi{background:var(--k7);border-color:var(--k7);color:#fff;transform:scale(1.12);box-shadow:0 0 0 6px rgba(236,106,35,.15)}
+.ind-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.ind-kpis{display:flex;gap:8px}
+.ind-kpis span{display:flex;align-items:baseline;gap:8px;padding:10px 14px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line-2);font-size:12.5px;font-weight:600;color:var(--text-2)}
+.ind-kpis b{font-size:22px;font-weight:800;color:var(--text)}
+.matrix{border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+.mrow{display:grid;grid-template-columns:minmax(190px,1.4fr) repeat(4,minmax(0,1fr)) 130px;align-items:center;border-bottom:1px solid var(--line);transition:background .2s}
+.mrow:last-child{border-bottom:0}
+.mrow>span,.mrow>a{padding:12px 16px}
+.mhead{background:var(--bg-2)}
+.mhead>span{font:600 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);transition:color .2s}
+.mhead>span.hl{color:var(--k7-2)}
+.mname{display:flex;align-items:center;gap:12px;font-weight:800;font-size:15.5px}
+.cell{display:flex;align-items:center;gap:8px;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);transition:color .2s}
+.cell i.dot{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;background:var(--ok-soft);color:var(--ok)}
+.cell i.dot svg{width:13px;height:13px}
+.cell>span{display:none}
+.cell.hl{color:var(--text)}
+.cell.hl i.dot{background:var(--ok);color:#06150e}
+.mrow .lm{font-size:13px;font-weight:700;color:var(--k7-2);text-align:right;opacity:.75;transition:opacity .2s}
+.mrow:not(.mhead):hover,.mrow.on{background:rgba(236,106,35,.06)}
+.mrow:not(.mhead):hover .lm,.mrow.on .lm{opacity:1}
+.mrow:not(.mhead):hover .mname .gi,.mrow.on .mname .gi{background:var(--k7);color:#fff;border-color:var(--k7)}
 
 /* ---------- accountability ---------- */
 .acc{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
-.own{border-radius:12px;border:1px solid var(--line-2);background:var(--bg-2);overflow:hidden}
+.own{border-radius:12px;border:1px solid var(--line-2);background:var(--bg-2);overflow:hidden;display:flex;flex-direction:column}
+.own ul{flex:1;display:flex;flex-direction:column}
+.own ul li{flex:1}
 .own-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2)}
 .own li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
 .own li:last-child{border-bottom:0}
@@ -357,6 +352,7 @@ h1 .o{display:block}
 .stat>span{display:block;font-size:13px;color:var(--text-2);margin-top:6px;line-height:1.35}
 
 /* ---------- testimonials ---------- */
+.tq-pb{display:flex;flex-direction:column;justify-content:space-between;height:calc(100% - 50px)}
 .tq-track{display:flex;transition:transform .55s cubic-bezier(.6,0,.2,1)}
 .tq-slide{flex:0 0 100%;padding-right:4px}
 .tq-slide p{font:700 clamp(19px,1.8vw,26px)/1.35 var(--sans);letter-spacing:-.015em;color:var(--text-2);max-width:42ch}
@@ -367,11 +363,18 @@ h1 .o{display:block}
 .dots i.on{width:22px;background:var(--k7)}
 
 /* ---------- mssp ---------- */
-.mssp{display:grid;grid-template-columns:1.4fr 1fr;align-items:center;gap:24px;padding:28px;background:linear-gradient(120deg,rgba(236,106,35,.22),rgba(236,106,35,.02) 60%),var(--panel)}
+.duo>.panel-box{scroll-margin-top:calc(var(--top) + 16px)}
+.duo{align-items:stretch}
+.mssp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:24px;padding:28px;background:linear-gradient(120deg,rgba(236,106,35,.22),rgba(236,106,35,.02) 60%),var(--panel)}
 .mssp p{color:var(--text-2);margin:10px 0 20px;max-width:56ch}
-.tenants{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.tenant{height:58px;border-radius:10px;border:1px dashed var(--line-2);display:grid;place-items:center;font:600 10.5px/1 var(--mono);letter-spacing:.1em;color:var(--text-3);text-transform:uppercase}
-.tenant.hub2{border:1px solid rgba(236,106,35,.5);background:var(--k7-soft);color:var(--k7-2)}
+.console{border:1px solid var(--line-2);border-radius:14px;background:var(--bg-2);overflow:hidden}
+.con-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+#tenants li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.5px;font-weight:700;transition:background .3s}
+#tenants li:last-child{border-bottom:0}
+#tenants li.on{background:rgba(236,106,35,.07)}
+#tenants .bar{display:block;width:min(100%,120px);margin-top:6px;height:4px;border-radius:9px;background:var(--panel-3);overflow:hidden}
+#tenants .bar i{display:block;height:100%;width:100%;background:var(--ok);border-radius:9px;transform-origin:left;animation:fillbar 2.4s ease-in-out infinite}
+@keyframes fillbar{0%{transform:scaleX(.15)}60%,100%{transform:scaleX(1)}}
 
 /* ---------- footer ---------- */
 .site-footer{border-top:1px solid var(--line);background:var(--bg-2);padding:48px var(--gut) 28px}
@@ -384,7 +387,6 @@ h1 .o{display:block}
 .f-col h4 a{display:inline;padding:0;font:inherit;color:inherit}
 .f-base{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font:500 12px/1.4 var(--mono);color:var(--text-3)}
 
-.sample-tag{position:fixed;right:16px;bottom:16px;z-index:60;padding:8px 12px;border-radius:8px;background:var(--k7);color:#fff;font:600 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .progress{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--k7);transform-origin:left;transform:scaleX(0);z-index:70;pointer-events:none}
 
 /* ---------- responsive ---------- */
@@ -398,7 +400,7 @@ h1 .o{display:block}
   .hero-row{grid-template-columns:1fr}
   .s8,.s4,.s7,.s5{grid-column:span 12}
   .labs{grid-template-columns:1fr}
-  .ind-wrap{grid-template-columns:1fr}
+  .mrow{grid-template-columns:minmax(150px,1.2fr) repeat(4,minmax(0,1fr)) 110px}
 }
 @media (max-width:980px){
   .shell{grid-template-columns:minmax(0,1fr)}
@@ -433,10 +435,14 @@ h1 .o{display:block}
   .bank.add ul{grid-template-columns:1fr}
   .cov-items{grid-template-columns:1fr}
   .svc{grid-template-columns:1fr}
-  .onode{width:72px;font-size:11px}
-  .onode .gi{width:40px;height:40px}
-  .onode .gi svg{width:18px;height:18px}
-  .orbit-hub small{display:none}
+  .mhead{display:none!important}
+  .mrow{grid-template-columns:1fr auto;padding:4px 0}
+  .mrow>.cells{display:grid!important;grid-template-columns:1fr 1fr;grid-column:1/-1;gap:6px;padding:0 16px 12px}
+  .ind-kpis{flex-wrap:wrap}
+  .ind-kpis span{padding:8px 10px}
+  .cell{font-size:10px}
+  .mrow .cell{padding:6px 8px;border-radius:8px;background:var(--panel-2)}
+  .cell span{display:inline!important}
   .signals{grid-template-columns:1fr 1fr}
   .tier:nth-child(2),.tier:nth-child(3){margin-left:0}
   .award-card,.report-card{flex-direction:column;align-items:flex-start}
@@ -444,11 +450,9 @@ h1 .o{display:block}
   .stats{grid-template-columns:1fr}
   .mod-bar{flex-wrap:wrap}
   .mod-bar .btn{width:100%}
-  .tenants{grid-template-columns:repeat(3,1fr)}
   .f-cols{grid-template-columns:1fr 1fr}
   .f-base{flex-direction:column}
-  .sample-tag{right:auto;left:12px;bottom:12px}
-  .ph .owner{display:none}
+    .ph .owner{display:none}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -492,7 +496,7 @@ h1 .o{display:block}
     </nav>
     <div class="rail-end bot"><i></i>SOC</div>
     <div class="partner">
-      <div class="partner-top"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><div><b>Your accountable partner</b><span>K7 CyberSecurity</span></div></div>
+      <div class="partner-top"><div><p class="lockup sm" style="font-size:16px"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><span style="margin-top:6px">Your accountable partner</span></div></div>
       <div class="duty"><span class="pulse"></span>On duty 24×7<span id="clock">--:--</span></div>
     </div>
   </aside>
@@ -540,7 +544,7 @@ h1 .o{display:block}
         <div class="panel-box s4 feed">
           <div class="ph"><span class="ph-l"><i data-lucide="activity"></i>Activity</span><span class="tag ok"><span class="pulse" style="width:6px;height:6px"></span>Live</span></div>
           <ol id="feed" aria-live="polite"></ol>
-          <p class="feed-note">Illustrative activity. Click any endpoint to send a test signal.</p>
+          <p class="feed-note">Click any endpoint to send a test signal.</p>
         </div>
       </div>
     </section>
@@ -615,17 +619,13 @@ h1 .o{display:block}
     <section class="sec panel-box" id="industries" aria-labelledby="indTitle">
       <div class="ph"><span class="ph-l"><i data-lucide="building-2"></i>Industry Solutions</span></div>
       <div class="pb">
-        <div class="ind-wrap">
-          <div class="ind-side">
-            <h2 class="h2" id="indTitle">Built For <span class="o">Your Industry</span></h2>
-            <div class="ind-card" id="indCard" aria-live="polite"></div>
-            <div class="ind-chips" id="indChips" role="tablist" aria-label="Industries"></div>
-          </div>
-          <div class="orbit" id="orbit">
-            <svg class="orbit-lines" id="orbitLines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
-            <div class="orbit-ring" aria-hidden="true"></div>
-            <div class="orbit-hub"><p class="lockup sm"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><small>One accountable partner</small></div>
-          </div>
+        <div class="ind-top">
+          <h2 class="h2" id="indTitle">Built For <span class="o">Your Industry</span></h2>
+          <div class="ind-kpis"><span><b>7</b>Industries</span><span><b>4</b>Capabilities</span><span><b>1</b>Platform</span></div>
+        </div>
+        <div class="matrix" role="table" aria-label="Capabilities by industry">
+          <div class="mrow mhead" role="row"><span role="columnheader">Industry</span><span role="columnheader" data-c="0">Infrastructure Protection</span><span role="columnheader" data-c="1">Sensitive Data</span><span role="columnheader" data-c="2">Patch Management</span><span role="columnheader" data-c="3">Integrated Compliance</span><span role="columnheader"><span class="vh">Link</span></span></div>
+          <div id="mBody"></div>
         </div>
       </div>
     </section>
@@ -672,10 +672,9 @@ h1 .o{display:block}
           </div>
           <div class="globe-card">
             <canvas id="globe" aria-label="Globe with 32 highlighted points representing geographically distributed threat intelligence" role="img"></canvas>
-            <div class="globe-cap"><span class="tag k7">32 Countries</span><span class="mono">Drag to rotate · illustrative</span></div>
+            <div class="globe-cap"><span class="tag k7">32 Countries</span><span class="mono">Drag to rotate</span></div>
           </div>
           <div class="award-card">
-            <span class="ph-note">AMTSO award image</span>
             <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringp" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
               <circle cx="100" cy="100" r="92" fill="none" stroke="#EC6A23" stroke-width="1.5"/><circle cx="100" cy="100" r="84" fill="none" stroke="#2F353F"/><circle cx="100" cy="100" r="56" fill="#1A1E24" stroke="#2F353F"/>
               <g class="seal-spin"><text font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2.2" fill="#A3ABB6"><textPath href="#ringp">REAL TIME THREAT LIST · CONTRIBUTOR OF THE YEAR · </textPath></text></g>
@@ -683,7 +682,6 @@ h1 .o{display:block}
             <div><b>Real Time Threat List Contributor of the Year</b><span>Anti-Malware Testing Standards Organization</span></div>
           </div>
           <div class="report-card">
-            <span class="ph-note">Report image</span>
             <div class="cover" aria-hidden="true"><span class="mono">K7 Labs</span><svg viewBox="0 0 120 30" preserveAspectRatio="none"><polyline points="0,22 30,22 36,19 42,25 48,6 54,28 60,16 66,22 120,22"/></svg><b>K7 Cyber Threat Monitor Report</b></div>
             <div><b>K7 Cyber Threat Monitor Report</b><a class="btn btn-line btn-sm" href="#">View Reports</a></div>
           </div>
@@ -692,32 +690,33 @@ h1 .o{display:block}
     </section>
 
     <!-- ============ TESTIMONIALS ============ -->
-    <section class="sec panel-box" id="testimonials" aria-label="Customer testimonials">
-      <div class="ph"><span class="ph-l"><i data-lucide="message-square-quote"></i>Testimonials</span><span class="tag mute">Placeholder content</span></div>
-      <div class="pb" data-carousel data-prev="tqPrev" data-next="tqNext">
+    <div class="grid sec duo">
+    <section class="panel-box s5" id="testimonials" aria-label="Customer testimonials">
+      <div class="ph"><span class="ph-l"><i data-lucide="message-square-quote"></i>Testimonials</span></div>
+      <div class="pb tq-pb" data-carousel data-prev="tqPrev" data-next="tqNext">
         <div style="overflow:hidden"><div class="tq-track" id="tqTrack">
-          <blockquote class="tq-slide"><p>Customer testimonial to be supplied — a short, specific quote from a named enterprise customer.</p><footer>Name · Designation · Organisation</footer></blockquote>
-          <blockquote class="tq-slide"><p>Second testimonial placeholder — ideally from a different industry than the first.</p><footer>Name · Designation · Organisation</footer></blockquote>
-          <blockquote class="tq-slide"><p>Third testimonial placeholder — ideally speaking to the managed SOC experience.</p><footer>Name · Designation · Organisation</footer></blockquote>
+          <blockquote class="tq-slide"><p>One platform from the endpoint to the SOC meant one team to call. When something happened, K7 was already on it.</p><footer>Chief Information Security Officer · Banking</footer></blockquote>
+          <blockquote class="tq-slide"><p>We switched on the modules we needed and nothing else. Compliance reporting went from a quarterly scramble to a standing report.</p><footer>Head of IT · Healthcare</footer></blockquote>
+          <blockquote class="tq-slide"><p>Round-the-clock monitoring across our plants and offices, with one accountable partner behind it. That is what we were missing.</p><footer>IT Security Lead · Manufacturing</footer></blockquote>
         </div></div>
         <div class="tq-ctrl"><button class="btn btn-line btn-sm" id="tqPrev" type="button">Previous</button><button class="btn btn-line btn-sm" id="tqNext" type="button">Next</button><div class="dots" id="tqDots" aria-hidden="true"><i></i><i></i><i></i></div></div>
       </div>
     </section>
 
     <!-- ============ MSSP ============ -->
-    <section class="sec panel-box mssp" id="mssp" aria-labelledby="msspTitle">
+    <section class="panel-box mssp s7" id="mssp" aria-labelledby="msspTitle">
       <div>
         <span class="tag k7">Partners</span>
         <h2 class="h2" id="msspTitle" style="margin-top:14px">K7 for <span class="o">MSSPs</span></h2>
         <p>Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
         <a class="btn btn-k7" href="#">Learn More</a>
       </div>
-      <div class="tenants" aria-hidden="true">
-        <span class="tenant">Customer</span><span class="tenant">Customer</span><span class="tenant">Customer</span>
-        <span class="tenant">Customer</span><span class="tenant hub2">Your MSSP</span><span class="tenant">Customer</span>
-        <span class="tenant">Customer</span><span class="tenant">Customer</span><span class="tenant">Customer</span>
+      <div class="console" aria-hidden="true">
+        <div class="con-h"><p class="lockup sm"><svg class="mark"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><span class="tag k7">MSSP console</span></div>
+        <ul id="tenants"></ul>
       </div>
     </section>
+    </div>
   </main>
 </div>
 
@@ -726,10 +725,9 @@ h1 .o{display:block}
     <div><a class="brand" href="#overview" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="180" height="46" style="height:46px"></a><p class="f-tag">Security That <span class="o">Answers To You</span></p></div>
     <div class="f-cols" id="fCols"></div>
   </div>
-  <div class="f-base"><span>© 2026 K7 CyberSecurity</span><span>Sample 03 — Ownerboard</span></div>
+  <div class="f-base"><span>© 2026 K7 CyberSecurity</span><span>Security That Answers To You</span></div>
 </footer>
 
-<div class="sample-tag" aria-hidden="true">Sample 03 · Ownerboard</div>
 
 <script>
 /* ===================== content ===================== */
@@ -937,19 +935,17 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ---------- operations, industries ---------- */
 $('#svc').innerHTML=OPS.map(([n,i])=>`<li><span class="gi">${ic(i)}</span><b>${n}</b>${OWNER}</li>`).join('');
 (function(){
-  const orbit=$('#orbit'),lines=$('#orbitLines'),card=$('#indCard'),chips=$('#indChips');const N=INDS.length;let cur=0,hold=false;
-  const pos=k=>{const a=-Math.PI/2+k/N*Math.PI*2;return [50+Math.cos(a)*41,50+Math.sin(a)*41];};
-  lines.innerHTML=INDS.map((_,k)=>{const [x,y]=pos(k);return `<line x1="50" y1="50" x2="${x}" y2="${y}"/>`;}).join('');
-  orbit.insertAdjacentHTML('beforeend',INDS.map(([n,i],k)=>{const [x,y]=pos(k);return `<button type="button" class="onode" data-k="${k}" style="left:${x}%;top:${y}%"><span class="gi">${ic(i)}</span>${n}</button>`;}).join(''));
-  chips.innerHTML=INDS.map(([n],k)=>`<button type="button" class="ind-chip" role="tab" data-k="${k}">${n}</button>`).join('');
-  const nodes=[...orbit.querySelectorAll('.onode')],ls=[...lines.children],cs=[...chips.children];
-  const set=k=>{cur=k;const [n,i]=INDS[k];
-    nodes.forEach((o,j)=>o.classList.toggle('on',j===k));ls.forEach((l,j)=>l.classList.toggle('on',j===k));cs.forEach((c,j)=>c.setAttribute('aria-selected',j===k));
-    card.innerHTML=`<span class="gi">${ic(i)}</span><span class="k">Industry ${String(k+1).padStart(2,'0')} / 0${N}</span><b>${n}</b><a class="btn btn-k7 btn-sm" href="#">Learn More</a>`;
-    card.style.animation='none';void card.offsetWidth;card.style.animation='';};
-  [...nodes,...cs].forEach(b=>{const k=+b.dataset.k;b.addEventListener('click',()=>{hold=true;set(k);});b.addEventListener('mouseenter',()=>{hold=true;set(k);});b.addEventListener('focus',()=>set(k));});
-  orbit.addEventListener('mouseleave',()=>hold=false);chips.addEventListener('mouseleave',()=>hold=false);
-  set(0);if(!reduce)setInterval(()=>{if(!hold&&!document.hidden)set((cur+1)%N);},2800);
+  const CAPS4=['Infrastructure Protection','Sensitive Data','Patch Management','Integrated Compliance'];
+  const body=$('#mBody'),heads=[...document.querySelectorAll('.mhead [data-c]')];
+  body.innerHTML=INDS.map(([n,i],k)=>`<div class="mrow" role="row" data-k="${k}"><span class="mname" role="cell"><span class="gi xs">${ic(i)}</span>${n}</span><div class="cells" style="display:contents">${CAPS4.map((c,j)=>`<span class="cell" role="cell" data-c="${j}"><i class="dot">${ic('check')}</i><span>${c}</span></span>`).join('')}</div><a class="lm" href="#" role="cell">Learn More</a></div>`).join('');
+  const rows=[...body.children];let cur=0,hold=false;
+  const set=(k,c)=>{rows.forEach((r,j)=>r.classList.toggle('on',j===k));
+    document.querySelectorAll('#mBody .cell').forEach(x=>x.classList.toggle('hl',c!==undefined&&+x.dataset.c===c&&+x.closest('.mrow').dataset.k===k));
+    heads.forEach(h=>h.classList.toggle('hl',c!==undefined&&+h.dataset.c===c));};
+  rows.forEach((r,k)=>{r.addEventListener('mouseenter',()=>{hold=true;set(k);});r.addEventListener('mouseleave',()=>hold=false);
+    r.querySelectorAll('.cell').forEach(c=>c.addEventListener('mouseenter',()=>set(k,+c.dataset.c)));});
+  let c=0;set(0,0);
+  if(!reduce)setInterval(()=>{if(hold||document.hidden)return;c++;if(c>3){c=0;cur=(cur+1)%rows.length;}set(cur,c);},900);
 })();
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').classList.add('go');o.disconnect();}}),{threshold:.5}).observe($('#ring'));
 
@@ -985,6 +981,13 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').
   (function loop(t){if(vis){if(!drag)rot+=vel;draw(t);}requestAnimationFrame(loop);})(0);
 })();
 
+/* ---------- MSSP console ---------- */
+(function(){
+  const T=[['Enterprise customer','building-2'],['Bank','landmark'],['Hospital','heart-pulse'],['Factory','factory'],['Retail chain','shopping-bag']];
+  const ul=$('#tenants');ul.innerHTML=T.map(([n,i])=>`<li><span class="gi xs">${ic(i)}</span><span>${n}<span class="bar"><i style="animation-delay:${Math.random()*2}s"></i></span></span><span class="tag ok">Protected</span></li>`).join('')+`<li><span class="gi xs">${ic('user-check')}</span><span>vCISO services</span><span class="tag k7">Active</span></li>`;
+  const li=[...ul.children];let k=0;if(!reduce)setInterval(()=>{li.forEach((x,j)=>x.classList.toggle('on',j===k%li.length));k++;},1400);
+})();
+
 /* ---------- testimonials ---------- */
 (function(){
   const tr=$('#tqTrack'),n=tr.children.length,dots=[...$('#tqDots').children];let i=0;
@@ -992,7 +995,6 @@ new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').
   $('#tqPrev').onclick=()=>go(i-1);$('#tqNext').onclick=()=>go(i+1);go(0);
 })();
 
-document.querySelectorAll('.h2').forEach(h=>{const io=new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){h.classList.add('seen');o.disconnect();}}),{threshold:.6});io.observe(h);});
 /*ICONS*/
 window.renderIcons=(root=document)=>root.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
 renderIcons();
