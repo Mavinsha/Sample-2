@@ -108,10 +108,6 @@ ul,ol{list-style:none}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip-link{padding:7px 12px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line-2);font-size:13.5px;color:var(--text-2)}
 .chip-link:hover{color:#fff;border-color:var(--k7)}
-.search{display:flex;align-items:center;gap:8px;width:250px;height:38px;padding:0 10px 0 12px;border-radius:9px;background:var(--panel);border:1px solid var(--line-2);color:var(--text-3)}
-.search svg{width:16px;height:16px;flex-shrink:0}
-.search input{flex:1;min-width:0;border:0;background:none;outline:none;font-size:13.5px;color:var(--text)}
-.search input::placeholder{color:var(--text-3)}
 .top-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .menu-btn{display:none;height:38px;padding:0 14px;border-radius:9px;border:1px solid var(--line-2);font-weight:700;font-size:13.5px}
 .mobile-menu{position:absolute;left:0;right:0;top:100%;background:var(--bg-2);border-bottom:1px solid var(--line);max-height:calc(100vh - var(--top));overflow:auto}
@@ -393,8 +389,7 @@ h1 .o{display:block}
   .primary{display:none}
   .menu-btn{display:inline-flex;align-items:center}
   .top-row{justify-content:space-between}
-  .search{flex:1;max-width:420px}
-}
+  }
 @media (max-width:1180px){
   .hero-row{grid-template-columns:1fr}
   .s8,.s4,.s7,.s5{grid-column:span 12}
@@ -421,8 +416,7 @@ h1 .o{display:block}
   .f-top{grid-template-columns:1fr}
 }
 @media (max-width:640px){
-  .search{display:none}
-  .top-cta .btn{display:none}
+    .top-cta .btn{display:none}
   .logo{height:32px}
   .main{padding:14px 12px 40px}
   .h2{font-size:clamp(30px,8.4vw,40px)}
@@ -468,7 +462,6 @@ h1 .o{display:block}
   <div class="top-row">
     <a class="brand" href="#overview" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="149" height="38"></a>
     <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
-    <label class="search" for="q"><i data-lucide="search"></i><span class="vh">Search</span><input id="q" type="search" placeholder="Search platform, solutions, services"></label>
     <div class="top-cta">
       <a class="btn btn-k7 btn-sm" href="#">Request Trial</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
