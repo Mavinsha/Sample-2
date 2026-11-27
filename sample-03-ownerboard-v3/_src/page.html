@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Endpoint-To-SOC Security Platform — K7 CyberSecurity</title>
+<meta name="description" content="K7 Seventh Sense: one accountable partner, endpoint to SOC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0D10;
+  --bg-2:#0F1216;
+  --panel:#14171C;
+  --panel-2:#1A1E24;
+  --panel-3:#20252C;
+  --line:#242931;
+  --line-2:#2F353F;
+  --text:#ECEEF1;
+  --text-2:#A3ABB6;
+  --text-3:#6C7480;
+  --k7:#EC6A23;
+  --k7-2:#FF8B47;
+  --k7-soft:rgba(236,106,35,.13);
+  --ok:#3BCB8C;
+  --ok-soft:rgba(59,203,140,.13);
+  --bad:#FF5A47;
+  --sans:'Manrope',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --gut:clamp(16px,4.4vw,112px);
+  --top:68px;
+  --rail:252px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(60% 50% at 70% -10%,rgba(236,106,35,.12),transparent 70%),
+  radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/22px 22px}
+a{color:inherit;text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--k7-2);outline-offset:2px;border-radius:8px}
+.mono{font-family:var(--mono)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.o{color:var(--k7-2)}
+
+/* ---------- buttons (text only) ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 20px;border-radius:10px;font:700 14.5px/1 var(--sans);white-space:nowrap;cursor:pointer;transition:background .18s,border-color .18s,color .18s,translate .25s cubic-bezier(.3,.7,.3,1)}
+.btn-k7{background:var(--k7);color:#fff}
+.btn-k7:hover{background:var(--k7-2)}
+.btn-line{border:1px solid var(--line-2);background:var(--panel-2);color:var(--text)}
+.btn-line:hover{border-color:var(--k7);color:#fff}
+.btn-sm{height:36px;padding:0 14px;font-size:13.5px;border-radius:8px}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+
+/* ---------- icon tile ---------- */
+.gi{display:inline-grid;place-items:center;flex-shrink:0;width:34px;height:34px;border-radius:9px;background:var(--k7-soft);color:var(--k7-2);border:1px solid rgba(236,106,35,.25)}
+.gi svg{width:17px;height:17px}
+.gi.xs{width:28px;height:28px;border-radius:7px}
+.gi.xs svg{width:15px;height:15px}
+.gi.lg{width:44px;height:44px;border-radius:11px}
+.gi.lg svg{width:21px;height:21px}
+.gi.mute{background:var(--panel-3);color:var(--text-2);border-color:var(--line-2)}
+
+/* ---------- K7 owner mark ---------- */
+.mark{display:inline-block;width:22px;height:16px;vertical-align:-3px}
+.owner{display:inline-flex;align-items:center;gap:8px;height:26px;padding:0 10px 0 6px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line-2);font:600 11px/1 var(--mono);letter-spacing:.04em;color:var(--text-2);white-space:nowrap}
+.owner .mark{width:20px;height:14px}
+.owner{padding:0 8px 0 10px}
+.owner.solo{padding:0 8px}
+.owner b{color:var(--text);font-weight:600}
+
+/* ---------- top bar + nav ---------- */
+.topbar{position:sticky;top:0;z-index:50;height:var(--top);background:rgba(11,13,16,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.top-row{height:100%;display:flex;align-items:center;gap:20px;padding-inline:var(--gut)}
+.brand{flex-shrink:0;display:flex}
+.logo{display:block;height:38px;width:auto}
+.primary{flex:1;align-self:stretch;min-width:0}
+.nav-list{display:flex;height:100%;justify-content:center}
+.nav-item{display:flex}
+.nav-link{display:flex;align-items:center;height:100%;padding:0 12px;font-weight:600;font-size:14px;color:var(--text-2);position:relative;white-space:nowrap;transition:color .2s}
+.nav-link:hover,.nav-item.open .nav-link{color:#fff}
+.nav-link::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:2px;background:var(--k7);transform:scaleX(0);transition:transform .2s}
+.nav-item.open .nav-link::after{transform:scaleX(1)}
+.panel{display:none;position:absolute;top:100%;left:var(--gut);right:var(--gut);z-index:40;padding-top:6px}
+.nav-item.open .panel{display:block;animation:drop .18s ease-out}
+@keyframes drop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.panel-in{background:var(--panel);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 30px 70px -30px rgba(0,0,0,.8)}
+.mega{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;padding:28px 30px 30px}
+.mega.has-intro{grid-template-columns:1.2fr 1fr 1.4fr}
+.mega-intro{padding:22px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2)}
+.intro-title{display:block;font-weight:800;font-size:20px;margin:14px 0 6px}
+.mega-intro p{color:var(--text-2);font-size:14px}
+.grp-title,.grp-link{display:block;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--k7-2);margin-bottom:12px}
+.grp-link{color:var(--text);padding:10px 12px;border-radius:9px;background:var(--panel-2);border:1px solid var(--line-2)}
+.grp-link:hover{border-color:var(--k7)}
+.grp li a{display:block;padding:5px 0;font-size:14px;color:var(--text-2)}
+.grp li a:hover{color:#fff}
+.stack>.grp+.grp{margin-top:10px}
+.stack>.grp:not(.solo)+.grp.solo{margin-top:22px}
+.rowmenu{display:flex;flex-wrap:wrap;gap:10px;padding:18px 20px}
+.tile-link{flex:1 1 200px;display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line-2);font-weight:600;font-size:14.5px}
+.tile-link:hover{border-color:var(--k7)}
+.tile-grp{flex:2 1 360px;padding:12px 14px;border-radius:10px;border:1px solid var(--line-2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-link{padding:7px 12px;border-radius:999px;background:var(--panel-2);border:1px solid var(--line-2);font-size:13.5px;color:var(--text-2)}
+.chip-link:hover{color:#fff;border-color:var(--k7)}
+.top-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.menu-btn{display:none;height:38px;padding:0 14px;border-radius:9px;border:1px solid var(--line-2);font-weight:700;font-size:13.5px}
+.mobile-menu{position:absolute;left:0;right:0;top:100%;background:var(--bg-2);border-bottom:1px solid var(--line);max-height:calc(100vh - var(--top));overflow:auto}
+.mobile-menu .wrap{padding:6px var(--gut) 24px}
+.mm-item,.mm-link{display:block;border-bottom:1px solid var(--line)}
+.mm-item summary,.mm-link{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-weight:800;font-size:18px;cursor:pointer}
+.mm-item summary::-webkit-details-marker{display:none}
+.mm-item summary::after{content:"+";color:var(--k7-2)}
+.mm-item[open] summary::after{content:"\2212"}
+.mm-body{padding-bottom:14px}
+.mm-body .grp{margin-bottom:14px}
+.mobile-menu .btn{width:100%;margin-top:20px}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:var(--rail) minmax(0,1fr);min-height:calc(100vh - var(--top))}
+.rail{position:sticky;top:var(--top);height:calc(100vh - var(--top));border-right:1px solid var(--line);background:rgba(15,18,22,.7);display:flex;flex-direction:column;padding:18px 14px 16px calc(var(--gut) * .35 + 8px)}
+.rail-end{display:flex;align-items:center;gap:8px;font:600 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);padding-left:4px}
+.rail-end i{width:9px;height:9px;border-radius:50%;border:2px solid var(--text-3)}
+.rail-end.top i{border-color:var(--k7)}
+.rail-end.bot{margin-top:10px}
+.rail-nav{position:relative;margin:12px 0 0;flex:1;overflow:auto;padding-left:0}
+.rail-line{position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--line-2);border-radius:2px}
+.rail-fill{position:absolute;left:0;right:0;top:0;height:0;background:linear-gradient(var(--k7),var(--k7-2));border-radius:2px;box-shadow:0 0 10px rgba(236,106,35,.5)}
+.rail-nav a{position:relative;display:flex;align-items:center;gap:12px;padding:9px 10px 9px 26px;border-radius:9px;font-weight:600;font-size:14px;color:var(--text-2);transition:background .2s,color .2s}
+.rail-nav a::before{content:"";position:absolute;left:5px;top:50%;width:8px;height:8px;margin-top:-4px;border-radius:50%;background:var(--bg);border:2px solid var(--line-2);transition:border-color .2s,background .2s}
+.rail-nav a svg{width:16px;height:16px;flex-shrink:0;color:var(--text-3)}
+.rail-nav a:hover{background:var(--panel);color:#fff}
+.rail-nav a.done::before{border-color:var(--k7);background:var(--k7)}
+.rail-nav a.on{background:var(--panel-2);color:#fff}
+.rail-nav a.on::before{border-color:var(--k7);background:var(--bg);box-shadow:0 0 0 3px rgba(236,106,35,.25)}
+.rail-nav a.on svg{color:var(--k7-2)}
+.partner{margin-top:14px;padding:14px;border-radius:12px;background:var(--panel);border:1px solid var(--line-2)}
+.partner-top{display:flex;align-items:center;gap:10px}
+.partner-top .lockup{font-size:16px}
+.partner b{display:block;font-size:13.5px;line-height:1.25}
+.partner span{display:block;font-size:12px;color:var(--text-3)}
+.duty{display:flex;align-items:center;gap:8px;margin-top:12px;font:500 11.5px/1 var(--mono);color:var(--text-2);white-space:nowrap}
+.duty #clock{margin-left:auto;color:var(--text-3)}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(59,203,140,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(59,203,140,0)}100%{box-shadow:0 0 0 0 rgba(59,203,140,0)}}
+.main{min-width:0;padding:22px clamp(16px,2.4vw,44px) 60px}
+
+/* ---------- panels ---------- */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.s12{grid-column:span 12}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}.s3{grid-column:span 3}
+.sec{scroll-margin-top:calc(var(--top) + 16px);margin-top:16px}
+.panel-box{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative}
+.ph{display:flex;align-items:center;justify-content:space-between;gap:12px;height:50px;padding:0 16px 0 18px;border-bottom:1px solid var(--line)}
+.ph-l{display:flex;align-items:center;gap:10px;min-width:0;font:600 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph-l svg{width:15px;height:15px;color:var(--k7-2);flex-shrink:0}
+.pb{padding:22px}
+.h2{font:800 clamp(32px,3.6vw,58px)/1.02 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+.lede{font:700 clamp(17px,1.35vw,21px)/1.45 var(--sans);letter-spacing:-.01em}
+.copy{color:var(--text-2);margin-top:12px;max-width:66ch}
+.copy strong{color:var(--text);font-weight:700}
+.tag{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 8px;border-radius:6px;font:600 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.tag.ok{background:var(--ok-soft);color:var(--ok)}
+.tag.k7{background:var(--k7-soft);color:var(--k7-2)}
+.tag.mute{background:var(--panel-3);color:var(--text-2)}
+
+/* ---------- overview / hero ---------- */
+.hero-row{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:stretch}
+.hero-card{padding:30px 30px 28px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:linear-gradient(150deg,rgba(236,106,35,.16),rgba(236,106,35,0) 55%),var(--panel)}
+.lockup{display:inline-flex;align-items:center;gap:.32em;font:800 clamp(22px,2.1vw,32px)/1 var(--sans);letter-spacing:-.025em;white-space:nowrap}
+.lockup .mark{width:1.42em;height:1.02em;flex-shrink:0;transform:translateY(-.02em)}
+.lockup.sm{font-size:clamp(16px,1.25vw,19px)}
+h1{font:800 clamp(38px,4.4vw,72px)/1.02 var(--sans);letter-spacing:-.04em;margin:18px 0 14px}
+h1 .o{display:block}
+.hero-sub{font-weight:600;font-size:clamp(16px,1.3vw,19px);color:var(--text-2)}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.kpi{padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:16px}
+.kpi-top{display:flex;justify-content:space-between;align-items:center}
+.kpi b{display:block;font:800 clamp(34px,3vw,46px)/1 var(--sans);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpi b+span{display:block;font-size:13.5px;color:var(--text-2);margin-top:6px;line-height:1.35}
+
+/* ---------- platform ---------- */
+.tiers{display:grid;gap:8px}
+.tier{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);transition:border-color .25s,transform .25s}
+.tier:hover{border-color:var(--k7);transform:translateX(4px)}
+.tier b{display:block;font-size:17px;letter-spacing:-.01em}
+.tier div>span{display:block;font-size:13.5px;color:var(--text-2)}
+.tier .lv{font:600 10.5px/1 var(--mono);color:var(--text-3);letter-spacing:.1em}
+.tier:nth-child(1){margin-right:0}
+.tier:nth-child(2){margin-left:18px}
+.tier:nth-child(3){margin-left:36px}
+.signals{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:22px}
+.sig{padding:12px;border-radius:11px;background:var(--panel-2);border:1px solid var(--line-2)}
+.sig b{display:block;font-size:13px;font-weight:700;text-transform:capitalize}
+.spark{display:flex;align-items:flex-end;gap:2px;height:26px;margin-top:10px}
+.spark i{flex:1;background:rgba(255,255,255,.13);border-radius:1px;transition:height 1.2s cubic-bezier(.4,.1,.2,1)}
+.spark i:last-child{background:var(--k7-2)}
+.sig:hover .spark i{background:rgba(255,255,255,.22)}
+.sig:hover .spark i:last-child{background:var(--k7-2)}
+
+/* ---------- coverage ---------- */
+.cov-tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.cov-tab{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2);text-align:left;font-weight:800;font-size:15px;line-height:1.25;transition:border-color .2s,background .2s}
+.cov-tab:hover{border-color:var(--line-2);background:var(--panel-3)}
+.cov-tab.on{border-color:var(--k7);background:linear-gradient(150deg,rgba(236,106,35,.16),rgba(236,106,35,.02)),var(--panel-2)}
+.cov-detail{margin-top:16px;padding:20px;border-radius:12px;border:1px solid var(--line-2);background:var(--bg-2);animation:evin .35s ease-out}
+.cov-detail .top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.cov-detail h3{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.cov-detail p{color:var(--text-2);font-size:14.5px;margin-top:4px}
+.cov-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cov-item{display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;background:var(--panel);border:1px solid var(--line-2);font-weight:700;font-size:14px}
+.cov-item .tag{margin-left:auto}
+
+/* ---------- modules ---------- */
+.mods{display:grid;grid-template-columns:1fr 1.5fr;gap:16px}
+.bank-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.bank ul{display:grid;gap:8px}
+.bank.add ul{grid-template-columns:1fr 1fr}
+.sw{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px 10px 10px;border-radius:11px;background:var(--panel-2);border:1px solid var(--line-2);text-align:left;font-weight:700;font-size:14px;line-height:1.25;transition:border-color .2s,background .2s}
+.sw:hover{border-color:var(--text-3)}
+.sw .gi{background:var(--panel-3);color:var(--text-3);border-color:var(--line-2);transition:all .2s}
+.tog{margin-left:auto;flex-shrink:0;position:relative;width:38px;height:22px;border-radius:999px;background:var(--panel-3);border:1px solid var(--line-2);transition:background .2s,border-color .2s}
+.tog::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--text-3);transition:transform .2s,background .2s}
+.sw[aria-pressed="true"]{border-color:rgba(236,106,35,.5);background:linear-gradient(150deg,rgba(236,106,35,.12),rgba(236,106,35,0)),var(--panel-2)}
+.sw[aria-pressed="true"] .gi{background:var(--k7-soft);color:var(--k7-2);border-color:rgba(236,106,35,.3)}
+.sw[aria-pressed="true"] .tog{background:var(--k7);border-color:var(--k7)}
+.sw[aria-pressed="true"] .tog::after{transform:translateX(16px);background:#fff}
+.mod-bar{display:flex;align-items:center;gap:16px;margin-top:18px;padding:14px 16px;border-radius:12px;background:var(--bg-2);border:1px solid var(--line-2)}
+.mod-bar .cnt{font:800 28px/1 var(--sans);font-variant-numeric:tabular-nums}
+.mod-bar .sel{flex:1;font-size:13.5px;color:var(--text-2);line-height:1.4}
+.mod-bar .sel b{color:var(--text)}
+
+/* ---------- operations ---------- */
+.ops{display:grid;grid-template-columns:1fr 1.6fr;gap:16px}
+.ring-wrap{display:flex;align-items:center;gap:18px;margin:22px 0}
+.ring{width:110px;height:110px;flex-shrink:0}
+.ring circle{fill:none;stroke-width:8}
+.ring .bg{stroke:var(--panel-3)}
+.ring .fg{stroke:var(--k7);stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.6s cubic-bezier(.3,.7,.2,1)}
+.ring.go .fg{stroke-dashoffset:0}
+.ring .hand{transform-origin:55px 55px;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring text{fill:var(--text);font:800 20px var(--sans);text-anchor:middle}
+.ring-wrap p{font-size:13.5px;color:var(--text-2)}
+.svc{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.svc li{display:flex;align-items:center;gap:12px;padding:12px;border-radius:11px;background:var(--panel-2);border:1px solid var(--line-2);transition:border-color .2s}
+.svc li:hover{border-color:var(--k7)}
+.svc b{font-size:14px;line-height:1.3}
+.svc .owner{margin-left:auto}
+
+/* ---------- industries ---------- */
+.ind-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+.ind-kpis{display:flex;gap:8px}
+.ind-kpis span{display:flex;align-items:baseline;gap:8px;padding:10px 14px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line-2);font-size:12.5px;font-weight:600;color:var(--text-2)}
+.ind-kpis b{font-size:22px;font-weight:800;color:var(--text)}
+.matrix{border:1px solid var(--line-2);border-radius:12px;overflow:hidden}
+.mrow{display:grid;grid-template-columns:minmax(190px,1.4fr) repeat(4,minmax(0,1fr)) 130px;align-items:center;border-bottom:1px solid var(--line);transition:background .2s}
+.mrow:last-child{border-bottom:0}
+.mrow>span,.mrow>a{padding:12px 16px}
+.mhead{background:var(--bg-2)}
+.mhead>span{font:600 10.5px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);transition:color .2s}
+.mhead>span.hl{color:var(--k7-2)}
+.mhead>span[data-c]{text-align:center}
+.mrow>.cells>.cell{justify-content:center}
+.mname{display:flex;align-items:center;gap:12px;font-weight:800;font-size:15.5px}
+.cell{display:flex;align-items:center;gap:8px;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);transition:color .2s}
+.cell i.dot{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;background:var(--ok-soft);color:var(--ok)}
+.cell i.dot svg{width:13px;height:13px}
+.cell>span{display:none}
+.cell.hl{color:var(--text)}
+.cell.hl i.dot{background:var(--ok);color:#06150e}
+.mrow .lm{font-size:13px;font-weight:700;color:var(--k7-2);text-align:right;opacity:.75;transition:opacity .2s}
+.mrow:not(.mhead):hover,.mrow.on{background:rgba(236,106,35,.06)}
+.mrow:not(.mhead):hover .lm,.mrow.on .lm{opacity:1}
+.mrow:not(.mhead):hover .mname .gi,.mrow.on .mname .gi{background:var(--k7);color:#fff;border-color:var(--k7)}
+
+/* ---------- accountability ---------- */
+.acc{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+.own{border-radius:12px;border:1px solid var(--line-2);background:var(--bg-2);overflow:hidden;display:flex;flex-direction:column}
+.own ul{flex:1;display:flex;flex-direction:column}
+.own ul li{flex:1}
+.own-h{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2)}
+.own li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.own li:last-child{border-bottom:0}
+.own li b{font-size:15px;text-transform:capitalize}
+.own li.on{background:rgba(236,106,35,.06)}
+.own-f{display:flex;align-items:center;gap:12px;padding:16px;background:linear-gradient(150deg,rgba(236,106,35,.16),rgba(236,106,35,.03))}
+.own-f .mark{width:34px;height:25px}
+.own-f b{display:block;font-size:15px}
+.own-f span{display:block;font-size:12.5px;color:var(--text-2)}
+
+/* ---------- research ---------- */
+.labs{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.labs-main{padding:22px;border-radius:14px;background:var(--panel-2);border:1px solid var(--line-2);display:flex;flex-direction:column;gap:16px}
+.labs-copy{font:700 clamp(17px,1.4vw,21px)/1.45 var(--sans);letter-spacing:-.01em}
+.labs-main .stats{margin-top:auto}
+.globe-card{position:relative;border-radius:14px;background:radial-gradient(circle at 50% 45%,rgba(236,106,35,.1),transparent 60%),var(--bg-2);border:1px solid var(--line-2);min-height:320px;overflow:hidden;cursor:grab}
+.globe-card:active{cursor:grabbing}
+.globe-card canvas{position:absolute;inset:0;width:100%;height:100%}
+.globe-cap{position:absolute;left:14px;right:14px;bottom:12px;display:flex;justify-content:space-between;align-items:center;font-size:10.5px;color:var(--text-3);pointer-events:none}
+.award-card,.report-card{position:relative;display:flex;align-items:center;gap:20px;padding:20px;border-radius:14px;background:var(--panel-2);border:1px solid var(--line-2)}
+.award-card b,.report-card b{display:block;font-size:17px;line-height:1.3;margin-bottom:6px}
+.award-card span:not(.ph-note){display:block;font-size:13.5px;color:var(--text-2)}
+.report-card .btn{margin-top:6px}
+.ph-note{position:absolute;right:12px;top:12px;font:500 10px/1 var(--mono);color:var(--text-3);letter-spacing:.08em;text-transform:uppercase}
+.seal{width:118px;height:118px;flex-shrink:0}
+.seal-spin{transform-origin:100px 100px;animation:spin 40s linear infinite}
+.cover{width:96px;aspect-ratio:3/4;flex-shrink:0;border-radius:6px;padding:10px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(160deg,#2A1A12,#120C09);border:1px solid var(--line-2);box-shadow:6px 6px 0 -1px var(--panel-2),6px 6px 0 0 var(--line-2);transition:transform .35s}
+.report-card:hover .cover{transform:rotate(-3deg) translateY(-3px)}
+.cover .mono{font-size:7px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.cover svg{width:100%;height:18px}
+.cover polyline{fill:none;stroke:var(--k7);stroke-width:1.4}
+.cover b{font-size:9.5px!important;line-height:1.15!important;margin:0!important;color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.stat{padding:16px;border-radius:12px;background:var(--panel-2);border:1px solid var(--line-2)}
+.stat b{display:block;font:800 28px/1.05 var(--sans);letter-spacing:-.02em}
+.stat b .n{font-variant-numeric:tabular-nums}
+.stat>span{display:block;font-size:13px;color:var(--text-2);margin-top:6px;line-height:1.35}
+
+/* ---------- testimonials ---------- */
+.tq-pb{display:flex;flex-direction:column;justify-content:space-between;height:calc(100% - 50px)}
+.tq-track{display:flex;transition:transform .55s cubic-bezier(.6,0,.2,1)}
+.tq-slide{flex:0 0 100%;padding-right:4px}
+.tq-slide p{font:700 clamp(19px,1.8vw,26px)/1.35 var(--sans);letter-spacing:-.015em;color:var(--text-2);max-width:42ch}
+.tq-slide footer{margin-top:16px;font:500 12px/1 var(--mono);color:var(--text-3);letter-spacing:.06em;text-transform:uppercase}
+.tq-ctrl{display:flex;align-items:center;gap:8px;margin-top:22px}
+.dots{display:flex;gap:6px;margin-left:auto}
+.dots i{width:7px;height:7px;border-radius:99px;background:var(--line-2);transition:width .3s,background .3s}
+.dots i.on{width:22px;background:var(--k7)}
+
+/* ---------- mssp ---------- */
+.duo>.panel-box{scroll-margin-top:calc(var(--top) + 16px)}
+.duo{align-items:stretch}
+.mssp{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:24px;padding:28px;background:linear-gradient(120deg,rgba(236,106,35,.22),rgba(236,106,35,.02) 60%),var(--panel)}
+.mssp p{color:var(--text-2);margin:10px 0 20px;max-width:56ch}
+.console{border:1px solid var(--line-2);border-radius:14px;background:var(--bg-2);overflow:hidden}
+.con-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+#tenants li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:13.5px;font-weight:700;transition:background .3s}
+#tenants li:last-child{border-bottom:0}
+#tenants li.on{background:rgba(236,106,35,.07)}
+#tenants .bar{display:block;width:min(100%,120px);margin-top:6px;height:4px;border-radius:9px;background:var(--panel-3);overflow:hidden}
+#tenants .bar i{display:block;height:100%;width:100%;background:var(--ok);border-radius:9px;transform-origin:left;animation:fillbar 2.4s ease-in-out infinite}
+@keyframes fillbar{0%{transform:scaleX(.15)}60%,100%{transform:scaleX(1)}}
+
+/* ---------- footer ---------- */
+.site-footer{border-top:1px solid var(--line);background:var(--bg-2);padding:48px var(--gut) 28px}
+.f-top{display:grid;grid-template-columns:1.2fr 3fr;gap:40px}
+.f-tag{font-weight:800;font-size:20px;letter-spacing:-.015em;margin-top:16px}
+.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 20px}
+.f-col h4{font:600 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--k7-2);margin-bottom:12px}
+.f-col a{display:block;padding:3px 0;font-size:13.5px;color:var(--text-2)}
+.f-col a:hover{color:#fff}
+.f-legal{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:center}
+.f-legal a{color:var(--text-2)}
+.f-legal a:hover{color:#fff}
+.social{display:flex;gap:8px}
+.social a{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line-2);color:var(--text-2);transition:color .2s,border-color .2s}
+.social a:hover{color:#fff;border-color:var(--k7)}
+.social svg{width:16px;height:16px}
+.f-col h4 a{display:inline;padding:0;font:inherit;color:inherit}
+.f-base{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;font:500 12px/1.4 var(--mono);color:var(--text-3)}
+
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--k7);transform-origin:left;transform:scaleX(0);z-index:70;pointer-events:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1320px){
+  .primary{display:none}
+  .menu-btn{display:inline-flex;align-items:center}
+  .top-row{justify-content:space-between}
+  }
+@media (max-width:1180px){
+  .hero-row{grid-template-columns:1fr}
+  .s8,.s4,.s7,.s5{grid-column:span 12}
+  .labs{grid-template-columns:1fr}
+  .mrow{grid-template-columns:minmax(150px,1.2fr) repeat(4,minmax(0,1fr)) 110px}
+}
+@media (max-width:980px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .rail{position:sticky;top:var(--top);z-index:30;height:auto;flex-direction:row;align-items:center;padding:8px var(--gut);border-right:0;border-bottom:1px solid var(--line);background:rgba(11,13,16,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+  .rail-end,.partner,.rail-line{display:none}
+  .rail{min-width:0}
+  .rail-nav{margin:0;flex:1;min-width:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+  .rail-nav::-webkit-scrollbar{display:none}
+  .rail-nav a{flex-shrink:0;padding:8px 12px;font-size:13px}
+  .rail-nav a::before{display:none}
+  .sec{scroll-margin-top:calc(var(--top) + 70px)}
+  .mods,.ops,.acc,.mssp{grid-template-columns:1fr}
+  .cov-tabs{grid-template-columns:1fr 1fr}
+  .cov-items{grid-template-columns:1fr 1fr}
+  .signals{grid-template-columns:repeat(3,1fr)}
+  .f-top{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+    .top-cta .btn{display:none}
+  .logo{height:32px}
+  .main{padding:14px 12px 40px}
+  .h2{font-size:clamp(30px,8.4vw,40px)}
+  .pb{padding:16px}
+  .hero-card{padding:22px 18px}
+  .hero-actions .btn{flex:1}
+  .kpis{gap:10px}
+  .kpi{padding:14px}
+  .bank.add ul{grid-template-columns:1fr}
+  .cov-items{grid-template-columns:1fr}
+  .svc{grid-template-columns:1fr}
+  .mhead{display:none!important}
+  .mrow{grid-template-columns:1fr auto;padding:4px 0}
+  .mrow>.cells{display:grid!important;grid-template-columns:1fr 1fr;grid-column:1/-1;gap:6px;padding:0 16px 12px}
+  .ind-kpis{flex-wrap:wrap}
+  .ind-kpis span{padding:8px 10px}
+  .cell{font-size:10px}
+  .mrow .cell{padding:6px 8px;border-radius:8px;background:var(--panel-2)}
+  .cell span{display:inline!important}
+  .signals{grid-template-columns:1fr 1fr}
+  .tier:nth-child(2),.tier:nth-child(3){margin-left:0}
+  .award-card,.report-card{flex-direction:column;align-items:flex-start}
+  .globe-card{min-height:280px}
+  .stats{grid-template-columns:1fr}
+  .mod-bar{flex-wrap:wrap}
+  .mod-bar .btn{width:100%}
+  .f-cols{grid-template-columns:1fr 1fr}
+  .f-base{flex-direction:column}
+    .ph .owner{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* rail: original full-height track; no scrollbar, and the list tightens on
+   shorter screens so it fits without scrolling (keeps dots on the line) */
+.rail-nav{scrollbar-width:none}
+@media (min-width:981px){.rail-nav{overflow:visible}}
+.rail-line{top:var(--lt,-17px);bottom:var(--lb,-15px)}
+.rail-nav a.on{box-shadow:inset 3px 0 0 var(--k7)}
+.rail-nav::-webkit-scrollbar{display:none}
+.cell i.dot,.mrow .cell{border-radius:0!important}
+@media (max-height:820px){.rail-nav a{padding-top:7px;padding-bottom:7px}.rail{padding-top:12px}}
+@media (max-height:700px){.rail-nav a{padding-top:5px;padding-bottom:5px;font-size:13.5px}}
+.rail-end{font-size:12.5px!important;font-weight:700!important;color:var(--k7-2)!important;letter-spacing:.16em!important}
+.rail-end i{border-color:var(--k7)!important}
+/*SHARED_CSS*/
+/* ===================== V2: square corners, angled buttons =====================
+   Square corners on panels and parts (no cuts).
+   Buttons: right side cut at the slant of the 7 in the K7 logo
+   (the 7's stroke drops 122 units for every 56 across, ~0.46 x height).
+   In a pair, only the primary button is cut. */
+:root{--cut:20px;--cut-s:9px}
+.panel-box,.panel-in,.matrix,.console,.own,.cov-detail,.labs-main,.globe-card,.award-card,.report-card,.partner,.mega-intro,.hub,.socn{border-radius:0}
+.node,.tier,.sig,.cov-tab,.cov-item,.sw,.mod-bar,.svc li,.ind-kpis span,.stat,.ev,.tile-link,.tile-grp,.grp-link,.cover{border-radius:0}
+.gi,.gi.xs{border-radius:0}
+.rail-nav a{border-radius:9px;corner-shape:bevel}
+.gi.lg{border-radius:0}
+.tag,.owner,.chip-link{border-radius:0}
+.orbit-hub{corner-shape:round}
+.btn{--h:46px;--slant:21px;height:var(--h);border-radius:0 0 var(--slant) 0/0 0 100% 0;corner-shape:bevel;padding:0 calc(22px + var(--slant)*.55) 0 22px}
+.btn-sm{--h:38px;--slant:17px;font-size:13.5px;padding:0 calc(16px + var(--slant)*.55) 0 16px}
+.menu-btn{border-radius:0 0 17px 0/0 0 100% 0;corner-shape:bevel;padding-right:24px}
+:has(> .btn ~ .btn) > .btn:not(.btn-k7){border-radius:0;padding:0 22px}
+:has(> .btn ~ .btn) > .btn-sm:not(.btn-k7){padding:0 16px}
+@supports not (corner-shape:bevel){
+  .btn{border-radius:0;clip-path:polygon(0 0,100% 0,calc(100% - var(--slant)) 100%,0 100%)}
+  :has(> .btn ~ .btn) > .btn:not(.btn-k7){clip-path:none}
+  .menu-btn{border-radius:0;clip-path:polygon(0 0,100% 0,calc(100% - 17px) 100%,0 100%)}
+}
+
+
+/* ===================== V3: glass =====================
+   A line pattern sits behind everything; panels are near-clear glass that
+   blurs it, with a bright top edge and a faint sheen. Inner cards are
+   hairline outlines on the glass (no stacked greys). "On" states use an
+   orange edge, never an orange-into-grey fill. */
+:root{
+  --bg:#06070A;
+  --panel:rgba(255,255,255,.03);
+  --panel-2:rgba(255,255,255,.035);
+  --panel-3:rgba(255,255,255,.08);
+  --bg-2:rgba(255,255,255,.02);
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.11);
+  --glass-blur:22px;
+}
+body{background:var(--bg)}
+body::before{display:none}
+/* pattern behind the glass: fine lines at the slant of the 7 in the K7 logo
+   (the 7's stroke rises ~65deg), with a sparser orange line every eighth step */
+.aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--bg);
+  background-image:
+    repeating-linear-gradient(115deg,rgba(236,106,35,.16) 0 1px,transparent 1px 128px),
+    repeating-linear-gradient(115deg,rgba(255,255,255,.055) 0 1px,transparent 1px 16px);
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,.55) 100%);mask-image:linear-gradient(180deg,#000 0%,#000 55%,rgba(0,0,0,.55) 100%)}
+
+/* glass surfaces */
+.panel-box,.rail,.topbar{backdrop-filter:blur(var(--glass-blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(150%)}
+.panel-box{isolation:isolate;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018) 40%,rgba(255,255,255,.012));border-color:rgba(255,255,255,.09);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 1px rgba(255,255,255,.015),0 24px 50px -30px rgba(0,0,0,.8)}
+.panel-box::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.07),rgba(255,255,255,0) 32%)}
+.hero-card,.mssp{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015) 45%,rgba(255,255,255,.01))}
+.ph{border-bottom-color:rgba(255,255,255,.07)}
+.topbar{background:rgba(6,7,10,.55);border-bottom-color:rgba(255,255,255,.07)}
+.rail{background:rgba(255,255,255,.018);border-right-color:rgba(255,255,255,.07)}
+.panel-in{background:rgba(14,16,20,.72);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%);border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 70px -30px rgba(0,0,0,.9)}
+.mobile-menu{background:rgba(8,9,12,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.site-footer{background:rgba(255,255,255,.015);border-top-color:rgba(255,255,255,.07)}
+.partner{background:rgba(255,255,255,.03)}
+.rail-nav a::before{background:#0c0e12}
+
+/* inner cards: hairlines on the glass */
+.tier,.sig,.cov-tab,.cov-item,.sw,.svc li,.ind-kpis span,.stat,.labs-main,.award-card,.report-card,.mod-bar,.own,.console,.cov-detail,.matrix,.mega-intro,.tile-link,.grp-link,.globe-card{background:rgba(255,255,255,.022);border-color:rgba(255,255,255,.085)}
+.cov-tab:hover,.sw:hover,.tier:hover,.svc li:hover{background:rgba(255,255,255,.045)}
+.mhead{background:rgba(255,255,255,.025)}
+.mrow{border-bottom-color:rgba(255,255,255,.06)}
+
+/* icon tiles: clear with an orange hairline, not brown squares */
+.gi{background:rgba(255,255,255,.04);border-color:rgba(236,106,35,.38)}
+.gi.mute,.sw .gi{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1)}
+
+/* "on" states: orange edge, no brown fills */
+.cov-tab.on{background:rgba(255,255,255,.06);border-color:var(--k7);box-shadow:inset 0 -2px 0 var(--k7)}
+.sw[aria-pressed="true"]{background:rgba(255,255,255,.055);border-color:rgba(236,106,35,.6)}
+.sw[aria-pressed="true"] .gi{background:rgba(255,255,255,.05);border-color:rgba(236,106,35,.45)}
+.own li.on,#tenants li.on,.mrow.on,.mrow:not(.mhead):hover{background:rgba(255,255,255,.045);box-shadow:inset 2px 0 0 var(--k7)}
+.own-f{background:rgba(255,255,255,.035);border-top:1px solid rgba(236,106,35,.35)}
+.cover{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border-color:rgba(255,255,255,.14)}
+.globe-card{background:radial-gradient(circle at 50% 45%,rgba(236,106,35,.08),transparent 60%),rgba(255,255,255,.02)}
+
+@media (max-width:980px){:root{--glass-blur:10px}}
+</style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="k7mark" viewBox="52 52 188 134"><polygon fill="#EC6A23" points="149.76 85.25 167.96 57.94 234.67 57.95 178.6 180.38 159.02 151.97 189.33 85.04 149.76 85.25"/><polygon fill="#fff" points="167.86 175.68 124.72 113.03 161.27 57.97 125.29 57.97 91.86 107.03 91.86 57.92 57.51 57.92 57.51 175.68 91.86 175.68 91.86 119.2 129.56 175.68 167.86 175.68"/></symbol>
+</svg>
+
+<header class="topbar" id="header">
+  <div class="top-row">
+    <a class="brand" href="#overview" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="149" height="38"></a>
+    <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
+    <div class="top-cta">
+      <a class="btn btn-k7 btn-sm" href="#">Request Trial</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden></div>
+</header>
+
+<div class="shell">
+  <aside class="rail" aria-label="Sections">
+    <div class="rail-end top"><i></i>Endpoint</div>
+    <nav class="rail-nav" id="railNav">
+      <span class="rail-line" aria-hidden="true"><span class="rail-fill" id="railFill"></span></span>
+      <a href="#overview"><i data-lucide="layout-dashboard"></i>Overview</a>
+      <a href="#platform"><i data-lucide="layers"></i>Platform</a>
+      <a href="#coverage"><i data-lucide="shield-check"></i>Coverage</a>
+      <a href="#modules"><i data-lucide="toggle-right"></i>Modules</a>
+      <a href="#operations"><i data-lucide="radar"></i>Operations</a>
+      <a href="#industries"><i data-lucide="building-2"></i>Industries</a>
+      <a href="#accountability"><i data-lucide="handshake"></i>Accountability</a>
+      <a href="#research"><i data-lucide="microscope"></i>Research</a>
+      <a href="#testimonials"><i data-lucide="message-square-quote"></i>Testimonials</a>
+      <a href="#mssp"><i data-lucide="network"></i>MSSPs</a>
+    </nav>
+    <div class="rail-end bot"><i></i>SOC</div>
+    <div class="partner">
+      <div class="partner-top"><div><p class="lockup sm" style="font-size:16px"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><span style="margin-top:6px">Your accountable partner</span></div></div>
+      <div class="duty"><span class="pulse"></span>On duty 24×7<span id="clock">--:--</span></div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+
+    <!-- ============ OVERVIEW (HERO) ============ -->
+    <section class="sec" id="overview" aria-labelledby="heroTitle" style="margin-top:0">
+      <div class="hero-row">
+        <div class="panel-box hero-card">
+          <div>
+            <p class="lockup"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p>
+            <h1 id="heroTitle">One Accountable Partner. <span class="o">Endpoint To SOC.</span></h1>
+            <p class="hero-sub">Unified Endpoint-To-SOC Security Platform</p>
+          </div>
+          <div class="hero-actions">
+            <a class="btn btn-k7" href="#platform">Explore Platform</a>
+            <a class="btn btn-line" href="#">Request Trial</a>
+          </div>
+        </div>
+        <div class="kpis">
+          <div class="panel-box kpi"><div class="kpi-top"><span class="gi"><i data-lucide="handshake"></i></span><span class="tag k7">Partner</span></div><div><b data-count="1">1</b><span>Single accountable partner</span></div></div>
+          <div class="panel-box kpi"><div class="kpi-top"><span class="gi"><i data-lucide="server"></i></span><span class="tag mute">Coverage</span></div><div><b data-count="6">6</b><span>Infrastructure types protected</span></div></div>
+          <div class="panel-box kpi"><div class="kpi-top"><span class="gi"><i data-lucide="toggle-right"></i></span><span class="tag mute">Modules</span></div><div><b data-count="11">11</b><span>Modules, one console</span></div></div>
+          <div class="panel-box kpi"><div class="kpi-top"><span class="gi"><i data-lucide="radar"></i></span><span class="tag ok">On duty</span></div><div><b>24×7</b><span>Threat Detection and Response</span></div></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ PLATFORM ============ -->
+    <section class="sec panel-box" id="platform" aria-labelledby="beyondTitle">
+      <div class="ph"><span class="ph-l"><i data-lucide="layers"></i>Platform</span></div>
+      <div class="pb">
+        <div class="grid">
+          <div class="s7">
+            <h2 class="h2" id="beyondTitle">Beyond The <span class="o">Obvious</span></h2>
+            <p class="lede" style="margin-top:14px">Cybersecurity is getting lost in a complex puzzle of technologies and reports, with too many tools and not enough qualified people.</p>
+            <p class="copy">K7 Seventh Sense is a Unified Endpoint-To-SOC Security Platform that was created to solve this puzzle. Our platform goes beyond the obvious to understand security by connecting intelligence across <strong>endpoints, identities, data, vulnerabilities,</strong> and <strong>behaviour,</strong> to help enterprises make cybersecurity simpler and trustable.</p>
+          </div>
+          <div class="s5">
+            <div class="tiers">
+              <div class="tier"><span class="gi lg"><i data-lucide="bot"></i></span><div><b>Agentic SOC</b><span>Simplified Cybersecurity</span></div><span class="lv">L3</span></div>
+              <div class="tier"><span class="gi lg"><i data-lucide="layers"></i></span><div><b>Platform</b><span>Where It All Lives</span></div><span class="lv">L2</span></div>
+              <div class="tier"><span class="gi lg"><i data-lucide="radar"></i></span><div><b>Sensor</b><span>Proprietary, Unified</span></div><span class="lv">L1</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="signals" id="signals"></div>
+      </div>
+    </section>
+
+    <!-- ============ COVERAGE ============ -->
+    <section class="sec panel-box" id="coverage" aria-label="Coverage">
+      <div class="ph"><span class="ph-l"><i data-lucide="shield-check"></i>Coverage</span></div>
+      <div class="pb">
+        <div class="cov-tabs" id="covTabs" role="tablist"></div>
+        <div class="cov-detail" id="covDetail" role="tabpanel"></div>
+      </div>
+    </section>
+
+    <!-- ============ MODULES ============ -->
+    <section class="sec panel-box" id="modules" aria-labelledby="modTitle">
+      <div class="ph"><span class="ph-l"><i data-lucide="toggle-right"></i>Modules</span></div>
+      <div class="pb">
+        <h2 class="h2" id="modTitle">Modular by <span class="o">Design</span></h2>
+        <p class="copy" style="margin-bottom:22px">Switch on capabilities as required, managed from the same console.</p>
+        <div class="mods" id="banks">
+          <div class="bank"><div class="bank-h"><span>Core</span><span class="gi xs"><i data-lucide="check"></i></span></div><ul id="coreBank"></ul></div>
+          <div class="bank add"><div class="bank-h"><span>Add-ons</span><span class="gi xs mute"><i data-lucide="plus"></i></span></div><ul id="addBank"></ul></div>
+        </div>
+        <div class="mod-bar">
+          <span class="cnt" id="modNum">4</span>
+          <p class="sel" id="modSel" aria-live="polite"></p>
+          <a class="btn btn-k7" id="modTrial" href="#">Request Trial with Selected</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OPERATIONS ============ -->
+    <section class="sec panel-box" id="operations" aria-labelledby="opsTitle">
+      <div class="ph"><span class="ph-l"><i data-lucide="radar"></i>Managed Security Services</span></div>
+      <div class="pb ops">
+        <div>
+          <h2 class="h2" id="opsTitle">One Platform. One Operator. <span class="o">Every Endpoint.</span></h2>
+          <p class="copy">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+          <div class="ring-wrap">
+            <svg class="ring" id="ring" viewBox="0 0 110 110" aria-hidden="true"><circle class="bg" cx="55" cy="55" r="45"/><circle class="fg" cx="55" cy="55" r="45" transform="rotate(-90 55 55)"/><g class="hand"><circle cx="55" cy="10" r="4" fill="#fff" stroke="none"/></g><text x="55" y="62">24×7</text></svg>
+            <p>One operator on duty around the clock, across every endpoint.</p>
+          </div>
+          <a class="btn btn-line" href="#">Learn More</a>
+        </div>
+        <ul class="svc" id="svc"></ul>
+      </div>
+    </section>
+
+    <!-- ============ INDUSTRIES ============ -->
+    <section class="sec panel-box" id="industries" aria-labelledby="indTitle">
+      <div class="ph"><span class="ph-l"><i data-lucide="building-2"></i>Industry Solutions</span></div>
+      <div class="pb">
+        <div class="ind-top">
+          <h2 class="h2" id="indTitle">Built For <span class="o">Your Industry</span></h2>
+          <div class="ind-kpis"><span><b>7</b>Industries</span><span><b>4</b>Capabilities</span><span><b>1</b>Platform</span></div>
+        </div>
+        <div class="matrix" role="table" aria-label="Capabilities by industry">
+          <div class="mrow mhead" role="row"><span role="columnheader">Industry</span><span role="columnheader" data-c="0">Infrastructure Protection</span><span role="columnheader" data-c="1">Sensitive Data</span><span role="columnheader" data-c="2">Patch Management</span><span role="columnheader" data-c="3">Integrated Compliance</span><span role="columnheader"><span class="vh">Link</span></span></div>
+          <div id="mBody"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ACCOUNTABILITY ============ -->
+    <section class="sec panel-box" id="accountability" aria-labelledby="accTitle">
+      <div class="ph"><span class="ph-l"><i data-lucide="handshake"></i>Why K7</span></div>
+      <div class="pb acc">
+        <div>
+          <h2 class="h2" id="accTitle">Security That <span class="o">Answers To You</span></h2>
+          <p class="lede" style="margin-top:14px">We believe trust must be earned through accountability.</p>
+          <p class="copy">Organisations do not just buy security technology; they entrust a partner with their data, operations, reputation, and business continuity.</p>
+          <p class="copy">We build cybersecurity around one responsibility: protecting our customers and being there when security matters most.</p>
+          <p class="copy">When you trust K7 CyberSecurity, you gain a <strong>single accountable partner</strong> focused on <strong>customer-centricity, trust, and accountability</strong>.</p>
+          <a class="btn btn-k7" href="#" style="margin-top:22px">Learn More</a>
+        </div>
+        <div class="own" id="own">
+          <div class="own-h"><span>What you entrust</span><span>Accountable</span></div>
+          <ul>
+            <li><span class="gi xs"><i data-lucide="database"></i></span><b>data</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+            <li><span class="gi xs"><i data-lucide="settings"></i></span><b>operations</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+            <li><span class="gi xs"><i data-lucide="star"></i></span><b>reputation</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+            <li><span class="gi xs"><i data-lucide="life-buoy"></i></span><b>business continuity</b><span class="owner solo"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg></span></li>
+          </ul>
+          <div class="own-f"><svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg><div><b>Single accountable partner</b><span>Customer-centricity, trust, and accountability</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESEARCH ============ -->
+    <section class="sec panel-box" id="research" aria-labelledby="resTitle">
+      <div class="ph"><span class="ph-l"><i data-lucide="microscope"></i>K7 Labs</span></div>
+      <div class="pb">
+        <h2 class="h2" id="resTitle" style="margin-bottom:20px">Globally Recognised <span class="o">Cyberthreat Research</span></h2>
+        <div class="labs">
+          <div class="labs-main">
+            <span class="gi lg"><i data-lucide="flask-conical"></i></span>
+            <p class="labs-copy">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
+            <div class="stats">
+              <div class="stat"><b><span class="n" data-count="30" data-suffix="+">30+</span> Years</b><span>Multi-decade expertise</span></div>
+              <div class="stat"><b>Millions of Devices</b><span>Extensive sources of telemetry</span></div>
+              <div class="stat"><b><span class="n" data-count="32">32</span> Countries</b><span>Geographically distributed threat intelligence</span></div>
+            </div>
+          </div>
+          <div class="globe-card">
+            <canvas id="globe" aria-label="Globe with 32 highlighted points representing geographically distributed threat intelligence" role="img"></canvas>
+            <div class="globe-cap"><span class="tag k7">32 Countries</span></div>
+          </div>
+          <div class="award-card">
+            <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringp" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+              <circle cx="100" cy="100" r="92" fill="none" stroke="#EC6A23" stroke-width="1.5"/><circle cx="100" cy="100" r="84" fill="none" stroke="#2F353F"/><circle cx="100" cy="100" r="56" fill="#1A1E24" stroke="#2F353F"/>
+              <g class="seal-spin"><text font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2.2" fill="#A3ABB6"><textPath href="#ringp">REAL TIME THREAT LIST · CONTRIBUTOR OF THE YEAR · </textPath></text></g>
+              <text x="100" y="98" text-anchor="middle" font-family="Manrope, sans-serif" font-weight="800" font-size="24" fill="#ECEEF1">AMTSO</text><text x="100" y="118" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="#FF8B47">K7 LABS</text></svg>
+            <div><b>Real Time Threat List Contributor of the Year</b><span>Anti-Malware Testing Standards Organization</span></div>
+          </div>
+          <div class="report-card">
+            <div class="cover" aria-hidden="true"><span class="mono">K7 Labs</span><svg viewBox="0 0 120 30" preserveAspectRatio="none"><polyline points="0,22 30,22 36,19 42,25 48,6 54,28 60,16 66,22 120,22"/></svg><b>K7 Cyber Threat Monitor Report</b></div>
+            <div><b>K7 Cyber Threat Monitor Report</b><a class="btn btn-line btn-sm" href="#">View Reports</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS ============ -->
+    <div class="grid sec duo">
+    <section class="panel-box s5" id="testimonials" aria-label="Customer testimonials">
+      <div class="ph"><span class="ph-l"><i data-lucide="message-square-quote"></i>Testimonials</span></div>
+      <div class="pb tq-pb" data-carousel data-prev="tqPrev" data-next="tqNext">
+        <div style="overflow:hidden"><div class="tq-track" id="tqTrack">
+          <blockquote class="tq-slide"><p>One platform from the endpoint to the SOC meant one team to call. When something happened, K7 was already on it.</p><footer>Chief Information Security Officer · Banking</footer></blockquote>
+          <blockquote class="tq-slide"><p>We switched on the modules we needed and nothing else. Compliance reporting went from a quarterly scramble to a standing report.</p><footer>Head of IT · Healthcare</footer></blockquote>
+          <blockquote class="tq-slide"><p>Round-the-clock monitoring across our plants and offices, with one accountable partner behind it. That is what we were missing.</p><footer>IT Security Lead · Manufacturing</footer></blockquote>
+        </div></div>
+        <div class="tq-ctrl"><button class="btn btn-line btn-sm" id="tqPrev" type="button">Previous</button><button class="btn btn-line btn-sm" id="tqNext" type="button">Next</button><div class="dots" id="tqDots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+      </div>
+    </section>
+
+    <!-- ============ MSSP ============ -->
+    <section class="panel-box mssp s7" id="mssp" aria-labelledby="msspTitle">
+      <div>
+        <span class="tag k7">Partners</span>
+        <h2 class="h2" id="msspTitle" style="margin-top:14px">K7 for <span class="o">MSSPs</span></h2>
+        <p>Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
+        <a class="btn btn-k7" href="#">Learn More</a>
+      </div>
+      <div class="console" aria-hidden="true">
+        <div class="con-h"><p class="lockup sm"><svg class="mark"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><span class="tag k7">MSSP console</span></div>
+        <ul id="tenants"></ul>
+      </div>
+    </section>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="f-top">
+    <div><a class="brand" href="#overview" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="180" height="46" style="height:46px"></a><p class="f-tag">Security That <span class="o">Answers To You</span></p></div>
+    <div class="f-cols" id="fCols"></div>
+  </div>
+  <div class="f-base"><div class="f-legal"><span>© 2026 K7 CyberSecurity</span><a href="#">Privacy Policy</a><a href="#">EULA</a></div><div class="social"><a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77zm-1.08 16.18h1.7L7.4 4.73H5.58z"/></svg></a><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a href="#" aria-label="YouTube"><i data-lucide="youtube"></i></a><a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a></div></div>
+</footer>
+
+
+<script>
+/* ===================== content ===================== */
+const NAV=[
+  {label:'Platform',mega:true,intro:{title:'K7 Seventh Sense',text:'Unified Endpoint-To-SOC Security Platform'},groups:[
+    {title:'Core',items:['K7 Seventh Sense MDR','K7 Seventh Sense XDR','K7 Seventh Sense EDR','K7 Seventh Sense EPP']},
+    {title:'Addons',items:['K7 Data Loss Protection','K7 Identity and Access Management','K7 Patch Management','K7 Advanced Endpoint Management','K7 Agentic SOC','K7 Log Retention','K7 File Security Monitoring']}]},
+  {label:'Solutions',mega:true,groups:[
+    {title:'Compliance Solutions',items:['ADHICS','CBUAE','DPDP']},
+    {title:'Industry Solutions',items:['BFSI','Education','Government','Healthcare','Manufacturing','Professional Services','Retail']},
+    {title:'Network Security Solutions',items:['K7 SD-WAN','K7 Next Generation Firewall','K7 VPN Concentrator','K7 Connect 500','K7 AAA']},
+    {title:'SMB',items:['K7 InfiniShield']},
+    {title:'File Security Solution',items:[]}]},
+  {label:'Services',mega:true,groups:[
+    {title:'Consulting Services',items:['K7 GRC','K7 vCISO','K7 Enterprise Risk Management','K7 Incident Response']},
+    {title:'Security Assessment Services',items:['K7 Cyber Defence Assessment','K7 Red Team Assessment','K7 VAPT']},
+    {title:'AI Security Services',items:['K7 AI Readiness Assessment','K7 AI Maturity Assessment']},
+    {title:'Managed Security Services',items:[]},
+    {title:'K7 ISAP',items:[]}]},
+  {label:'Partners',groups:[{items:['Integration Partners','Solution Partners','Distribution Partners']}]},
+  {label:'Resources',groups:[{items:['Insight','Research']},{title:'Media Room',items:['News','Press Releases','Events','Media Centre']}]},
+  {label:'Why K7',groups:[{title:'Competitor Comparison',items:['K7 vs CrowdStrike']},{items:['Certifications','Testimonials']}]},
+  {label:'About Us',groups:[{items:['About K7','Leadership','Careers','Contact Us']}]},
+  {label:'Support'}
+];
+const SRCS=[['Endpoints','laptop'],['Servers','server'],['Operational Technology','factory'],['Network','network'],['Mobile Devices','smartphone'],['Cloud','cloud']];
+const CAPS=[
+  {t:'Comprehensive Infrastructure Protection',i:'shield-check',d:'Prevention, detection, and response across your IT ecosystem.',items:SRCS},
+  {t:'Security for Sensitive Data',i:'lock-keyhole',d:'Complete control over where data lives and moves.',items:[['Data Loss Prevention','file-lock'],['Compliance-oriented Reporting','clipboard-list']]},
+  {t:'Multi-OS Patch Management',i:'bandage',d:'Close vulnerabilities before they can be exploited.',items:[['Vulnerability Identification','scan-search'],['Automated Patching','wrench']]},
+  {t:'Integrated Compliance',i:'badge-check',d:'With one platform, compliance is continuous, auditable, and mapped to frameworks that matter.',fw:['DPDP','PCI DSS','ISO 27001','GDPR','CBUAE','ADHICS']}
+];
+const CORE=[['EPP','shield'],['EDR','scan-eye'],['XDR','waypoints'],['MDR','users']];
+const ADDS=[['DLP','file-lock'],['IAM','key-round'],['Patch Management','bandage'],['Advanced Endpoint Management','laptop'],['Agentic SOC','bot'],['Log Retention','database'],['File Security Monitoring','file-search']];
+const OPS=[['24×7 Threat Detection and Response','radar'],['Exposure Management','scan-eye'],['Patch and Remediation Oversight','wrench'],['Data-risk and Privileged-access Context','key-round'],['Proactive Threat Hunting','crosshair'],['Security Posture Improvement','gauge'],['Ongoing Security Governance','scale'],['Digital Forensics and Incident Response','fingerprint']];
+const INDS=[['BFSI','landmark'],['Education','graduation-cap'],['Government','building-2'],['Healthcare','heart-pulse'],['Manufacturing','factory'],['IT/ITES','cpu'],['Retail','shopping-bag']];
+const SIGNALS=['endpoints','identities','data','vulnerabilities','behaviour'];
+const ACTIONS=['EPP · Malicious file blocked','EDR · Process isolated','XDR · Signals correlated','DLP · Data transfer stopped','IAM · Privileged access revoked','Patch · Vulnerability closed'];
+const NAVICON={'Integration Partners':'plug','Solution Partners':'handshake','Distribution Partners':'truck','Insight':'lightbulb','Research':'microscope','Certifications':'award','Testimonials':'message-square-quote','About K7':'building-2','Leadership':'users','Careers':'briefcase','Contact Us':'mail'};
+const $=(s,r=document)=>r.querySelector(s);
+const ic=n=>`<i data-lucide="${n}"></i>`;
+const MARK='<svg class="mark" aria-hidden="true"><use href="#k7mark"/></svg>';
+const OWNER='';
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- nav ---------- */
+(function(){
+  const list=$('#navList');
+  const links=a=>'<ul>'+a.map(i=>`<li><a href="#">${i}</a></li>`).join('')+'</ul>';
+  const groupHTML=g=>{
+    if(!g.title) return `<div class="grp">${links(g.items)}</div>`;
+    if(!g.items.length) return `<div class="grp solo"><a class="grp-link" href="#">${g.title}</a></div>`;
+    return `<div class="grp"><p class="grp-title">${g.title}</p>${links(g.items)}</div>`;
+  };
+  NAV.forEach((n,i)=>{
+    const li=document.createElement('li');li.className='nav-item';
+    if(!n.groups){li.innerHTML=`<a class="nav-link" href="#">${n.label}</a>`;list.appendChild(li);return;}
+    let inner;
+    if(n.mega){
+      const intro=n.intro?`<div class="mega-intro">${MARK.replace('class="mark"','class="mark" style="width:34px;height:25px"')}<a class="intro-title" href="#">${n.intro.title}</a><p>${n.intro.text}</p></div>`:'';
+      const full=n.groups.filter(g=>g.items.length),solo=n.groups.filter(g=>!g.items.length);
+      const cols=full.map(groupHTML);
+      if(solo.length){const last=cols.pop();cols.push(`<div class="stack">${last}${solo.map(groupHTML).join('')}</div>`);}
+      inner=`<div class="panel-in"><div class="mega${n.intro?' has-intro':''}">${intro}${cols.join('')}</div></div>`;
+    } else inner=`<div class="panel-in"><div class="rowmenu">${n.groups.map(g=>g.title?`<div class="tile-grp"><p class="grp-title">${g.title}</p><div class="chips">${g.items.map(x=>`<a class="chip-link" href="#">${x}</a>`).join('')}</div></div>`:g.items.map(x=>`<a class="tile-link" href="#"><span class="gi xs">${ic(NAVICON[x]||'circle')}</span>${x}</a>`).join('')).join('')}</div></div>`;
+    li.innerHTML=`<button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="np${i}">${n.label}</button><div class="panel" id="np${i}">${inner}</div>`;
+    list.appendChild(li);
+  });
+  const items=[...list.querySelectorAll('.nav-item')];
+  const closeAll=ex=>items.forEach(li=>{if(li!==ex){li.classList.remove('open');li.querySelector('.nav-trigger')?.setAttribute('aria-expanded','false');}});
+  const canHover=matchMedia('(hover:hover)').matches;
+  items.forEach(li=>{
+    const b=li.querySelector('.nav-trigger');if(!b)return;let t;
+    const open=()=>{clearTimeout(t);closeAll(li);li.classList.add('open');b.setAttribute('aria-expanded','true');};
+    const close=()=>{li.classList.remove('open');b.setAttribute('aria-expanded','false');};
+    b.addEventListener('click',()=>li.classList.contains('open')?close():open());
+    if(canHover){li.addEventListener('mouseenter',open);li.addEventListener('mouseleave',()=>{t=setTimeout(close,160)});}
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+  document.addEventListener('click',e=>{if(e.isTrusted&&!e.target.closest('.nav-item'))closeAll()});
+  const mm=$('#mobileMenu'),mb=$('#menuBtn');
+  mm.innerHTML='<div class="wrap">'+NAV.map(n=>{
+    if(!n.groups)return `<a class="mm-link" href="#">${n.label}</a>`;
+    const intro=n.intro?`<div class="grp"><a class="grp-link" href="#">${n.intro.title}</a></div>`:'';
+    return `<details class="mm-item"><summary>${n.label}</summary><div class="mm-body">${intro}${n.groups.map(groupHTML).join('')}</div></details>`;
+  }).join('')+'<a class="btn btn-k7" href="#">Request Trial</a></div>';
+  mb.addEventListener('click',()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';});
+  $('#fCols').innerHTML=NAV.map(n=>{
+    const l=[];if(n.intro)l.push(n.intro.title);
+    (n.groups||[]).forEach(g=>g.title?l.push(g.title):l.push(...g.items));
+    return `<div class="f-col"><h4>${n.groups?n.label:`<a href="#">${n.label}</a>`}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+  }).join('');
+})();
+
+/* ---------- rail: scroll-spy + endpoint-to-SOC progress ---------- */
+(function(){
+  const links=[...document.querySelectorAll('#railNav a')],secs=links.map(a=>$(a.getAttribute('href')));
+  const fill=$('#railFill'),main=$('#main');let cur=-1;
+  const upd=()=>{
+    const y=scrollY+innerHeight*.35;let k=0;secs.forEach((s,i)=>{if(s.offsetTop<=y)k=i;});
+    links.forEach((a,i)=>{a.classList.toggle('on',i===k);a.classList.toggle('done',i<k);});
+    if(k!==cur){cur=k;const nav=$('#railNav');if(nav.scrollWidth>nav.clientWidth+4){const l=links[k];nav.scrollTo({left:l.offsetLeft-nav.clientWidth/2+l.offsetWidth/2,behavior:reduce?'auto':'smooth'});}}
+    const top=main.offsetTop,h=main.offsetHeight-innerHeight;const p=Math.max(0,Math.min(1,(scrollY-top+innerHeight*.2)/Math.max(1,h)));
+    fill.style.height=(p*100)+'%';
+  };
+  const nav=$('#railNav'),ends=[...document.querySelectorAll('.rail-end i')];
+  const fit=()=>{if(matchMedia('(max-width:980px)').matches)return;const n=nav.getBoundingClientRect(),t=ends[0].getBoundingClientRect(),b=ends[1].getBoundingClientRect();
+    const z=parseFloat(getComputedStyle(document.documentElement).zoom)||1;const k=(n.height&&nav.offsetHeight)?nav.offsetHeight/n.height:1/z;
+    nav.style.setProperty('--lt',(t.top+t.height/2-n.top)*k+'px');nav.style.setProperty('--lb',(n.bottom-(b.top+b.height/2))*k+'px');};
+  fit();addEventListener('resize',fit);if(document.fonts)document.fonts.ready.then(fit);
+  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+  const c=$('#clock');const t=()=>c.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});t();setInterval(t,20000);
+})();
+
+/* ---------- platform signals ---------- */
+(function(){
+  const box=$('#signals');
+  box.innerHTML=SIGNALS.map(s=>`<div class="sig"><b>${s}</b><div class="spark">${'<i></i>'.repeat(14)}</div></div>`).join('');
+  const bars=[...box.querySelectorAll('.spark')];
+  const roll=()=>bars.forEach(b=>[...b.children].forEach(i=>i.style.height=(18+Math.random()*82)+'%'));
+  roll();if(!reduce)setInterval(roll,1800);
+})();
+
+/* ---------- coverage tabs ---------- */
+(function(){
+  const tabs=$('#covTabs'),det=$('#covDetail');
+  tabs.innerHTML=CAPS.map((c,k)=>`<button type="button" class="cov-tab" role="tab" data-k="${k}"><span class="gi">${ic(c.i)}</span>${c.t}</button>`).join('');
+  const bs=[...tabs.children];const canHover=matchMedia('(hover:hover)').matches;
+  const set=k=>{const c=CAPS[k];bs.forEach((b,j)=>{b.classList.toggle('on',j===k);b.setAttribute('aria-selected',j===k);});
+    const body=c.fw?c.fw.map(f=>`<div class="cov-item"><span class="gi xs">${ic('badge-check')}</span>${f}<span class="tag ok">Mapped</span></div>`).join('')
+      :c.items.map(([n,i])=>`<div class="cov-item"><span class="gi xs">${ic(i)}</span>${n}<span class="tag ok">Covered</span></div>`).join('');
+    det.innerHTML=`<div class="top"><div><h3>${c.t}</h3><p>${c.d}</p></div></div><div class="cov-items">${body}</div>`;
+    det.style.animation='none';void det.offsetWidth;det.style.animation='';
+    if(window.renderIcons)renderIcons(det);};
+  bs.forEach((b,k)=>{b.addEventListener('click',()=>set(k));if(canHover)b.addEventListener('mouseenter',()=>set(k));b.addEventListener('focus',()=>set(k));});
+  set(0);
+})();
+
+/* ---------- modules ---------- */
+(function(){
+  const on=new Set(['EPP','EDR','DLP','Agentic SOC']);
+  const sw=([n,i])=>`<li><button type="button" class="sw" aria-pressed="${on.has(n)}" data-m="${n}"><span class="gi xs">${ic(i)}</span>${n}<span class="tog" aria-hidden="true"></span></button></li>`;
+  $('#coreBank').innerHTML=CORE.map(sw).join('');$('#addBank').innerHTML=ADDS.map(sw).join('');
+  const order=[...CORE,...ADDS].map(x=>x[0]);
+  const upd=()=>{const sel=order.filter(m=>on.has(m));$('#modNum').textContent=sel.length;
+    $('#modSel').innerHTML=sel.length?`<b>Selected:</b> ${sel.join(', ')}`:'Switch on at least one module to request a trial.';
+    const t=$('#modTrial');t.setAttribute('aria-disabled',!sel.length);t.href='#request-trial?modules='+encodeURIComponent(sel.join(','));};
+  $('#banks').addEventListener('click',e=>{const b=e.target.closest('.sw');if(!b)return;const m=b.dataset.m,now=!on.has(m);now?on.add(m):on.delete(m);b.setAttribute('aria-pressed',now);upd();});
+  upd();
+})();
+
+/* ---------- operations, industries ---------- */
+$('#svc').innerHTML=OPS.map(([n,i])=>`<li><span class="gi">${ic(i)}</span><b>${n}</b>${OWNER}</li>`).join('');
+(function(){
+  const CAPS4=['Infrastructure Protection','Sensitive Data','Patch Management','Integrated Compliance'];
+  const body=$('#mBody'),heads=[...document.querySelectorAll('.mhead [data-c]')];
+  body.innerHTML=INDS.map(([n,i],k)=>`<div class="mrow" role="row" data-k="${k}"><span class="mname" role="cell"><span class="gi xs">${ic(i)}</span>${n}</span><div class="cells" style="display:contents">${CAPS4.map((c,j)=>`<span class="cell" role="cell" data-c="${j}"><i class="dot">${ic('check')}</i><span>${c}</span></span>`).join('')}</div><a class="lm" href="#" role="cell">Learn More</a></div>`).join('');
+  const rows=[...body.children];let cur=0,hold=false;
+  const set=(k,c)=>{rows.forEach((r,j)=>r.classList.toggle('on',j===k));
+    document.querySelectorAll('#mBody .cell').forEach(x=>x.classList.toggle('hl',c!==undefined&&+x.dataset.c===c&&+x.closest('.mrow').dataset.k===k));
+    heads.forEach(h=>h.classList.toggle('hl',c!==undefined&&+h.dataset.c===c));};
+  rows.forEach((r,k)=>{r.addEventListener('mouseenter',()=>{hold=true;set(k);});r.addEventListener('mouseleave',()=>hold=false);
+    r.querySelectorAll('.cell').forEach(c=>c.addEventListener('mouseenter',()=>set(k,+c.dataset.c)));});
+  let c=0;set(0,0);
+  if(!reduce)setInterval(()=>{if(hold||document.hidden)return;c++;if(c>3){c=0;cur=(cur+1)%rows.length;}set(cur,c);},900);
+})();
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){$('#ring').classList.add('go');o.disconnect();}}),{threshold:.5}).observe($('#ring'));
+
+/* ---------- accountability: highlight rows in turn ---------- */
+(function(){
+  const rows=[...document.querySelectorAll('#own li')];let k=0;
+  const step=()=>{rows.forEach((r,j)=>r.classList.toggle('on',j===k%rows.length));k++;};step();
+  if(!reduce)setInterval(step,1600);
+})();
+
+/* ---------- K7 Labs globe ---------- */
+(function(){
+  const card=document.querySelector('.globe-card'),cv=$('#globe'),ctx=cv.getContext('2d');
+  const pts=[],N=900,ga=Math.PI*(3-Math.sqrt(5));
+  for(let i=0;i<N;i++){const y=1-(i/(N-1))*2,r=Math.sqrt(1-y*y),t=ga*i;pts.push([Math.cos(t)*r,y,Math.sin(t)*r]);}
+  let sd=7;const rnd=()=>{sd=(sd*16807)%2147483647;return sd/2147483647;};
+  const hot=[];for(let i=0;i<32;i++){const lat=(rnd()*1.7-.85)*.9,lon=rnd()*Math.PI*2;hot.push([Math.cos(lat)*Math.cos(lon),Math.sin(lat),Math.cos(lat)*Math.sin(lon),rnd()*6]);}
+  let W,H,R,rot=0,tilt=-.35,vel=.0025,drag=null;
+  const size=()=>{const d=Math.min(devicePixelRatio||1,2);W=card.clientWidth;H=card.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);R=Math.min(W,H)*.38;};
+  const proj=([x,y,z])=>{const c=Math.cos(rot),s=Math.sin(rot);let X=x*c-z*s,Z=x*s+z*c;const ct=Math.cos(tilt),st=Math.sin(tilt);const Y=y*ct-Z*st;Z=y*st+Z*ct;return [W/2+X*R,H/2-12-Y*R,Z];};
+  function draw(t){ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='rgba(255,255,255,.06)';ctx.beginPath();ctx.arc(W/2,H/2-12,R,0,7);ctx.stroke();
+    for(const p of pts){const [x,y,z]=proj(p);if(z<-.05)continue;ctx.fillStyle=`rgba(163,171,182,${.12+z*.4})`;ctx.fillRect(x-.8,y-.8,1.6,1.6);}
+    for(const h of hot){const [x,y,z]=proj(h);if(z<0)continue;const pu=(Math.sin(t/500+h[3])+1)/2;
+      ctx.fillStyle=`rgba(236,106,35,${.5+z*.5})`;ctx.beginPath();ctx.arc(x,y,2.4+z,0,7);ctx.fill();
+      ctx.strokeStyle=`rgba(236,106,35,${(1-pu)*.5*z})`;ctx.beginPath();ctx.arc(x,y,3+pu*9,0,7);ctx.stroke();}}
+  size();new ResizeObserver(size).observe(card);
+  card.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,r:rot,t:tilt};card.setPointerCapture(e.pointerId);});
+  card.addEventListener('pointermove',e=>{if(!drag)return;rot=drag.r+(e.clientX-drag.x)*.008;tilt=Math.max(-1.2,Math.min(1.2,drag.t+(e.clientY-drag.y)*.006));});
+  card.addEventListener('pointerup',()=>drag=null);card.addEventListener('pointercancel',()=>drag=null);
+  let vis=true;new IntersectionObserver(es=>es.forEach(e=>vis=e.isIntersecting)).observe(card);
+  if(reduce){draw(0);return;}
+  (function loop(t){if(vis){if(!drag)rot+=vel;draw(t);}requestAnimationFrame(loop);})(0);
+})();
+
+/* ---------- MSSP console ---------- */
+(function(){
+  const T=[['Enterprise customer','building-2'],['Bank','landmark'],['Hospital','heart-pulse'],['Factory','factory'],['Retail chain','shopping-bag']];
+  const ul=$('#tenants');ul.innerHTML=T.map(([n,i])=>`<li><span class="gi xs">${ic(i)}</span><span>${n}<span class="bar"><i style="animation-delay:${Math.random()*2}s"></i></span></span><span class="tag ok">Protected</span></li>`).join('')+`<li><span class="gi xs">${ic('user-check')}</span><span>vCISO services</span><span class="tag k7">Active</span></li>`;
+  const li=[...ul.children];let k=0;if(!reduce)setInterval(()=>{li.forEach((x,j)=>x.classList.toggle('on',j===k%li.length));k++;},1400);
+})();
+
+/* ---------- testimonials ---------- */
+(function(){
+  const tr=$('#tqTrack'),n=tr.children.length,dots=[...$('#tqDots').children];let i=0;
+  const go=k=>{i=(k+n)%n;tr.style.transform=`translateX(-${i*100}%)`;dots.forEach((d,j)=>d.classList.toggle('on',j===i));[...tr.children].forEach((c,j)=>c.setAttribute('aria-hidden',j!==i));};
+  $('#tqPrev').onclick=()=>go(i-1);$('#tqNext').onclick=()=>go(i+1);go(0);
+})();
+
+/*ICONS*/
+window.renderIcons=(root=document)=>root.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
+renderIcons();
+// pipeline + feed insert icons later too
+new MutationObserver(m=>m.forEach(r=>r.addedNodes.forEach(n=>{if(n.nodeType===1)renderIcons(n);}))).observe(document.body,{childList:true,subtree:true});
+</script>
+<script>
+window.REVEAL='.hero-card,.kpi,.grid>.panel-box,.sec.panel-box,.f-col';
+/*SHARED_JS*/
+</script>
+</body>
+</html>
