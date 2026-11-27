@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Endpoint-To-SOC Security Platform — K7 CyberSecurity</title>
+<meta name="description" content="K7 Seventh Sense: Unified Endpoint-To-SOC Security Platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0D0C;
+  --surface:#151412;
+  --surface-2:#1B1917;
+  --line:#2B2927;
+  --line-2:#3A3734;
+  --text:#F2EEE9;
+  --text-2:#A39C94;
+  --text-3:#6F6962;
+  --mark:#F55D1E;
+  --mark-2:#FF7A40;
+  --mark-tint:rgba(245,93,30,.1);
+  --ok:#5FB98E;
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --sans:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --gut:clamp(16px,4.4vw,112px);
+  --top:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--mark);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{padding-inline:var(--gut)}
+.mono{font:400 12px/1.4 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+
+/* page frame: visible grid borders at the gutters */
+.frame{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.frame::before,.frame::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.frame::before{left:calc(var(--gut) - 1px)}
+.frame::after{right:calc(var(--gut) - 1px)}
+
+/* crop marks + section coordinates */
+.sec{position:relative;border-bottom:1px solid var(--line)}
+.sec>.in{position:relative;margin-inline:var(--gut);padding:96px clamp(20px,3vw,56px)}
+.cm{position:absolute;width:15px;height:15px;pointer-events:none}
+.cm::before,.cm::after{content:"";position:absolute;background:var(--text-3)}
+.cm::before{left:7px;top:0;width:1px;height:15px}
+.cm::after{top:7px;left:0;height:1px;width:15px}
+.cm.tl{left:-8px;top:-8px}.cm.tr{right:-8px;top:-8px}.cm.bl{left:-8px;bottom:-8px}.cm.br{right:-8px;bottom:-8px}
+.coord{display:flex;align-items:center;gap:14px;margin-bottom:40px;font:400 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.coord b{font-weight:400;color:var(--mark)}
+.coord::after{content:"";flex:1;height:1px;background:var(--line)}
+.coord .r{order:2;color:var(--text-3)}
+
+/* type */
+.h2{font:400 clamp(34px,3.8vw,60px)/1.06 var(--serif);letter-spacing:-.02em;text-wrap:balance}
+.h2 em{font-style:italic;color:var(--mark)}
+.lede{font:400 clamp(20px,1.7vw,26px)/1.45 var(--serif);color:var(--text);letter-spacing:-.005em}
+.body{color:var(--text-2);max-width:64ch}
+.body strong{color:var(--text);font-weight:500}
+
+/* buttons: text only, square */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;font:500 15px/1 var(--sans);white-space:nowrap;border:1px solid transparent;transition:background .2s,border-color .2s,color .2s,translate .25s cubic-bezier(.3,.7,.3,1)}
+.btn-mark{background:var(--mark);color:#fff}
+.btn-mark:hover{background:var(--mark-2)}
+.btn-line{border-color:var(--line-2);color:var(--text)}
+.btn-line:hover{border-color:var(--text-2)}
+.btn-sm{height:40px;padding:0 18px;font-size:14px}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border:1px solid var(--line-2);font:400 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);white-space:nowrap}
+.tag.m{border-color:rgba(245,93,30,.45);color:var(--mark-2);background:var(--mark-tint)}
+.tag.ok{border-color:rgba(95,185,142,.35);color:var(--ok)}
+.ic{display:inline-grid;place-items:center;flex-shrink:0;width:34px;height:34px;border:1px solid var(--line);color:var(--text-2)}
+.ic svg{width:16px;height:16px}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:rgba(14,13,12,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-row{height:var(--top);display:flex;align-items:center;gap:24px;padding-inline:var(--gut)}
+.brand{display:flex;flex-shrink:0}
+.logo{display:block;height:36px;width:auto}
+.primary{flex:1;align-self:stretch;min-width:0}
+.nav-list{display:flex;height:100%;justify-content:center}
+.nav-item{display:flex}
+.nav-link{display:flex;align-items:center;height:100%;padding:0 12px;font-size:14.5px;color:var(--text-2);position:relative;white-space:nowrap;transition:color .2s}
+.nav-link:hover,.nav-item.open .nav-link{color:var(--text)}
+.nav-link::after{content:"";position:absolute;left:12px;right:12px;bottom:-1px;height:1px;background:var(--mark);transform:scaleX(0);transition:transform .2s}
+.nav-item.open .nav-link::after{transform:scaleX(1)}
+.panel{display:none;position:absolute;top:100%;left:var(--gut);right:var(--gut);z-index:40}
+.nav-item.open .panel{display:block;animation:drop .16s ease-out}
+@keyframes drop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.panel-in{background:var(--surface);border:1px solid var(--line);border-top:0;box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
+.mega{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;padding:30px 32px 34px}
+.mega.has-intro{grid-template-columns:1.2fr 1fr 1.4fr}
+.mega-intro{padding:22px;border:1px solid var(--line)}
+.intro-title{display:block;font:400 26px/1.1 var(--serif);margin:12px 0 6px}
+.mega-intro p{color:var(--text-2);font-size:14px}
+.grp-title,.grp-link{display:block;font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.grp-link{color:var(--text);padding:10px 12px;border:1px solid var(--line)}
+.grp-link:hover{border-color:var(--mark)}
+.grp li a{display:block;padding:5px 0;font-size:14.5px;color:var(--text-2)}
+.grp li a:hover{color:var(--text)}
+.stack>.grp+.grp{margin-top:10px}
+.stack>.grp:not(.solo)+.grp.solo{margin-top:22px}
+.rowmenu{display:flex;flex-wrap:wrap;gap:10px;padding:20px 22px}
+.tile-link{flex:1 1 200px;display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);font-size:15px;transition:border-color .2s}
+.tile-link:hover{border-color:var(--mark)}
+.tile-grp{flex:2 1 360px;padding:12px 14px;border:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-link{padding:7px 12px;border:1px solid var(--line);font-size:14px;color:var(--text-2)}
+.chip-link:hover{color:var(--text);border-color:var(--mark)}
+.top-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.menu-btn{display:none;height:40px;padding:0 16px;border:1px solid var(--line-2);font-weight:500;font-size:14px}
+.mobile-menu{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-bottom:1px solid var(--line);max-height:calc(100vh - var(--top));overflow:auto}
+.mobile-menu .in{padding:6px var(--gut) 24px}
+.mm-item,.mm-link{display:block;border-bottom:1px solid var(--line)}
+.mm-item summary,.mm-link{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font:400 22px/1.1 var(--serif);cursor:pointer}
+.mm-item summary::-webkit-details-marker{display:none}
+.mm-item summary::after{content:"+";font:400 16px var(--mono);color:var(--mark)}
+.mm-item[open] summary::after{content:"\2212"}
+.mm-body{padding-bottom:16px}
+.mm-body .grp{margin-bottom:14px}
+.mobile-menu .btn{width:100%;margin-top:20px}
+
+/* view switch */
+.viewbar{border-bottom:1px solid var(--line);background:var(--bg)}
+.viewbar .row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px var(--gut);flex-wrap:wrap}
+.viewbar .mono{color:var(--text-3)}
+.seg{display:inline-flex;border:1px solid var(--line-2)}
+.seg button{height:34px;padding:0 14px;font:400 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);transition:background .2s,color .2s}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--mark);color:#fff}
+
+/* ---------- hero: split ledger ---------- */
+.hero .in{padding:0}
+.split{display:grid;grid-template-columns:1.05fr 1fr;min-height:min(78vh,760px)}
+.split>*{padding:72px clamp(20px,3.4vw,64px)}
+.split>*+*{border-left:1px solid var(--line)}
+.promise{display:flex;flex-direction:column;justify-content:space-between;gap:48px}
+h1{font:400 clamp(54px,6.6vw,112px)/.98 var(--serif);letter-spacing:-.03em}
+h1 em{font-style:italic;color:var(--mark)}
+.hero-sub{font:400 clamp(18px,1.5vw,22px)/1.45 var(--sans);color:var(--text-2);margin-top:22px;max-width:26ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.sig-line{display:flex;align-items:flex-end;gap:16px;margin-top:20px}
+.sig-line span{flex:1;border-top:1px solid var(--line-2);padding-top:8px;font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.ledger-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.ledger-h .mono{color:var(--text-3)}
+.ledger-h .live{display:flex;align-items:center;gap:8px}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--mark);box-shadow:0 0 0 0 rgba(245,93,30,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 7px rgba(245,93,30,0)}100%{box-shadow:0 0 0 0 rgba(245,93,30,0)}}
+.ledger{border-top:1px solid var(--line)}
+.lrow{display:grid;grid-template-columns:48px 1fr auto;align-items:baseline;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);animation:fade .4s ease-out both}
+.lrow .n{font:400 12px/1 var(--mono);color:var(--text-3)}
+.lrow .k{font-size:15px;color:var(--text-2)}
+.lrow .v{font:400 clamp(18px,1.5vw,22px)/1.3 var(--serif);color:var(--mark);text-align:right}
+.lrow:hover .n{color:var(--mark)}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.ledger-f{margin-top:20px;font:400 12px/1.5 var(--mono);letter-spacing:.04em;color:var(--text-3)}
+
+/* ---------- clause lists (no icon cards) ---------- */
+.clauses{border-top:1px solid var(--line)}
+.clause{display:grid;grid-template-columns:72px minmax(0,1fr) minmax(0,1.2fr);gap:24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:start;cursor:default;transition:background .25s}
+.clause .n{font:400 13px/1.6 var(--mono);color:var(--text-3)}
+.clause h3{font:400 clamp(22px,1.9vw,28px)/1.2 var(--serif);letter-spacing:-.01em}
+.clause p{color:var(--text-2);margin-top:6px;font-size:15.5px}
+.deliv{display:flex;flex-wrap:wrap;gap:8px}
+.deliv li{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 12px;border:1px solid var(--line);font-size:14px;color:var(--text);transition:border-color .2s}
+.deliv li::before{content:"";width:6px;height:6px;background:var(--text-3);transition:background .2s}
+.clause:hover .n{color:var(--mark)}
+.clause:hover .deliv li{border-color:var(--line-2)}
+.clause:hover .deliv li::before{background:var(--mark)}
+
+/* platform */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,4vw,72px);align-items:start}
+.two .body{margin-top:18px}
+.signals{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.signals button{height:34px;padding:0 12px;border:1px solid var(--line);font:400 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);transition:all .2s}
+.signals button.on{border-color:var(--mark);color:var(--mark-2);background:var(--mark-tint)}
+.layers{border-top:1px solid var(--line)}
+.layer{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);position:relative}
+.layer .n{font:400 12px/1 var(--mono);color:var(--text-3)}
+.layer b{font:400 clamp(24px,2.2vw,34px)/1.1 var(--serif);font-weight:400;letter-spacing:-.015em}
+.layer span{color:var(--text-2);font-size:15px}
+.layer i{position:absolute;left:0;bottom:-1px;height:1px;width:0;background:var(--mark);transition:width .8s cubic-bezier(.3,.7,.2,1)}
+.layers.flow .layer i{width:100%}
+.layers.flow .layer:nth-child(1) i{transition-delay:.0s}
+.layers.flow .layer:nth-child(2) i{transition-delay:.25s}
+.layers.flow .layer:nth-child(3) i{transition-delay:.5s}
+.flowcap{margin-top:14px;font:400 12px/1.5 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--text-3)}
+.flowcap b{color:var(--mark-2);font-weight:400}
+
+/* configurator */
+.cfg{display:grid;grid-template-columns:1.2fr .8fr;border:1px solid var(--line)}
+.cfg>*{padding:28px}
+.cfg>*+*{border-left:1px solid var(--line);background:var(--surface)}
+.cfg h4{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin:0 0 14px}
+.cfg h4:not(:first-child){margin-top:28px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 14px;border:1px solid var(--line-2);font-size:14.5px;color:var(--text-2);transition:all .2s}
+.opt .box{width:12px;height:12px;border:1px solid var(--text-3);transition:all .2s}
+.opt[aria-pressed="true"]{border-color:var(--mark);color:var(--text);background:var(--mark-tint)}
+.opt[aria-pressed="true"] .box{background:var(--mark);border-color:var(--mark)}
+.out-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+.out-h b{font:400 52px/1 var(--serif);color:var(--mark)}
+.out-h span{font:400 12px/1.4 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--text-3);text-align:right}
+.out li{display:grid;grid-template-columns:1fr auto;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.out li span:first-child{color:var(--text-2)}
+.out li span:last-child{color:var(--text);text-align:right}
+.out-cta{margin-top:24px}
+.out-cta .btn{width:100%}
+
+/* operations */
+.svc{border-top:1px solid var(--line);counter-reset:s}
+.svc li{display:grid;grid-template-columns:72px 1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);font-size:16.5px;transition:padding .25s}
+.svc li .n{font:400 12px/1 var(--mono);color:var(--text-3)}
+.svc li:hover{padding-left:10px}
+.svc li:hover .n{color:var(--mark)}
+.duty{display:flex;align-items:center;gap:10px;margin:24px 0 28px;font:400 13px/1 var(--mono);color:var(--text-2);letter-spacing:.04em}
+
+/* industries */
+.inds{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+.ind{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--line);transition:color .2s}
+.ind:nth-child(odd){padding-right:28px;border-right:1px solid var(--line)}
+.ind:nth-child(even){padding-left:28px}
+.ind .n{font:400 12px/1 var(--mono);color:var(--text-3)}
+.ind b{font:400 clamp(24px,2.3vw,34px)/1.1 var(--serif);font-weight:400;letter-spacing:-.015em}
+.ind .lm{font-size:14.5px;color:var(--text-2)}
+.ind:hover .n,.ind:hover .lm{color:var(--mark)}
+
+/* treaty */
+.treaty{border:1px solid var(--line);background:var(--surface)}
+.treaty-h{display:flex;justify-content:space-between;padding:14px 22px;border-bottom:1px solid var(--line)}
+.treaty-h .mono{color:var(--text-3)}
+.parties{display:grid;grid-template-columns:1fr 1fr}
+.parties>div{padding:22px}
+.parties>div+div{border-left:1px solid var(--line)}
+.parties h4{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.parties li{padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.parties li::first-letter{text-transform:uppercase}
+.parties li:last-child{border-bottom:0}
+.parties .k7 li{color:var(--text)}
+.signs{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding:26px 22px 22px;border-top:1px solid var(--line)}
+.signs div{position:relative;border-top:1px solid var(--line-2);padding-top:8px;font:400 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.signs svg{position:absolute;left:0;bottom:calc(100% + 4px);width:150px;height:44px}
+.signs path{fill:none;stroke:var(--mark);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s cubic-bezier(.6,0,.3,1)}
+.treaty.signed .signs path{stroke-dashoffset:0}
+.acc .lede{margin:20px 0 18px}
+.acc .body+.body{margin-top:14px}
+.acc .btn{margin-top:30px}
+
+/* research */
+.res-row{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:40px}
+.res-row>*{padding:24px 22px 24px 0}
+.res-row>*+*{padding-left:22px;border-left:1px solid var(--line)}
+.stat b{display:block;font:400 clamp(36px,3.4vw,56px)/1 var(--serif);letter-spacing:-.02em}
+.stat .u{font-size:.42em;color:var(--text-2)}
+.stat>span{display:block;color:var(--text-2);font-size:14.5px;margin-top:12px;line-height:1.4}
+.honours{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+.honours>*{padding:24px;display:flex;gap:20px;align-items:center}
+.honours>*+*{border-left:1px solid var(--line)}
+.honours b{display:block;font:400 22px/1.25 var(--serif)}
+.honours span{display:block;color:var(--text-2);font-size:14.5px;margin-top:6px}
+.honours .btn{margin-top:14px}
+.seal{width:92px;height:92px;flex-shrink:0}
+.seal-spin{transform-origin:100px 100px;animation:spin 50s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* testimonials */
+.tq-track{display:flex;transition:transform .55s cubic-bezier(.6,0,.2,1)}
+.tq-slide{flex:0 0 100%;padding-right:8px}
+.tq-slide p{font:400 clamp(26px,2.8vw,42px)/1.3 var(--serif);letter-spacing:-.015em;max-width:30ch}
+.tq-slide p::before{content:"\201C";color:var(--mark)}
+.tq-slide p::after{content:"\201D";color:var(--mark)}
+.tq-slide footer{margin-top:22px;font:400 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.tq-ctrl{display:flex;align-items:center;gap:10px;margin-top:32px}
+.tq-n{margin-left:auto;font:400 12px/1 var(--mono);color:var(--text-3)}
+
+/* triage */
+.triage{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line)}
+.routes{border-right:1px solid var(--line)}
+.route{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;width:100%;padding:16px 22px;border-bottom:1px solid var(--line);text-align:left;font-size:16px;transition:background .2s}
+.route:last-child{border-bottom:0}
+.route .n{font:400 12px/1 var(--mono);color:var(--text-3)}
+.route .box{width:12px;height:12px;border:1px solid var(--text-3);border-radius:50%}
+.route[aria-checked="true"]{background:var(--mark-tint)}
+.route[aria-checked="true"] .n{color:var(--mark)}
+.route[aria-checked="true"] .box{border:4px solid var(--mark)}
+.route-out{padding:28px;display:flex;flex-direction:column;justify-content:space-between;gap:28px;background:var(--surface)}
+.route-out h3{font:400 clamp(26px,2.2vw,34px)/1.15 var(--serif);letter-spacing:-.015em}
+.route-out ul{margin-top:18px}
+.route-out li{padding:10px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--text-2);display:flex;justify-content:space-between;gap:12px}
+.route-out li b{font-weight:400;color:var(--text)}
+
+/* mssp */
+.mssp .body{margin:18px 0 30px}
+.tenants{border-top:1px solid var(--line)}
+.tenants li{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);font-size:15.5px;transition:color .3s}
+.tenants li .n{font:400 12px/1 var(--mono);color:var(--text-3)}
+.tenants li.on .n{color:var(--mark)}
+
+/* footer */
+.site-footer .in{padding-top:64px;padding-bottom:28px}
+.f-top{display:grid;grid-template-columns:1.1fr 3fr;gap:48px}
+.f-tag{font:400 22px/1.3 var(--serif);margin-top:18px}
+.f-tag em{color:var(--mark)}
+.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px 24px}
+.f-col h4{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.f-col h4 a{display:inline;padding:0;font:inherit;color:inherit}
+.f-col a{display:block;padding:4px 0;font-size:14.5px;color:var(--text-2)}
+.f-col a:hover{color:var(--text)}
+.f-base{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.f-legal{display:flex;flex-wrap:wrap;gap:6px 22px;font:400 12px/1.4 var(--mono);letter-spacing:.04em;color:var(--text-3)}
+.f-legal a:hover{color:var(--text)}
+.social{display:flex;gap:8px}
+.social a{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);color:var(--text-2);transition:color .2s,border-color .2s}
+.social a:hover{color:var(--text);border-color:var(--mark)}
+.social svg{width:16px;height:16px}
+
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--mark);transform-origin:left;transform:scaleX(0);z-index:70;pointer-events:none}
+.v-arch{display:none}
+body.arch .v-exec{display:none}
+body.arch .v-arch{display:revert}
+
+/* ---------- responsive ---------- */
+@media (max-width:1240px){
+  .primary{display:none}
+  .menu-btn{display:inline-flex;align-items:center}
+  .top-row{justify-content:space-between}
+  .res-row{grid-template-columns:1fr 1fr}
+  .res-row>*:nth-child(3){border-left:0;padding-left:0}
+  .res-row>*:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:980px){
+  .sec>.in{padding:72px 20px}
+  .split,.two,.cfg,.triage,.f-top{grid-template-columns:1fr}
+  .split>*+*,.cfg>*+*{border-left:0;border-top:1px solid var(--line)}
+  .routes{border-right:0;border-bottom:1px solid var(--line)}
+  .split{min-height:0}
+  .split>*{padding:48px 20px}
+  .clause{grid-template-columns:56px 1fr}
+  .clause .deliv{grid-column:2}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .logo{height:30px}
+  .top-cta .btn{display:none}
+  .sec>.in{margin-inline:12px;padding:56px 14px}
+  .frame::before{left:11px}.frame::after{right:11px}
+  .split>*{padding:40px 14px}
+  .hero-actions .btn{flex:1}
+  .viewbar .mono,.seg .hs{display:none}
+  .seg{width:100%}
+  .seg button{flex:1;padding:0 8px;font-size:11px}
+  .lrow{grid-template-columns:36px 1fr;gap:4px 12px}
+  .lrow .v{grid-column:2;text-align:left}
+  .clause{grid-template-columns:1fr;gap:12px;padding:22px 0}
+  .clause .deliv{grid-column:auto}
+  .layer{grid-template-columns:44px 1fr}
+  .layer>span:not(.n){grid-column:2}
+  .inds{grid-template-columns:1fr}
+  .ind:nth-child(odd){padding-right:0;border-right:0}
+  .ind:nth-child(even){padding-left:0}
+  .cfg>*{padding:20px}
+  .parties{grid-template-columns:1fr}
+  .parties>div+div{border-left:0;border-top:1px solid var(--line)}
+  .signs{grid-template-columns:1fr;gap:44px}
+  .res-row{grid-template-columns:1fr}
+  .res-row>*,.res-row>*+*{padding:20px 0;border-left:0}
+  .res-row>*+*{border-top:1px solid var(--line)}
+  .honours{grid-template-columns:1fr}
+  .honours>*+*{border-left:0;border-top:1px solid var(--line)}
+  .honours>*{flex-direction:column;align-items:flex-start}
+  .route{padding:14px 16px;grid-template-columns:40px 1fr auto}
+  .route-out{padding:20px}
+  .f-cols{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/* ---------- interaction layer ---------- */
+.rv{opacity:0;translate:0 32px;transition:opacity .9s cubic-bezier(.2,.7,.2,1),translate .9s cubic-bezier(.2,.7,.2,1)!important}
+.rv.in{opacity:1;translate:0 0}
+[data-carousel]{touch-action:pan-y}
+/* wide screens: scale the whole page up instead of leaving empty sides */
+@media (min-width:1760px){html{zoom:1.1;--z:1.1}}
+@media (min-width:2100px){html{zoom:1.25;--z:1.25}}
+@media (min-width:2500px){html{zoom:1.45;--z:1.45}}
+@media (min-width:3200px){html{zoom:1.85;--z:1.85}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;translate:none}}
+
+</style>
+</head>
+<body>
+<div class="frame" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="top-row">
+    <a class="brand" href="#top" aria-label="K7 CyberSecurity home"><img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjUyIDUyIDUyOCAxMzQiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNlYzZhMjM7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODEuNjQsNzEuMDRjLTMuMjktMi4zNy03LjE5LTMuNTItMTEuNjMtMy41Mi05LjcxLDAtMTYuNjcsNi44OC0xNi42NywxNi40NCwwLDEwLjg2LDcuMTksMTcuOTcsMTguMiwxNy45NywzLjU5LDAsNi41OC0uNjEsMTEuMDktMi4zN2wxLjc2LDguMTFjLTMuMjEsMS40NS00LjUxLDEuOTEtNi44MSwyLjQ1LTIuNDUuNTQtNS4xMi44NC04LjExLjg0LTcuODgsMC0xMy41NC0xLjk5LTE4LjI4LTYuMjctNS4zNS00LjgyLTguNDktMTIuMzEtOC40OS0yMC4xOSwwLTcuMzQsMi43NS0xNCw3LjcyLTE4Ljg5LDUuMDUtNC45NywxMC43MS03LjA0LDE5LjA0LTcuMDQsNi40MiwwLDExLjQ3LDEuNTMsMTUuODMsNC44MmwtMy42Nyw3LjY1WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzEyLjIzLDg4LjMydjIxLjY1aC05LjY0di0yMS42NWwtMTUuMzctMjguODNoMTAuNTVsMTAuMSwxOS43MywxMC42My0xOS43M2gxMC41NWwtMTYuODMsMjguODNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNTYuMTIsMTA5Ljk2aC0yMC41N3YtNTAuNDhoMTguMjhjNi41OCwwLDkuODcuODQsMTIuNjIsMy4zNywyLjQ1LDIuMTQsMy45OCw1Ljc0LDMuOTgsOS4wMiwwLDIuODMtMS4wNyw1LjgxLTIuOTEsNy45NS0yLjIyLDIuNTItNC4yOCwzLjQ0LTguMjYsMy42Nyw3LjY1LjE1LDEyLjQ3LDUuMTMsMTIuNDcsMTMsMCw4LjcyLTUuNTEsMTMuNDYtMTUuNiwxMy40NlpNMzUxLjkyLDY3LjEzaC02LjI3djEzaDUuNzRjNS40MywwLDguMzQtMi4yOSw4LjM0LTYuNTgsMC00LjA1LTIuOTEtNi40Mi03LjgtNi40MlpNMzUxLjkyLDg4LjMyaC02LjI3djEzLjkyaDYuMjdjMi45OCwwLDQuMzYtLjIzLDUuODEtLjkyLDIuMTQtMS4wNywzLjQ0LTMuMjksMy40NC01Ljg5LDAtNC41OS0zLjI5LTcuMTEtOS4yNS03LjExWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzgxLjIxLDEwOS45NnYtNTAuNDhoMzAuNzV2OC4xOWgtMjEuMTF2MTIuNDdoMTcuMjl2OC4xOGgtMTcuMjl2MTMuNDZoMjIuMXY4LjE4aC0zMS43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQ0OC40MywxMDkuOTZsLTExLjU1LTIwLjE5aC00LjgydjIwLjE5aC05LjY0di01MC40OGgxNi44M2M3LjM0LDAsMTAuNzEuOTIsMTMuNjksMy43NSwyLjc1LDIuNTIsNC4xMyw2LjE5LDQuMTMsMTAuOTQsMCwzLjktLjkyLDcuMDQtMi43NSw5LjQ4LTEuOTEsMi40NS0zLjY3LDMuNTItNy44OCw0LjY2bDEyLjU0LDIxLjY1aC0xMC41NVpNNDM4LjMzLDY3LjY3aC02LjI3djEzLjkyaDYuMjdjNi4xMiwwLDguOC0yLjE0LDguOC03LjE5cy0yLjUyLTYuNzMtOC44LTYuNzNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNzUuNiwxMzUuODZjLTUuMzUtMi4zNy05LjcxLTMuNi0xMy4wOC0zLjYtNC41MSwwLTcuNDIsMS44NC03LjQyLDQuNjcsMCwyLjE0LDEuMjIsMy40NCw0LjgyLDUuMzUsNy43Miw0LjEzLDEyLjc3LDcuMzQsMTUuMTQsOS43MSwyLjE0LDIuMTQsMy40NCw1LjUxLDMuNDQsOS4wMiwwLDkuMDMtNi41OCwxNC4zLTE3Ljc0LDE0LjMtMS41MywwLTMuMDYtLjA4LTQuNTEtLjMxLTMuNTktLjQ2LTUuMjgtMS4wNy0xMC41NS0zLjUyLS42OS0uMzEtMS44NC0uODQtMy4yOS0xLjUzbDQuMDUtOC44N2MzLjY3LDEuOTksNS4yLDIuNzUsNy4xOSwzLjUyLDIuNTIuOTIsNS4yOCwxLjQ1LDcuMjcsMS40NSw0LjQ0LDAsNy4zNC0xLjk5LDcuMzQtNS4wNSwwLTIuMTQtMS4xNS0zLjU5LTQuNDQtNS40M2wtNy44LTQuNDRjLTguOTUtNS4xMy0xMS43LTguNDktMTEuNy0xNCwwLTIuNTIuNzYtNS4xMiwxLjk5LTcuMDQuODQtMS4zLDIuMTQtMi42LDMuNzUtMy43NSwzLjY3LTIuNTIsNi44MS0zLjM2LDEyLjctMy4zNiwzLjM2LDAsNi4zNS4zOCw5LjQ4LDEuMywyLjQ1Ljc3LDMuODIsMS4zLDcuMTksMi45MWwtMy44Miw4LjY0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjg4LjUyLDE3NC4zM3YtNTAuNDhoMzAuNzV2OC4xOWgtMjEuMTF2MTIuNDdoMTcuMjl2OC4xOGgtMTcuMjl2MTMuNDZoMjIuMXY4LjE4aC0zMS43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM2My43LDEzNS40Yy0zLjI5LTIuMzctNy4xOS0zLjUyLTExLjYzLTMuNTItOS43MSwwLTE2LjY3LDYuODgtMTYuNjcsMTYuNDQsMCwxMC44Niw3LjE5LDE3Ljk3LDE4LjIsMTcuOTcsMy41OSwwLDYuNTgtLjYxLDExLjA5LTIuMzdsMS43Niw4LjExYy0zLjIxLDEuNDUtNC41MSwxLjkxLTYuODEsMi40NS0yLjQ1LjU0LTUuMTIuODQtOC4xMS44NC03Ljg4LDAtMTMuNTQtMS45OS0xOC4yOC02LjI3LTUuMzUtNC44Mi04LjQ5LTEyLjMxLTguNDktMjAuMTksMC03LjM0LDIuNzUtMTQsNy43Mi0xOC44OSw1LjA1LTQuOTcsMTAuNzEtNy4wNCwxOS4wNC03LjA0LDYuNDIsMCwxMS40NywxLjUzLDE1LjgzLDQuODJsLTMuNjcsNy42NVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQxMC4xMiwxNzEuNjZjLTMuNjcsMi41Mi03Ljk1LDMuNjctMTQuMjMsMy42N3MtMTAuNDgtMS4wNy0xNC4zLTMuNjdjLTUuMi0zLjYtNi44OC03LjgtNi44OC0xNy4wNnYtMzAuNzVoOS41NnYzMS4yOGMwLDcuNSwzLjksMTEuMjUsMTEuOTMsMTEuMjUsNy4zNCwwLDExLjI0LTMuOTgsMTEuMjQtMTEuMjV2LTMxLjI4aDkuNjR2MzAuNzVjMCw5LjI1LTEuNjgsMTMuMzgtNi45NiwxNy4wNloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQ1NS41NCwxNzQuMzNsLTExLjU1LTIwLjE5aC00LjgydjIwLjE5aC05LjY0di01MC40OGgxNi44M2M3LjM0LDAsMTAuNzEuOTIsMTMuNjksMy43NSwyLjc1LDIuNTIsNC4xMyw2LjE5LDQuMTMsMTAuOTQsMCwzLjktLjkyLDcuMDQtMi43NSw5LjQ4LTEuOTEsMi40NS0zLjY3LDMuNTItNy44OCw0LjY2bDEyLjU0LDIxLjY1aC0xMC41NVpNNDQ1LjQ1LDEzMi4wNGgtNi4yN3YxMy45Mmg2LjI3YzYuMTIsMCw4LjgtMi4xNCw4LjgtNy4xOXMtMi41Mi02LjczLTguOC02LjczWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDczLjk3LDE3NC4zM3YtNTAuNDhoOS42NHY1MC40OGgtOS42NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUxNS42NSwxMzIuMDR2NDIuMjloLTkuNjR2LTQyLjI5aC0xNS4xNHYtOC4xOWgzOS45MnY4LjE5aC0xNS4xNFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU1Ni42NCwxNTIuNjl2MjEuNjVoLTkuNjR2LTIxLjY1bC0xNS4zNy0yOC44M2gxMC41NWwxMC4xLDE5LjczLDEwLjYzLTE5LjczaDEwLjU1bC0xNi44MywyOC44M1oiLz4KICA8L2c+CiAgPGc+CiAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMTQ5Ljc2IDg1LjI1IDE2Ny45NiA1Ny45NCAyMzQuNjcgNTcuOTUgMTc4LjYgMTgwLjM4IDE1OS4wMiAxNTEuOTcgMTg5LjMzIDg1LjA0IDE0OS43NiA4NS4yNSIvPgogICAgPHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjE2Ny44NiAxNzUuNjggMTI0LjcyIDExMy4wMyAxNjEuMjcgNTcuOTcgMTI1LjI5IDU3Ljk3IDkxLjg2IDEwNy4wMyA5MS44NiA1Ny45MiA1Ny41MSA1Ny45MiA1Ny41MSAxNzUuNjggOTEuODYgMTc1LjY4IDkxLjg2IDExOS4yIDEyOS41NiAxNzUuNjggMTY3Ljg2IDE3NS42OCIvPgogIDwvZz4KPC9zdmc+" alt="K7 CyberSecurity" width="141" height="36"></a>
+    <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
+    <div class="top-cta">
+      <a class="btn btn-mark btn-sm" href="#">Request Trial</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden></div>
+</header>
+
+<div class="viewbar">
+  <div class="row">
+    <span class="mono">Reading as</span>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" data-v="exec" aria-pressed="true">Executive View<span class="hs"> · CISO / CIO</span></button>
+      <button type="button" data-v="arch" aria-pressed="false">Architecture View<span class="hs"> · CTO</span></button>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="sec hero" aria-labelledby="heroTitle">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span>
+    <div class="split">
+      <div class="promise">
+        <div>
+          <p class="coord"><b>SEC // 00</b>K7 Seventh Sense</p>
+          <h1 id="heroTitle">K7 <em>Seventh Sense</em></h1>
+          <p class="hero-sub">Unified Endpoint-To-SOC Security Platform</p>
+        </div>
+        <div>
+          <div class="hero-actions">
+            <a class="btn btn-mark" href="#platform">Explore Platform</a>
+            <a class="btn btn-line" href="#">Request Trial</a>
+          </div>
+          <div class="sig-line"><span>Security That Answers To You</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="ledger-h"><span class="mono" id="ledgerTitle">Accountability Ledger</span><span class="mono live"><span class="pulse"></span><span id="clock">--:--</span></span></div>
+        <ol class="ledger" id="ledger"></ol>
+        <p class="ledger-f mono" id="ledgerNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 PLATFORM ============ -->
+<section class="sec" id="platform" aria-labelledby="beyondTitle">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 01</b>Platform<span class="r">01 / 10</span></p>
+    <div class="two">
+      <div>
+        <h2 class="h2" id="beyondTitle">Beyond The <em>Obvious</em></h2>
+        <p class="lede" style="margin-top:22px">Cybersecurity is getting lost in a complex puzzle of technologies and reports, with too many tools and not enough qualified people.</p>
+        <p class="body">K7 Seventh Sense is a Unified Endpoint-To-SOC Security Platform that was created to solve this puzzle. Our platform goes beyond the obvious to understand security by connecting intelligence across <strong>endpoints, identities, data, vulnerabilities,</strong> and <strong>behaviour,</strong> to help enterprises make cybersecurity simpler and trustable.</p>
+        <div class="signals" id="signals"></div>
+      </div>
+      <div>
+        <div class="layers" id="layers">
+          <div class="layer"><span class="n">L1</span><b>Sensor</b><span>Proprietary, Unified</span><i></i></div>
+          <div class="layer"><span class="n">L2</span><b>Platform</b><span>Where It All Lives</span><i></i></div>
+          <div class="layer"><span class="n">L3</span><b>Agentic SOC</b><span>Simplified Cybersecurity</span><i></i></div>
+        </div>
+        <p class="flowcap" id="flowcap"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 COVERAGE ============ -->
+<section class="sec" id="coverage" aria-label="Coverage">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 02</b>Coverage<span class="r">02 / 10</span></p>
+    <div class="clauses" id="clauses"></div>
+  </div>
+</section>
+
+<!-- ============ 03 MODULES ============ -->
+<section class="sec" id="modules" aria-labelledby="modTitle">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 03</b>Modules<span class="r">03 / 10</span></p>
+    <div class="two" style="margin-bottom:40px">
+      <h2 class="h2" id="modTitle">Modular by <em>Design</em></h2>
+      <p class="lede">Switch on capabilities as required, managed from the same console.</p>
+    </div>
+    <div class="cfg">
+      <div>
+        <h4>Your environment</h4><div class="opts" id="optEnv"></div>
+        <h4>Core</h4><div class="opts" id="optCore"></div>
+        <h4>Add-ons</h4><div class="opts" id="optAdd"></div>
+      </div>
+      <div>
+        <div class="out-h"><b id="outN">0</b><span>Modules<br>one console</span></div>
+        <ul class="out" id="out"></ul>
+        <div class="out-cta"><a class="btn btn-mark" id="modTrial" href="#">Request Trial with Selected</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 OPERATIONS ============ -->
+<section class="sec" id="operations" aria-labelledby="opsTitle">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 04</b>Managed Security Services<span class="r">04 / 10</span></p>
+    <div class="two">
+      <div>
+        <h2 class="h2" id="opsTitle">One Platform. One Operator. <em>Every Endpoint.</em></h2>
+        <p class="body" style="margin-top:22px">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+        <p class="duty"><span class="pulse"></span>On duty 24×7</p>
+        <a class="btn btn-line" href="#">Learn More</a>
+      </div>
+      <ol class="svc" id="svc"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 INDUSTRIES ============ -->
+<section class="sec" id="industries" aria-labelledby="indTitle">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 05</b>Industry Solutions<span class="r">05 / 10</span></p>
+    <h2 class="h2" id="indTitle" style="margin-bottom:40px">Built For <em>Your Industry</em></h2>
+    <div class="inds" id="inds"></div>
+  </div>
+</section>
+
+<!-- ============ 06 ACCOUNTABILITY ============ -->
+<section class="sec" id="accountability" aria-labelledby="accTitle">
+  <div class="in acc">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 06</b>Why K7<span class="r">06 / 10</span></p>
+    <div class="two">
+      <div>
+        <h2 class="h2" id="accTitle">Security That <em>Answers To You</em></h2>
+        <p class="lede">We believe trust must be earned through accountability.</p>
+        <p class="body">Organisations do not just buy security technology; they entrust a partner with their data, operations, reputation, and business continuity.</p>
+        <p class="body">We build cybersecurity around one responsibility: protecting our customers and being there when security matters most.</p>
+        <p class="body">When you trust K7 CyberSecurity, you gain a <strong>single accountable partner</strong> focused on <strong>customer-centricity, trust, and accountability</strong>.</p>
+        <a class="btn btn-mark" href="#">Learn More</a>
+      </div>
+      <div class="treaty" id="treaty">
+        <div class="treaty-h"><span class="mono">Single accountable partner</span><span class="mono">K7 CyberSecurity</span></div>
+        <div class="parties">
+          <div><h4>You entrust</h4><ul><li>data</li><li>operations</li><li>reputation</li><li>business continuity</li></ul></div>
+          <div class="k7"><h4>K7 answers for</h4><ul><li>protecting our customers</li><li>being there when security matters most</li><li>customer-centricity</li><li>trust and accountability</li></ul></div>
+        </div>
+        <div class="signs">
+          <div><svg viewBox="0 0 150 44" aria-hidden="true"><path pathLength="1" d="M4 34 C14 10, 26 8, 28 26 S 36 42, 46 24 S 62 6, 70 26 C 76 36, 86 34, 94 22 S 110 14, 118 28 C 122 34, 134 32, 146 20"/></svg>Customer</div>
+          <div><svg viewBox="0 0 150 44" aria-hidden="true"><path pathLength="1" d="M4 30 C10 12, 20 10, 24 28 S 34 40, 40 20 L 52 8 L 50 36 C 60 18, 70 14, 78 26 S 96 38, 104 18 C 112 10, 124 16, 128 28 S 140 30, 146 18"/></svg>K7 CyberSecurity</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 RESEARCH ============ -->
+<section class="sec" id="research" aria-labelledby="resTitle">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 07</b>K7 Labs<span class="r">07 / 10</span></p>
+    <h2 class="h2" id="resTitle" style="margin-bottom:40px">Globally Recognised <em>Cyberthreat Research</em></h2>
+    <div class="honours">
+      <div>
+        <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringp" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+          <circle cx="100" cy="100" r="92" fill="none" stroke="#F55D1E" stroke-width="1.5"/><circle cx="100" cy="100" r="84" fill="none" stroke="#2B2927"/><circle cx="100" cy="100" r="56" fill="#0E0D0C" stroke="#2B2927"/>
+          <g class="seal-spin"><text font-family="IBM Plex Mono, monospace" font-size="10" letter-spacing="2.2" fill="#A39C94"><textPath href="#ringp">REAL TIME THREAT LIST · CONTRIBUTOR OF THE YEAR · </textPath></text></g>
+          <text x="100" y="99" text-anchor="middle" font-family="Source Serif 4, Georgia, serif" font-size="25" fill="#F2EEE9">AMTSO</text><text x="100" y="118" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="2" fill="#F55D1E">K7 LABS</text></svg>
+        <div><b>Real Time Threat List Contributor of the Year</b><span>Anti-Malware Testing Standards Organization</span></div>
+      </div>
+      <div><div><b>K7 Cyber Threat Monitor Report</b><a class="btn btn-line btn-sm" href="#">View Reports</a></div></div>
+    </div>
+    <div class="res-row">
+      <p class="body" style="font-size:15.5px">K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
+      <div class="stat"><b><span data-count="30" data-suffix="+">30+</span> <span class="u">Years</span></b><span>Multi-decade expertise</span></div>
+      <div class="stat"><b>Millions <span class="u">of Devices</span></b><span>Extensive sources of telemetry</span></div>
+      <div class="stat"><b><span data-count="32">32</span> <span class="u">Countries</span></b><span>Geographically distributed threat intelligence</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 TESTIMONIALS ============ -->
+<section class="sec" id="testimonials" aria-label="Customer testimonials">
+  <div class="in" data-carousel data-prev="tqPrev" data-next="tqNext">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 08</b>Testimonials<span class="r">08 / 10</span></p>
+    <div style="overflow:hidden"><div class="tq-track" id="tqTrack">
+      <blockquote class="tq-slide"><p>One platform from the endpoint to the SOC meant one team to call. When something happened, K7 was already on it.</p><footer>Chief Information Security Officer · Banking</footer></blockquote>
+      <blockquote class="tq-slide"><p>We switched on the modules we needed and nothing else. Compliance reporting went from a quarterly scramble to a standing report.</p><footer>Head of IT · Healthcare</footer></blockquote>
+      <blockquote class="tq-slide"><p>Round-the-clock monitoring across our plants and offices, with one accountable partner behind it. That is what we were missing.</p><footer>IT Security Lead · Manufacturing</footer></blockquote>
+    </div></div>
+    <div class="tq-ctrl"><button class="btn btn-line btn-sm" id="tqPrev" type="button">Previous</button><button class="btn btn-line btn-sm" id="tqNext" type="button">Next</button><span class="tq-n" id="tqN">01 / 03</span></div>
+  </div>
+</section>
+
+<!-- ============ 09 PARTNERS ============ -->
+<section class="sec" id="mssp" aria-labelledby="msspTitle">
+  <div class="in mssp">
+    <span class="cm tl"></span><span class="cm tr"></span>
+    <p class="coord"><b>SEC // 09</b>Partners<span class="r">09 / 10</span></p>
+    <div class="two">
+      <div>
+        <h2 class="h2" id="msspTitle">K7 for <em>MSSPs</em></h2>
+        <p class="body">Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
+        <a class="btn btn-mark" href="#">Learn More</a>
+      </div>
+      <ol class="tenants" id="tenants"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 START ============ -->
+<section class="sec" id="start" aria-label="Where to start">
+  <div class="in">
+    <span class="cm tl"></span><span class="cm tr"></span><span class="cm bl"></span><span class="cm br"></span>
+    <p class="coord"><b>SEC // 10</b>Start<span class="r">10 / 10</span></p>
+    <div class="triage">
+      <div class="routes" id="routes" role="radiogroup" aria-label="Where to start"></div>
+      <div class="route-out" id="routeOut" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer sec">
+  <div class="in">
+    <div class="f-top">
+      <div><a class="brand" href="#top" aria-label="K7 CyberSecurity home"><img class="logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjUyIDUyIDUyOCAxMzQiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNlYzZhMjM7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODEuNjQsNzEuMDRjLTMuMjktMi4zNy03LjE5LTMuNTItMTEuNjMtMy41Mi05LjcxLDAtMTYuNjcsNi44OC0xNi42NywxNi40NCwwLDEwLjg2LDcuMTksMTcuOTcsMTguMiwxNy45NywzLjU5LDAsNi41OC0uNjEsMTEuMDktMi4zN2wxLjc2LDguMTFjLTMuMjEsMS40NS00LjUxLDEuOTEtNi44MSwyLjQ1LTIuNDUuNTQtNS4xMi44NC04LjExLjg0LTcuODgsMC0xMy41NC0xLjk5LTE4LjI4LTYuMjctNS4zNS00LjgyLTguNDktMTIuMzEtOC40OS0yMC4xOSwwLTcuMzQsMi43NS0xNCw3LjcyLTE4Ljg5LDUuMDUtNC45NywxMC43MS03LjA0LDE5LjA0LTcuMDQsNi40MiwwLDExLjQ3LDEuNTMsMTUuODMsNC44MmwtMy42Nyw3LjY1WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzEyLjIzLDg4LjMydjIxLjY1aC05LjY0di0yMS42NWwtMTUuMzctMjguODNoMTAuNTVsMTAuMSwxOS43MywxMC42My0xOS43M2gxMC41NWwtMTYuODMsMjguODNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNTYuMTIsMTA5Ljk2aC0yMC41N3YtNTAuNDhoMTguMjhjNi41OCwwLDkuODcuODQsMTIuNjIsMy4zNywyLjQ1LDIuMTQsMy45OCw1Ljc0LDMuOTgsOS4wMiwwLDIuODMtMS4wNyw1LjgxLTIuOTEsNy45NS0yLjIyLDIuNTItNC4yOCwzLjQ0LTguMjYsMy42Nyw3LjY1LjE1LDEyLjQ3LDUuMTMsMTIuNDcsMTMsMCw4LjcyLTUuNTEsMTMuNDYtMTUuNiwxMy40NlpNMzUxLjkyLDY3LjEzaC02LjI3djEzaDUuNzRjNS40MywwLDguMzQtMi4yOSw4LjM0LTYuNTgsMC00LjA1LTIuOTEtNi40Mi03LjgtNi40MlpNMzUxLjkyLDg4LjMyaC02LjI3djEzLjkyaDYuMjdjMi45OCwwLDQuMzYtLjIzLDUuODEtLjkyLDIuMTQtMS4wNywzLjQ0LTMuMjksMy40NC01Ljg5LDAtNC41OS0zLjI5LTcuMTEtOS4yNS03LjExWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzgxLjIxLDEwOS45NnYtNTAuNDhoMzAuNzV2OC4xOWgtMjEuMTF2MTIuNDdoMTcuMjl2OC4xOGgtMTcuMjl2MTMuNDZoMjIuMXY4LjE4aC0zMS43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQ0OC40MywxMDkuOTZsLTExLjU1LTIwLjE5aC00LjgydjIwLjE5aC05LjY0di01MC40OGgxNi44M2M3LjM0LDAsMTAuNzEuOTIsMTMuNjksMy43NSwyLjc1LDIuNTIsNC4xMyw2LjE5LDQuMTMsMTAuOTQsMCwzLjktLjkyLDcuMDQtMi43NSw5LjQ4LTEuOTEsMi40NS0zLjY3LDMuNTItNy44OCw0LjY2bDEyLjU0LDIxLjY1aC0xMC41NVpNNDM4LjMzLDY3LjY3aC02LjI3djEzLjkyaDYuMjdjNi4xMiwwLDguOC0yLjE0LDguOC03LjE5cy0yLjUyLTYuNzMtOC44LTYuNzNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNzUuNiwxMzUuODZjLTUuMzUtMi4zNy05LjcxLTMuNi0xMy4wOC0zLjYtNC41MSwwLTcuNDIsMS44NC03LjQyLDQuNjcsMCwyLjE0LDEuMjIsMy40NCw0LjgyLDUuMzUsNy43Miw0LjEzLDEyLjc3LDcuMzQsMTUuMTQsOS43MSwyLjE0LDIuMTQsMy40NCw1LjUxLDMuNDQsOS4wMiwwLDkuMDMtNi41OCwxNC4zLTE3Ljc0LDE0LjMtMS41MywwLTMuMDYtLjA4LTQuNTEtLjMxLTMuNTktLjQ2LTUuMjgtMS4wNy0xMC41NS0zLjUyLS42OS0uMzEtMS44NC0uODQtMy4yOS0xLjUzbDQuMDUtOC44N2MzLjY3LDEuOTksNS4yLDIuNzUsNy4xOSwzLjUyLDIuNTIuOTIsNS4yOCwxLjQ1LDcuMjcsMS40NSw0LjQ0LDAsNy4zNC0xLjk5LDcuMzQtNS4wNSwwLTIuMTQtMS4xNS0zLjU5LTQuNDQtNS40M2wtNy44LTQuNDRjLTguOTUtNS4xMy0xMS43LTguNDktMTEuNy0xNCwwLTIuNTIuNzYtNS4xMiwxLjk5LTcuMDQuODQtMS4zLDIuMTQtMi42LDMuNzUtMy43NSwzLjY3LTIuNTIsNi44MS0zLjM2LDEyLjctMy4zNiwzLjM2LDAsNi4zNS4zOCw5LjQ4LDEuMywyLjQ1Ljc3LDMuODIsMS4zLDcuMTksMi45MWwtMy44Miw4LjY0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjg4LjUyLDE3NC4zM3YtNTAuNDhoMzAuNzV2OC4xOWgtMjEuMTF2MTIuNDdoMTcuMjl2OC4xOGgtMTcuMjl2MTMuNDZoMjIuMXY4LjE4aC0zMS43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM2My43LDEzNS40Yy0zLjI5LTIuMzctNy4xOS0zLjUyLTExLjYzLTMuNTItOS43MSwwLTE2LjY3LDYuODgtMTYuNjcsMTYuNDQsMCwxMC44Niw3LjE5LDE3Ljk3LDE4LjIsMTcuOTcsMy41OSwwLDYuNTgtLjYxLDExLjA5LTIuMzdsMS43Niw4LjExYy0zLjIxLDEuNDUtNC41MSwxLjkxLTYuODEsMi40NS0yLjQ1LjU0LTUuMTIuODQtOC4xMS44NC03Ljg4LDAtMTMuNTQtMS45OS0xOC4yOC02LjI3LTUuMzUtNC44Mi04LjQ5LTEyLjMxLTguNDktMjAuMTksMC03LjM0LDIuNzUtMTQsNy43Mi0xOC44OSw1LjA1LTQuOTcsMTAuNzEtNy4wNCwxOS4wNC03LjA0LDYuNDIsMCwxMS40NywxLjUzLDE1LjgzLDQuODJsLTMuNjcsNy42NVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQxMC4xMiwxNzEuNjZjLTMuNjcsMi41Mi03Ljk1LDMuNjctMTQuMjMsMy42N3MtMTAuNDgtMS4wNy0xNC4zLTMuNjdjLTUuMi0zLjYtNi44OC03LjgtNi44OC0xNy4wNnYtMzAuNzVoOS41NnYzMS4yOGMwLDcuNSwzLjksMTEuMjUsMTEuOTMsMTEuMjUsNy4zNCwwLDExLjI0LTMuOTgsMTEuMjQtMTEuMjV2LTMxLjI4aDkuNjR2MzAuNzVjMCw5LjI1LTEuNjgsMTMuMzgtNi45NiwxNy4wNloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQ1NS41NCwxNzQuMzNsLTExLjU1LTIwLjE5aC00LjgydjIwLjE5aC05LjY0di01MC40OGgxNi44M2M3LjM0LDAsMTAuNzEuOTIsMTMuNjksMy43NSwyLjc1LDIuNTIsNC4xMyw2LjE5LDQuMTMsMTAuOTQsMCwzLjktLjkyLDcuMDQtMi43NSw5LjQ4LTEuOTEsMi40NS0zLjY3LDMuNTItNy44OCw0LjY2bDEyLjU0LDIxLjY1aC0xMC41NVpNNDQ1LjQ1LDEzMi4wNGgtNi4yN3YxMy45Mmg2LjI3YzYuMTIsMCw4LjgtMi4xNCw4LjgtNy4xOXMtMi41Mi02LjczLTguOC02LjczWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDczLjk3LDE3NC4zM3YtNTAuNDhoOS42NHY1MC40OGgtOS42NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUxNS42NSwxMzIuMDR2NDIuMjloLTkuNjR2LTQyLjI5aC0xNS4xNHYtOC4xOWgzOS45MnY4LjE5aC0xNS4xNFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU1Ni42NCwxNTIuNjl2MjEuNjVoLTkuNjR2LTIxLjY1bC0xNS4zNy0yOC44M2gxMC41NWwxMC4xLDE5LjczLDEwLjYzLTE5LjczaDEwLjU1bC0xNi44MywyOC44M1oiLz4KICA8L2c+CiAgPGc+CiAgICA8cG9seWdvbiBjbGFzcz0iY2xzLTEiIHBvaW50cz0iMTQ5Ljc2IDg1LjI1IDE2Ny45NiA1Ny45NCAyMzQuNjcgNTcuOTUgMTc4LjYgMTgwLjM4IDE1OS4wMiAxNTEuOTcgMTg5LjMzIDg1LjA0IDE0OS43NiA4NS4yNSIvPgogICAgPHBvbHlnb24gY2xhc3M9ImNscy0yIiBwb2ludHM9IjE2Ny44NiAxNzUuNjggMTI0LjcyIDExMy4wMyAxNjEuMjcgNTcuOTcgMTI1LjI5IDU3Ljk3IDkxLjg2IDEwNy4wMyA5MS44NiA1Ny45MiA1Ny41MSA1Ny45MiA1Ny41MSAxNzUuNjggOTEuODYgMTc1LjY4IDkxLjg2IDExOS4yIDEyOS41NiAxNzUuNjggMTY3Ljg2IDE3NS42OCIvPgogIDwvZz4KPC9zdmc+" alt="K7 CyberSecurity" width="180" height="46" style="height:46px"></a><p class="f-tag">Security That <em>Answers To You</em></p></div>
+      <div class="f-cols" id="fCols"></div>
+    </div>
+    <div class="f-base">
+      <div class="f-legal"><span>© 2026 K7 CyberSecurity</span><a href="#">Privacy Policy</a><a href="#">EULA</a></div>
+      <div class="social"><a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77zm-1.08 16.18h1.7L7.4 4.73H5.58z"/></svg></a><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a href="#" aria-label="YouTube"><i data-lucide="youtube"></i></a><a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== content ===================== */
+const NAV=[
+  {label:'Platform',mega:true,intro:{title:'K7 Seventh Sense',text:'Unified Endpoint-To-SOC Security Platform'},groups:[
+    {title:'Core',items:['K7 Seventh Sense MDR','K7 Seventh Sense XDR','K7 Seventh Sense EDR','K7 Seventh Sense EPP']},
+    {title:'Addons',items:['K7 Data Loss Protection','K7 Identity and Access Management','K7 Patch Management','K7 Advanced Endpoint Management','K7 Agentic SOC','K7 Log Retention','K7 File Security Monitoring']}]},
+  {label:'Solutions',mega:true,groups:[
+    {title:'Compliance Solutions',items:['ADHICS','CBUAE','DPDP']},
+    {title:'Industry Solutions',items:['BFSI','Education','Government','Healthcare','Manufacturing','Professional Services','Retail']},
+    {title:'Network Security Solutions',items:['K7 SD-WAN','K7 Next Generation Firewall','K7 VPN Concentrator','K7 Connect 500','K7 AAA']},
+    {title:'SMB',items:['K7 InfiniShield']},
+    {title:'File Security Solution',items:[]}]},
+  {label:'Services',mega:true,groups:[
+    {title:'Consulting Services',items:['K7 GRC','K7 vCISO','K7 Enterprise Risk Management','K7 Incident Response']},
+    {title:'Security Assessment Services',items:['K7 Cyber Defence Assessment','K7 Red Team Assessment','K7 VAPT']},
+    {title:'AI Security Services',items:['K7 AI Readiness Assessment','K7 AI Maturity Assessment']},
+    {title:'Managed Security Services',items:[]},
+    {title:'K7 ISAP',items:[]}]},
+  {label:'Partners',groups:[{items:['Integration Partners','Solution Partners','Distribution Partners']}]},
+  {label:'Resources',groups:[{items:['Insight','Research']},{title:'Media Room',items:['News','Press Releases','Events','Media Centre']}]},
+  {label:'Why K7',groups:[{title:'Competitor Comparison',items:['K7 vs CrowdStrike']},{items:['Certifications','Testimonials']}]},
+  {label:'About Us',groups:[{items:['About K7','Leadership','Careers','Contact Us']}]},
+  {label:'Support'}
+];
+const NAVICON={'Integration Partners':'plug','Solution Partners':'handshake','Distribution Partners':'truck','Insight':'lightbulb','Research':'microscope','Certifications':'award','Testimonials':'message-square-quote','About K7':'building-2','Leadership':'users','Careers':'briefcase','Contact Us':'mail'};
+const SRCS=['Endpoints','Servers','Operational Technology','Network','Mobile Devices','Cloud'];
+const CLAUSES=[
+  {t:'Comprehensive Infrastructure Protection',d:'Prevention, detection, and response across your IT ecosystem.',items:SRCS},
+  {t:'Security for Sensitive Data',d:'Complete control over where data lives and moves.',items:['Data Loss Prevention','Compliance-oriented Reporting']},
+  {t:'Multi-OS Patch Management',d:'Close vulnerabilities before they can be exploited.',items:['Vulnerability Identification','Automated Patching']},
+  {t:'Integrated Compliance',d:'With one platform, compliance is continuous, auditable, and mapped to frameworks that matter.',items:['DPDP','PCI DSS','ISO 27001','GDPR','CBUAE','ADHICS']}
+];
+const CORE=['EPP','EDR','XDR','MDR'];
+const ADDS=['DLP','IAM','Patch Management','Advanced Endpoint Management','Agentic SOC','Log Retention','File Security Monitoring'];
+const OPS=['24×7 Threat Detection and Response','Exposure Management','Patch and Remediation Oversight','Data-risk and Privileged-access Context','Proactive Threat Hunting','Security Posture Improvement','Ongoing Security Governance','Digital Forensics and Incident Response'];
+const INDS=['BFSI','Education','Government','Healthcare','Manufacturing','IT/ITES','Retail'];
+const SIGNALS=['endpoints','identities','data','vulnerabilities','behaviour'];
+const LEDGER={
+  exec:{title:'Accountability Ledger',note:'Single accountable partner · Customer-centricity, trust, and accountability',rows:[
+    ['Partner','Single accountable partner'],['Operator','24×7 Threat Detection and Response'],['Coverage','Endpoint to SOC'],
+    ['Compliance','DPDP · PCI DSS · ISO 27001 · GDPR · CBUAE · ADHICS'],['Research','30+ years · 32 countries'],['Console','One console, modules as required']]},
+  arch:{title:'Architecture Ledger',note:'Connecting intelligence across endpoints, identities, data, vulnerabilities, and behaviour',rows:[
+    ['L1 · Sensor','Proprietary, Unified'],['L2 · Platform','Where It All Lives'],['L3 · Agentic SOC','Simplified Cybersecurity'],
+    ['Infrastructure','6 types · Endpoints to Cloud'],['Core','EPP · EDR · XDR · MDR'],['Add-ons','7 modules · one console']]}
+};
+const ROUTES=[
+  {t:'Evaluate the platform',for:'K7 Seventh Sense',items:[['Core','EPP · EDR · XDR · MDR'],['Add-ons','7 modules'],['Managed from','One console']],cta:'Request Trial'},
+  {t:'Hand over security operations',for:'Managed Security Services',items:[['Operator','K7'],['Hours','24×7'],['Scope','Every endpoint']],cta:'Learn More'},
+  {t:'Respond to an incident',for:'K7 Incident Response',items:[['Service','Digital Forensics and Incident Response'],['Part of','Consulting Services']],cta:'Contact Us'},
+  {t:'Strengthen governance',for:'K7 vCISO · K7 GRC',items:[['Services','K7 vCISO · K7 GRC · K7 Enterprise Risk Management'],['Compliance','ADHICS · CBUAE · DPDP']],cta:'Learn More'},
+  {t:'Test your defences',for:'Security Assessment Services',items:[['Services','K7 Cyber Defence Assessment · K7 Red Team Assessment · K7 VAPT']],cta:'Learn More'}
+];
+const $=(s,r=document)=>r.querySelector(s);
+const ic=n=>`<i data-lucide="${n}"></i>`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pad=n=>String(n).padStart(2,'0');
+
+/* ---------- nav ---------- */
+(function(){
+  const list=$('#navList');
+  const links=a=>'<ul>'+a.map(i=>`<li><a href="#">${i}</a></li>`).join('')+'</ul>';
+  const groupHTML=g=>{
+    if(!g.title) return `<div class="grp">${links(g.items)}</div>`;
+    if(!g.items.length) return `<div class="grp solo"><a class="grp-link" href="#">${g.title}</a></div>`;
+    return `<div class="grp"><p class="grp-title">${g.title}</p>${links(g.items)}</div>`;
+  };
+  NAV.forEach((n,i)=>{
+    const li=document.createElement('li');li.className='nav-item';
+    if(!n.groups){li.innerHTML=`<a class="nav-link" href="#">${n.label}</a>`;list.appendChild(li);return;}
+    let inner;
+    if(n.mega){
+      const intro=n.intro?`<div class="mega-intro"><span class="mono" style="color:var(--mark)">SEC // 00</span><a class="intro-title" href="#">${n.intro.title}</a><p>${n.intro.text}</p></div>`:'';
+      const full=n.groups.filter(g=>g.items.length),solo=n.groups.filter(g=>!g.items.length);
+      const cols=full.map(groupHTML);
+      if(solo.length){const last=cols.pop();cols.push(`<div class="stack">${last}${solo.map(groupHTML).join('')}</div>`);}
+      inner=`<div class="panel-in"><div class="mega${n.intro?' has-intro':''}">${intro}${cols.join('')}</div></div>`;
+    } else inner=`<div class="panel-in"><div class="rowmenu">${n.groups.map(g=>g.title?`<div class="tile-grp"><p class="grp-title">${g.title}</p><div class="chips">${g.items.map(x=>`<a class="chip-link" href="#">${x}</a>`).join('')}</div></div>`:g.items.map(x=>`<a class="tile-link" href="#"><span class="ic">${ic(NAVICON[x]||'circle')}</span>${x}</a>`).join('')).join('')}</div></div>`;
+    li.innerHTML=`<button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="np${i}">${n.label}</button><div class="panel" id="np${i}">${inner}</div>`;
+    list.appendChild(li);
+  });
+  const items=[...list.querySelectorAll('.nav-item')];
+  const closeAll=ex=>items.forEach(li=>{if(li!==ex){li.classList.remove('open');li.querySelector('.nav-trigger')?.setAttribute('aria-expanded','false');}});
+  const canHover=matchMedia('(hover:hover)').matches;
+  items.forEach(li=>{
+    const b=li.querySelector('.nav-trigger');if(!b)return;let t;
+    const open=()=>{clearTimeout(t);closeAll(li);li.classList.add('open');b.setAttribute('aria-expanded','true');};
+    const close=()=>{li.classList.remove('open');b.setAttribute('aria-expanded','false');};
+    b.addEventListener('click',()=>li.classList.contains('open')?close():open());
+    if(canHover){li.addEventListener('mouseenter',open);li.addEventListener('mouseleave',()=>{t=setTimeout(close,160)});}
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+  document.addEventListener('click',e=>{if(e.isTrusted&&!e.target.closest('.nav-item'))closeAll()});
+  const mm=$('#mobileMenu'),mb=$('#menuBtn');
+  mm.innerHTML='<div class="in">'+NAV.map(n=>{
+    if(!n.groups)return `<a class="mm-link" href="#">${n.label}</a>`;
+    const intro=n.intro?`<div class="grp"><a class="grp-link" href="#">${n.intro.title}</a></div>`:'';
+    return `<details class="mm-item"><summary>${n.label}</summary><div class="mm-body">${intro}${n.groups.map(groupHTML).join('')}</div></details>`;
+  }).join('')+'<a class="btn btn-mark" href="#">Request Trial</a></div>';
+  mb.addEventListener('click',()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';});
+  $('#fCols').innerHTML=NAV.map(n=>{
+    const l=[];if(n.intro)l.push(n.intro.title);
+    (n.groups||[]).forEach(g=>g.title?l.push(g.title):l.push(...g.items));
+    return `<div class="f-col"><h4>${n.groups?n.label:`<a href="#">${n.label}</a>`}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+  }).join('');
+})();
+
+/* ---------- view switch + hero ledger ---------- */
+(function(){
+  const segs=[...document.querySelectorAll('.seg button')],ol=$('#ledger');
+  const render=v=>{const L=LEDGER[v];$('#ledgerTitle').textContent=L.title;$('#ledgerNote').textContent=L.note;
+    ol.innerHTML=L.rows.map(([k,val],i)=>`<li class="lrow" style="animation-delay:${i*60}ms"><span class="n">${pad(i+1)}</span><span class="k">${k}</span><span class="v">${val}</span></li>`).join('');};
+  const set=v=>{segs.forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v));document.body.classList.toggle('arch',v==='arch');render(v);};
+  segs.forEach(b=>b.addEventListener('click',()=>set(b.dataset.v)));
+  set('exec');
+  const c=$('#clock');const t=()=>c.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});t();setInterval(t,20000);
+})();
+
+/* ---------- platform: signal into the layers ---------- */
+(function(){
+  const box=$('#signals'),layers=$('#layers'),cap=$('#flowcap');
+  box.innerHTML=SIGNALS.map((s,k)=>`<button type="button" data-k="${k}">${s}</button>`).join('');
+  const bs=[...box.children];let cur=0,hold=false;
+  const set=k=>{cur=k;bs.forEach((b,j)=>b.classList.toggle('on',j===k));layers.classList.remove('flow');void layers.offsetWidth;layers.classList.add('flow');
+    cap.innerHTML=`<b>${SIGNALS[k]}</b> · Sensor · Platform · Agentic SOC`;};
+  bs.forEach((b,k)=>{b.addEventListener('mouseenter',()=>{hold=true;set(k);});b.addEventListener('click',()=>set(k));b.addEventListener('focus',()=>set(k));});
+  box.addEventListener('mouseleave',()=>hold=false);
+  set(0);if(!reduce)setInterval(()=>{if(!hold&&!document.hidden)set((cur+1)%bs.length);},2600);
+})();
+
+/* ---------- coverage clauses ---------- */
+$('#clauses').innerHTML=CLAUSES.map((c,k)=>`<div class="clause"><span class="n">${pad(k+1)} /</span><div><h3>${c.t}</h3><p>${c.d}</p></div><ul class="deliv">${c.items.map(i=>`<li>${i}</li>`).join('')}</ul></div>`).join('');
+
+/* ---------- configurator ---------- */
+(function(){
+  const env=new Set(['Endpoints','Servers','Cloud']),on=new Set(['EPP','EDR','DLP','Agentic SOC']);
+  const btn=(n,set,grp)=>`<button type="button" class="opt" data-g="${grp}" data-n="${n}" aria-pressed="${set.has(n)}"><span class="box"></span>${n}</button>`;
+  $('#optEnv').innerHTML=SRCS.map(n=>btn(n,env,'env')).join('');
+  $('#optCore').innerHTML=CORE.map(n=>btn(n,on,'mod')).join('');
+  $('#optAdd').innerHTML=ADDS.map(n=>btn(n,on,'mod')).join('');
+  const order=[...CORE,...ADDS];
+  const upd=()=>{const sel=order.filter(m=>on.has(m)),e=SRCS.filter(s=>env.has(s));
+    $('#outN').textContent=sel.length;
+    $('#out').innerHTML=[['Protected',e.length?e.join(', '):'Select your environment'],['Core',CORE.filter(m=>on.has(m)).join(', ')||'None'],['Add-ons',ADDS.filter(m=>on.has(m)).join(', ')||'None'],['Console','One'],['Operator','K7 · 24×7'],['Accountable partner','K7 CyberSecurity']]
+      .map(([k,v])=>`<li><span>${k}</span><span>${v}</span></li>`).join('');
+    const t=$('#modTrial');t.setAttribute('aria-disabled',!sel.length);t.href='#request-trial?modules='+encodeURIComponent(sel.join(','))+'&environment='+encodeURIComponent(e.join(','));};
+  document.querySelector('.cfg').addEventListener('click',ev=>{const b=ev.target.closest('.opt');if(!b)return;const s=b.dataset.g==='env'?env:on,n=b.dataset.n,now=!s.has(n);now?s.add(n):s.delete(n);b.setAttribute('aria-pressed',now);upd();});
+  upd();
+})();
+
+/* ---------- lists ---------- */
+$('#svc').innerHTML=OPS.map((n,k)=>`<li><span class="n">${pad(k+1)} /</span><span>${n}</span><span class="tag">K7</span></li>`).join('');
+$('#inds').innerHTML=INDS.map((n,k)=>`<a class="ind" href="#"><span class="n">${pad(k+1)}</span><b>${n}</b><span class="lm">Learn More</span></a>`).join('');
+(function(){
+  const T=['Enterprise customer','Bank','Hospital','Factory','Retail chain'];
+  const ul=$('#tenants');ul.innerHTML=`<li><span class="n">00</span><span>K7 Seventh Sense · your MSSP console</span><span class="tag m">vCISO</span></li>`+T.map((n,k)=>`<li><span class="n">${pad(k+1)}</span><span>${n}</span><span class="tag ok">Protected</span></li>`).join('');
+  const li=[...ul.children].slice(1);let k=0;if(!reduce)setInterval(()=>{li.forEach((x,j)=>x.classList.toggle('on',j===k%li.length));k++;},1500);
+})();
+
+/* ---------- treaty signs on view ---------- */
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('signed');o.disconnect();}}),{threshold:.5}).observe($('#treaty'));
+
+/* ---------- start / triage ---------- */
+(function(){
+  const box=$('#routes'),out=$('#routeOut');
+  box.innerHTML=ROUTES.map((r,k)=>`<button type="button" class="route" role="radio" data-k="${k}" aria-checked="false"><span class="n">${pad(k+1)} /</span><span>${r.t}</span><span class="box"></span></button>`).join('');
+  const rs=[...box.children];
+  const set=k=>{const r=ROUTES[k];rs.forEach((b,j)=>b.setAttribute('aria-checked',j===k));
+    out.innerHTML=`<div><p class="mono" style="color:var(--text-3)">${pad(k+1)} / ${pad(ROUTES.length)}</p><h3 style="margin-top:12px">${r.for}</h3><ul>${r.items.map(([a,b])=>`<li><span>${a}</span><b>${b}</b></li>`).join('')}</ul></div><div><a class="btn btn-mark" href="#">${r.cta}</a></div>`;};
+  rs.forEach((b,k)=>b.addEventListener('click',()=>set(k)));
+  box.addEventListener('keydown',e=>{const i=rs.findIndex(b=>b.getAttribute('aria-checked')==='true');if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();const n=(i+1)%rs.length;set(n);rs[n].focus();}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();const n=(i-1+rs.length)%rs.length;set(n);rs[n].focus();}});
+  set(0);
+})();
+
+/* ---------- testimonials ---------- */
+(function(){
+  const tr=$('#tqTrack'),n=tr.children.length;let i=0;
+  const go=k=>{i=(k+n)%n;tr.style.transform=`translateX(-${i*100}%)`;$('#tqN').textContent=`${pad(i+1)} / ${pad(n)}`;[...tr.children].forEach((c,j)=>c.setAttribute('aria-hidden',j!==i));};
+  $('#tqPrev').onclick=()=>go(i-1);$('#tqNext').onclick=()=>go(i+1);go(0);
+})();
+
+const ICONS={"frame":"<line x1=\"22\" x2=\"2\" y1=\"6\" y2=\"6\" /><line x1=\"22\" x2=\"2\" y1=\"18\" y2=\"18\" /><line x1=\"6\" x2=\"6\" y1=\"2\" y2=\"22\" /><line x1=\"18\" x2=\"18\" y1=\"2\" y2=\"22\" />","group":"<path d=\"M3 7V5c0-1.1.9-2 2-2h2\" /><path d=\"M17 3h2c1.1 0 2 .9 2 2v2\" /><path d=\"M21 17v2c0 1.1-.9 2-2 2h-2\" /><path d=\"M7 21H5c-1.1 0-2-.9-2-2v-2\" /><rect width=\"7\" height=\"5\" x=\"7\" y=\"7\" rx=\"1\" /><rect width=\"7\" height=\"5\" x=\"10\" y=\"12\" rx=\"1\" />","split":"<path d=\"M16 3h5v5\" /><path d=\"M8 3H3v5\" /><path d=\"M12 22v-8.3a4 4 0 0 0-1.172-2.872L3 3\" /><path d=\"m15 9 6-6\" />","clock":"<circle cx=\"12\" cy=\"12\" r=\"10\" /><polyline points=\"12 6 12 12 16 14\" />","layers":"<path d=\"m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z\" /><path d=\"m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65\" /><path d=\"m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65\" />","linkedin":"<path d=\"M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z\" /><rect width=\"4\" height=\"12\" x=\"2\" y=\"9\" /><circle cx=\"4\" cy=\"4\" r=\"2\" />","facebook":"<path d=\"M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z\" />","youtube":"<path d=\"M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17\" /><path d=\"m10 15 5-3-5-3z\" />","instagram":"<rect width=\"20\" height=\"20\" x=\"2\" y=\"2\" rx=\"5\" ry=\"5\" /><path d=\"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z\" /><line x1=\"17.5\" x2=\"17.51\" y1=\"6.5\" y2=\"6.5\" />","plug":"<path d=\"M12 22v-5\" /><path d=\"M9 8V2\" /><path d=\"M15 8V2\" /><path d=\"M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z\" />","handshake":"<path d=\"m11 17 2 2a1 1 0 1 0 3-3\" /><path d=\"m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4\" /><path d=\"m21 3 1 11h-2\" /><path d=\"M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3\" /><path d=\"M3 4h8\" />","truck":"<path d=\"M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2\" /><path d=\"M15 18H9\" /><path d=\"M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14\" /><circle cx=\"17\" cy=\"18\" r=\"2\" /><circle cx=\"7\" cy=\"18\" r=\"2\" />","lightbulb":"<path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\" /><path d=\"M9 18h6\" /><path d=\"M10 22h4\" />","microscope":"<path d=\"M6 18h8\" /><path d=\"M3 22h18\" /><path d=\"M14 22a7 7 0 1 0 0-14h-1\" /><path d=\"M9 14h2\" /><path d=\"M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z\" /><path d=\"M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3\" />","award":"<path d=\"m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526\" /><circle cx=\"12\" cy=\"8\" r=\"6\" />","message-square-quote":"<path d=\"M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z\" /><path d=\"M8 12a2 2 0 0 0 2-2V8H8\" /><path d=\"M14 12a2 2 0 0 0 2-2V8h-2\" />","building-2":"<path d=\"M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z\" /><path d=\"M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2\" /><path d=\"M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2\" /><path d=\"M10 6h4\" /><path d=\"M10 10h4\" /><path d=\"M10 14h4\" /><path d=\"M10 18h4\" />","users":"<path d=\"M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2\" /><circle cx=\"9\" cy=\"7\" r=\"4\" /><path d=\"M22 21v-2a4 4 0 0 0-3-3.87\" /><path d=\"M16 3.13a4 4 0 0 1 0 7.75\" />","briefcase":"<path d=\"M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16\" /><rect width=\"20\" height=\"14\" x=\"2\" y=\"6\" rx=\"2\" />","mail":"<rect width=\"20\" height=\"16\" x=\"2\" y=\"4\" rx=\"2\" /><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\" />","circle":"<circle cx=\"12\" cy=\"12\" r=\"10\" />","focus":"<circle cx=\"12\" cy=\"12\" r=\"3\" /><path d=\"M3 7V5a2 2 0 0 1 2-2h2\" /><path d=\"M17 3h2a2 2 0 0 1 2 2v2\" /><path d=\"M21 17v2a2 2 0 0 1-2 2h-2\" /><path d=\"M7 21H5a2 2 0 0 1-2-2v-2\" />","box":"<path d=\"M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z\" /><path d=\"m3.3 7 8.7 5 8.7-5\" /><path d=\"M12 22V12\" />","tag":"<path d=\"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z\" /><circle cx=\"7.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\" />","route":"<circle cx=\"6\" cy=\"19\" r=\"3\" /><path d=\"M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15\" /><circle cx=\"18\" cy=\"5\" r=\"3\" />","radio":"<path d=\"M4.9 19.1C1 15.2 1 8.8 4.9 4.9\" /><path d=\"M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5\" /><circle cx=\"12\" cy=\"12\" r=\"2\" /><path d=\"M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5\" /><path d=\"M19.1 4.9C23 8.8 23 15.1 19.1 19\" />"};
+window.renderIcons=(root=document)=>root.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
+renderIcons();
+</script>
+<script>
+window.REVEAL='.coord,.promise,.split>div:last-child,.two>*,.clause,.cfg,.svc li,.ind,.honours,.res-row,.triage,.f-col';
+/* ===================== shared interaction layer ===================== */
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  // reading progress
+  const bar=document.createElement('div');bar.className='progress';bar.setAttribute('aria-hidden','true');document.body.appendChild(bar);
+  const prog=()=>{const h=document.documentElement.scrollHeight-innerHeight;bar.style.transform=`scaleX(${h>0?Math.min(1,scrollY/h):0})`;};
+  addEventListener('scroll',prog,{passive:true});addEventListener('resize',prog);prog();
+  // count-up numbers
+  const runCount=el=>{const end=+el.dataset.count,suf=el.dataset.suffix||'';if(reduce){el.textContent=end+suf;return;}
+    const t0=performance.now(),d=1500;const f=t=>{const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,3);el.textContent=Math.round(end*e)+suf;if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);};
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){runCount(e.target);cio.unobserve(e.target);}}),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(c=>cio.observe(c));
+  // carousels: swipe + autoplay (pauses on hover / focus)
+  document.querySelectorAll('[data-carousel]').forEach(c=>{
+    const prev=document.getElementById(c.dataset.prev),next=document.getElementById(c.dataset.next);let x0=null,paused=false;
+    c.addEventListener('pointerdown',e=>{x0=e.clientX;});
+    c.addEventListener('pointerup',e=>{if(x0===null)return;const dx=e.clientX-x0;if(Math.abs(dx)>50)(dx<0?next:prev).click();x0=null;});
+    c.addEventListener('pointerenter',()=>paused=true);c.addEventListener('pointerleave',()=>{paused=false;x0=null;});
+    c.addEventListener('focusin',()=>paused=true);c.addEventListener('focusout',()=>paused=false);
+    if(!reduce)setInterval(()=>{if(!paused&&!document.hidden)(next.onclick?next.onclick():next.click());},6500);
+  });
+  if(reduce)return;
+  // scroll reveal with sibling stagger
+  const els=[...document.querySelectorAll(window.REVEAL||'')];
+  els.forEach(el=>el.classList.add('rv'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;
+    const k=Math.min(Math.max(0,[...el.parentElement.children].filter(c=>c.classList.contains('rv')).indexOf(el)),6);
+    el.style.transitionDelay=k*80+'ms';el.classList.add('in');io.unobserve(el);
+    setTimeout(()=>{el.classList.remove('rv','in');el.style.transitionDelay='';},1200+k*80);}),{threshold:.08,rootMargin:'0px 0px -5% 0px'});
+  els.forEach(el=>io.observe(el));
+  if(!fine)return;
+  // magnetic buttons
+  document.querySelectorAll('.btn').forEach(b=>{
+    b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.translate=`${((e.clientX-r.left)/r.width-.5)*10}px ${((e.clientY-r.top)/r.height-.5)*8}px`;});
+    b.addEventListener('pointerleave',()=>{b.style.translate='';});
+  });
+})();
+
+</script>
+</body>
+</html>
