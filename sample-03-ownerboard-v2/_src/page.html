@@ -458,22 +458,26 @@ h1 .o{display:block}
 .rail-line{top:var(--lt,-17px);bottom:var(--lb,-15px)}
 .rail-nav a.on{box-shadow:inset 3px 0 0 var(--k7)}
 .rail-nav::-webkit-scrollbar{display:none}
-@media (max-height:820px){.rail-nav a{padding-top:7px;padding-bottom:7px}.rail{padding-top:12px}}
-@media (max-height:700px){.rail-nav a{padding-top:5px;padding-bottom:5px;font-size:13.5px}}
+.rail-nav a{padding-top:8px;padding-bottom:8px}
+.cell i.dot,.mrow .cell{border-radius:0!important}
+@media (max-height:820px){.rail-nav a{padding-top:6px;padding-bottom:6px}.rail{padding-top:12px}}
+@media (max-height:700px){.rail-nav a{padding-top:4px;padding-bottom:4px;font-size:13.5px}}
+@media (max-height:600px){.rail-nav a{padding-top:2px;padding-bottom:2px;font-size:13px}}
+.rail-end{font-size:12.5px!important;font-weight:700!important;color:var(--k7-2)!important;letter-spacing:.16em!important}
+.rail-end i{border-color:var(--k7)!important}
 /*SHARED_CSS*/
-/* ===================== V2: angled corners =====================
-   Bottom-right corner cut on panels and parts.
+/* ===================== V2: square corners, angled buttons =====================
+   Square corners on panels and parts (no cuts).
    Buttons: right side cut at the slant of the 7 in the K7 logo
    (the 7's stroke drops 122 units for every 56 across, ~0.46 x height).
    In a pair, only the primary button is cut. */
 :root{--cut:20px;--cut-s:9px}
-.panel-box,.panel-in,.matrix,.console,.own,.cov-detail,.labs-main,.globe-card,.award-card,.report-card,.partner,.mega-intro,.hub,.socn{border-radius:0 0 var(--cut) 0;corner-shape:bevel}
-.node,.tier,.sig,.cov-tab,.cov-item,.sw,.mod-bar,.svc li,.ind-kpis span,.stat,.ev,.tile-link,.tile-grp,.grp-link,.cover{border-radius:0 0 var(--cut-s) 0;corner-shape:bevel}
-.gi,.gi.xs{border-radius:0 0 7px 0;corner-shape:bevel}
-/* sidebar items: all corners angled, so the active orange edge reads as a bracket around the dot */
-.rail-nav a{border-radius:9px;corner-shape:bevel}
-.gi.lg{border-radius:0 0 10px 0}
-.tag,.owner,.chip-link{border-radius:0 0 5px 0;corner-shape:bevel}
+.panel-box,.panel-in,.matrix,.console,.own,.cov-detail,.labs-main,.globe-card,.award-card,.report-card,.partner,.mega-intro,.hub,.socn{border-radius:0}
+.node,.tier,.sig,.cov-tab,.cov-item,.sw,.mod-bar,.svc li,.ind-kpis span,.stat,.ev,.tile-link,.tile-grp,.grp-link,.cover{border-radius:0}
+.gi,.gi.xs{border-radius:0}
+.rail-nav a{border-radius:0}
+.gi.lg{border-radius:0}
+.tag,.owner,.chip-link{border-radius:0}
 .orbit-hub{corner-shape:round}
 .btn{--h:46px;--slant:21px;height:var(--h);border-radius:0 0 var(--slant) 0/0 0 100% 0;corner-shape:bevel;padding:0 calc(22px + var(--slant)*.55) 0 22px}
 .btn-sm{--h:38px;--slant:17px;font-size:13.5px;padding:0 calc(16px + var(--slant)*.55) 0 16px}
@@ -552,28 +556,6 @@ h1 .o{display:block}
         </div>
       </div>
 
-      <div class="grid" style="margin-top:16px">
-        <div class="panel-box s8">
-          <div class="ph"><span class="ph-l"><i data-lucide="workflow"></i>Endpoint to SOC · live flow</span></div>
-          <div class="pipe" id="pipe">
-            <canvas id="pipeCanvas" aria-hidden="true"></canvas>
-            <div class="pcol srcs" id="srcs"><p class="pcol-h">Endpoint</p></div>
-            <div class="pcol"><p class="pcol-h">Platform</p>
-              <div class="node hub" id="hub"><p class="lockup sm"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><small>Sensor · Platform · Agentic SOC</small>
-                <div class="layers"><span class="tag k7">Detect</span><span class="tag k7">Correlate</span></div></div>
-            </div>
-            <div class="pcol"><p class="pcol-h">SOC</p>
-              <div class="node socn" id="soc"><span class="gi"><i data-lucide="radar"></i></span><b>Managed SOC</b><small>Managed security operations with K7</small>
-                <div class="layers"><span class="tag ok">Respond</span><span class="tag ok">Contain</span></div></div>
-            </div>
-          </div>
-        </div>
-        <div class="panel-box s4 feed">
-          <div class="ph"><span class="ph-l"><i data-lucide="activity"></i>Activity</span><span class="tag ok"><span class="pulse" style="width:6px;height:6px"></span>Live</span></div>
-          <ol id="feed" aria-live="polite"></ol>
-          <p class="feed-note">Click any endpoint to send a test signal.</p>
-        </div>
-      </div>
     </section>
 
     <!-- ============ PLATFORM ============ -->
@@ -744,6 +726,32 @@ h1 .o{display:block}
       </div>
     </section>
     </div>
+
+    <!-- ============ LIVE FLOW ============ -->
+    <section class="sec" id="flow" aria-label="Endpoint to SOC live flow">
+      <div class="grid">
+        <div class="panel-box s8">
+          <div class="ph"><span class="ph-l"><i data-lucide="workflow"></i>Endpoint to SOC · live flow</span></div>
+          <div class="pipe" id="pipe">
+            <canvas id="pipeCanvas" aria-hidden="true"></canvas>
+            <div class="pcol srcs" id="srcs"><p class="pcol-h">Endpoint</p></div>
+            <div class="pcol"><p class="pcol-h">Platform</p>
+              <div class="node hub" id="hub"><p class="lockup sm"><svg class="mark" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense</span></p><small>Sensor · Platform · Agentic SOC</small>
+                <div class="layers"><span class="tag k7">Detect</span><span class="tag k7">Correlate</span></div></div>
+            </div>
+            <div class="pcol"><p class="pcol-h">SOC</p>
+              <div class="node socn" id="soc"><span class="gi"><i data-lucide="radar"></i></span><b>Managed SOC</b><small>Managed security operations with K7</small>
+                <div class="layers"><span class="tag ok">Respond</span><span class="tag ok">Contain</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-box s4 feed">
+          <div class="ph"><span class="ph-l"><i data-lucide="activity"></i>Activity</span><span class="tag ok"><span class="pulse" style="width:6px;height:6px"></span>Live</span></div>
+          <ol id="feed" aria-live="polite"></ol>
+          <p class="feed-note">Click any endpoint to send a test signal.</p>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
