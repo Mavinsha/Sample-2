@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified Endpoint-To-SOC Security Platform — K7 CyberSecurity</title>
+<meta name="description" content="K7 Seventh Sense: Unified Endpoint-To-SOC Security Platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#0B0C0E;
+  --surface:#13151A;
+  --surface-2:#171A20;
+  --line:#232730;
+  --guide:#1A1D24;
+  --text:#F4F5F7;
+  --text-2:#949BA8;
+  --text-3:#6B7280;
+  --signal:#FF5500;
+  --signal-2:#FF7A3D;
+  --ember:rgba(255,85,0,.12);
+  --ok:#3FB68B;
+  --head:'Space Grotesk',system-ui,sans-serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  --gut:clamp(16px,4.4vw,112px);
+  --top:72px;
+  --r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--canvas);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+ul,ol{list-style:none}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{padding-inline:var(--gut)}
+
+/* architectural guide lines */
+.guides{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.guides::before,.guides::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:var(--guide)}
+.guides::before{left:calc(var(--gut) - 1px)}
+.guides::after{right:calc(var(--gut) - 1px)}
+.guides i{position:absolute;top:0;bottom:0;width:1px;background:var(--guide);opacity:.55}
+.guides i:nth-child(1){left:calc(var(--gut) + (100% - 2 * var(--gut)) * .25)}
+.guides i:nth-child(2){left:50%}
+.guides i:nth-child(3){left:calc(var(--gut) + (100% - 2 * var(--gut)) * .75)}
+
+/* type */
+.mono{font:500 12px/1.3 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.label{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:10px}
+.label .idx{color:var(--signal)}
+.h2{font:600 clamp(32px,3.6vw,56px)/1.04 var(--head);letter-spacing:-.03em;text-wrap:balance}
+.h2 .s{color:var(--signal)}
+.lede{font:500 clamp(18px,1.4vw,22px)/1.5 var(--sans);color:var(--text);letter-spacing:-.01em}
+.body{color:var(--text-2);max-width:64ch}
+.body strong{color:var(--text);font-weight:600}
+
+/* buttons: text only */
+.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:var(--r);font:600 15px/1 var(--sans);white-space:nowrap;transition:background .2s,border-color .2s,color .2s,box-shadow .2s,translate .25s cubic-bezier(.3,.7,.3,1)}
+.btn-signal{background:var(--signal);color:#fff;box-shadow:0 0 24px rgba(255,85,0,.25)}
+.btn-signal:hover{background:var(--signal-2);box-shadow:0 0 32px rgba(255,85,0,.38)}
+.btn-line{border:1px solid var(--line);color:var(--text);background:transparent}
+.btn-line:hover{border-color:var(--text-3)}
+.btn-sm{height:40px;padding:0 18px;font-size:14px}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none;box-shadow:none}
+
+.tag{display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 8px;border-radius:4px;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);color:var(--text-2);white-space:nowrap}
+.tag.sig{background:var(--ember);border-color:rgba(255,85,0,.3);color:var(--signal-2)}
+.tag.ok{color:var(--ok);border-color:rgba(63,182,139,.3)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 0 rgba(255,85,0,.6);animation:ping 2s infinite}
+.dot.ok{background:var(--ok);box-shadow:0 0 0 0 rgba(63,182,139,.6);animation-name:pingok}
+@keyframes ping{70%{box-shadow:0 0 0 7px rgba(255,85,0,0)}100%{box-shadow:0 0 0 0 rgba(255,85,0,0)}}
+@keyframes pingok{70%{box-shadow:0 0 0 7px rgba(63,182,139,0)}100%{box-shadow:0 0 0 0 rgba(63,182,139,0)}}
+.ic{display:inline-grid;place-items:center;flex-shrink:0;width:36px;height:36px;border-radius:var(--r);border:1px solid var(--line);color:var(--text-2);background:var(--canvas)}
+.ic svg{width:17px;height:17px}
+.ic.sig{color:var(--signal);border-color:rgba(255,85,0,.35);background:var(--ember)}
+
+.mk{display:inline-block;width:24px;height:17px;flex-shrink:0}
+.board-h .mk{width:20px;height:14px}
+.pnode.core .mk,.tenants .hub .mk{width:26px;height:19px}
+.ent-f .mk{width:32px;height:23px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+
+/* ---------- header / nav ---------- */
+.topbar{position:sticky;top:0;z-index:50;height:var(--top);background:rgba(11,12,14,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-row{height:100%;display:flex;align-items:center;gap:24px;padding-inline:var(--gut)}
+.brand{display:flex;flex-shrink:0}
+.logo{display:block;height:38px;width:auto}
+.primary{flex:1;align-self:stretch;min-width:0}
+.nav-list{display:flex;height:100%;justify-content:center}
+.nav-item{display:flex}
+.nav-link{display:flex;align-items:center;height:100%;padding:0 13px;font:500 14.5px/1 var(--sans);color:var(--text-2);position:relative;white-space:nowrap;transition:color .2s}
+.nav-link:hover,.nav-item.open .nav-link{color:var(--text)}
+.nav-link::after{content:"";position:absolute;left:13px;right:13px;bottom:-1px;height:1px;background:var(--signal);transform:scaleX(0);transition:transform .2s}
+.nav-item.open .nav-link::after{transform:scaleX(1)}
+.panel{display:none;position:absolute;top:100%;left:var(--gut);right:var(--gut);z-index:40}
+.nav-item.open .panel{display:block;animation:drop .16s ease-out}
+@keyframes drop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.panel-in{background:var(--surface);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r) var(--r);box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
+.mega{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px;padding:30px 32px 34px}
+.mega.has-intro{grid-template-columns:1.2fr 1fr 1.4fr}
+.mega-intro{padding:22px;border:1px solid var(--line);border-radius:var(--r);background:var(--canvas)}
+.intro-title{display:block;font:600 22px/1.15 var(--head);letter-spacing:-.02em;margin:14px 0 6px}
+.mega-intro p{color:var(--text-2);font-size:14px}
+.grp-title,.grp-link{display:block;font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.grp-link{color:var(--text);padding:10px 12px;border:1px solid var(--line);border-radius:var(--r)}
+.grp-link:hover{border-color:var(--signal)}
+.grp li a{display:block;padding:5px 0;font-size:14.5px;color:var(--text-2)}
+.grp li a:hover{color:var(--text)}
+.stack>.grp+.grp{margin-top:10px}
+.stack>.grp:not(.solo)+.grp.solo{margin-top:22px}
+.rowmenu{display:flex;flex-wrap:wrap;gap:10px;padding:20px 22px}
+.tile-link{flex:1 1 200px;display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r);font-weight:500;font-size:15px;transition:border-color .2s}
+.tile-link:hover{border-color:var(--signal)}
+.tile-grp{flex:2 1 360px;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-link{padding:7px 12px;border:1px solid var(--line);border-radius:4px;font-size:14px;color:var(--text-2)}
+.chip-link:hover{color:var(--text);border-color:var(--signal)}
+.top-cta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.menu-btn{display:none;height:40px;padding:0 16px;border:1px solid var(--line);border-radius:var(--r);font-weight:600;font-size:14px}
+.mobile-menu{position:absolute;left:0;right:0;top:100%;background:var(--canvas);border-bottom:1px solid var(--line);max-height:calc(100vh - var(--top));overflow:auto}
+.mobile-menu .in{padding:6px var(--gut) 24px}
+.mm-item,.mm-link{display:block;border-bottom:1px solid var(--line)}
+.mm-item summary,.mm-link{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font:600 19px/1.1 var(--head);cursor:pointer}
+.mm-item summary::-webkit-details-marker{display:none}
+.mm-item summary::after{content:"+";font:400 16px var(--mono);color:var(--signal)}
+.mm-item[open] summary::after{content:"\2212"}
+.mm-body{padding-bottom:16px}
+.mm-body .grp{margin-bottom:14px}
+.mobile-menu .btn{width:100%;margin-top:20px}
+
+/* ---------- sections ---------- */
+.sec{padding-block:112px;border-bottom:1px solid var(--line);position:relative}
+.sec-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:48px}
+.sec-head .label{margin-bottom:22px}
+
+/* hero */
+.hero{padding-block:72px 88px;border-bottom:1px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.08fr);gap:56px;align-items:center}
+.hero .label{margin-bottom:28px}
+h1{font:600 clamp(48px,6.4vw,104px)/.96 var(--head);letter-spacing:-.04em}
+h1 .s{color:var(--signal)}
+.hero-sub{font:500 clamp(19px,1.6vw,24px)/1.4 var(--sans);color:var(--text-2);margin:22px 0 40px;max-width:24ch}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+
+/* board view */
+.board{position:relative;overflow:hidden}
+.board-h{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.board-h .who{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-2)}
+.board-h .who img{height:14px;width:auto}
+.board-h .live{display:flex;align-items:center;gap:8px;font:500 12px/1 var(--mono);color:var(--text-3)}
+.board-body{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.bcell{padding:18px;min-width:0}
+.bcell+.bcell{border-left:1px solid var(--line)}
+.bcell .k{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px;display:flex;justify-content:space-between}
+.infra{display:grid;gap:6px}
+.infra li{display:flex;align-items:center;gap:10px;padding:7px 8px;border:1px solid transparent;border-radius:4px;font-size:14px;color:var(--text-2);cursor:pointer;transition:all .2s}
+.infra li svg{width:15px;height:15px;color:var(--text-3)}
+.infra li .st{margin-left:auto;font:500 10.5px/1 var(--mono);letter-spacing:.08em;color:var(--ok)}
+.infra li.on{border-color:rgba(255,85,0,.35);background:var(--ember);color:var(--text)}
+.infra li.on svg{color:var(--signal)}
+.infra li.on .st{color:var(--signal-2)}
+.path{position:relative;display:grid;grid-template-rows:repeat(3,auto);gap:18px;padding-top:4px}
+.pnode{position:relative;display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);font-size:14px;font-weight:500}
+.pnode small{display:block;font:500 10.5px/1.2 var(--mono);letter-spacing:.06em;color:var(--text-3);text-transform:uppercase}
+.pnode.core{border-color:rgba(255,85,0,.55);box-shadow:0 0 24px rgba(255,85,0,.25)}
+.pnode.core img{height:16px;width:auto}
+.pnode+.pnode::before{content:"";position:absolute;left:28px;top:-19px;height:18px;width:1px;background:var(--line)}
+.pnode .pk{position:absolute;left:26px;width:5px;height:5px;border-radius:50%;background:var(--signal);top:-19px;opacity:0}
+.board.run .pnode .pk{animation:packet 1.2s linear}
+@keyframes packet{0%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(17px)}}
+.ticker{padding:14px 18px;display:flex;align-items:center;gap:12px;min-height:54px}
+.ticker p{font:500 13px/1.4 var(--mono);color:var(--text-2);transition:opacity .3s}
+.ticker p b{color:var(--text);font-weight:500}
+.board-foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.bm{padding:14px 18px}
+.bm+.bm{border-left:1px solid var(--line)}
+.bm b{display:block;font:600 26px/1 var(--head);letter-spacing:-.02em}
+.bm span{display:block;font-size:12.5px;color:var(--text-2);margin-top:6px;line-height:1.35}
+
+/* proof strip */
+.proof{padding-block:28px;border-bottom:1px solid var(--line)}
+.proof-row{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.proof-row .label{flex-shrink:0}
+.fw{display:flex;flex-wrap:wrap;gap:10px 34px}
+.fw span{font:500 15px/1 var(--mono);letter-spacing:.08em;color:#6B7280;opacity:.7}
+
+/* beyond: architecture */
+.arch{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:start}
+.arch .body{margin-top:18px}
+.diagram{padding:22px}
+.dgrid{display:grid;grid-template-columns:1fr 60px 1.1fr;align-items:center;gap:0}
+.sigs{display:grid;gap:8px}
+.sigb{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);font-size:14px;font-weight:500;text-transform:capitalize;text-align:left;transition:all .2s}
+.sigb .d{width:7px;height:7px;border-radius:50%;border:1px solid var(--text-3);transition:all .2s}
+.sigb:hover{border-color:var(--text-3)}
+.sigb.on{border-color:rgba(255,85,0,.45);background:var(--ember)}
+.sigb.on .d{background:var(--signal);border-color:var(--signal)}
+.wires{height:100%;width:100%}
+.wires path{fill:none;stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke;transition:stroke .2s}
+.wires path.on{stroke:var(--signal);stroke-dasharray:4 4;animation:flow .8s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-8}}
+.layers{display:grid;gap:8px}
+.layer{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;transition:all .25s}
+.layer b{font:600 18px/1.2 var(--head);letter-spacing:-.01em}
+.layer span{font-size:13.5px;color:var(--text-2)}
+.layer .lv{grid-row:span 2;font:500 11px/1 var(--mono);color:var(--text-3)}
+.layer.on{border-color:rgba(255,85,0,.55);box-shadow:0 0 24px rgba(255,85,0,.2)}
+.layer.on .lv{color:var(--signal)}
+.dcap{margin-top:16px;font:500 12px/1.4 var(--mono);color:var(--text-3);letter-spacing:.04em}
+
+/* capabilities */
+.caps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.cap{background:var(--surface);padding:24px;display:flex;flex-direction:column;gap:18px;min-height:220px;text-align:left;transition:background .2s;position:relative}
+.cap:hover,.cap.on{background:var(--surface-2)}
+.cap.on::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--signal)}
+.cap b{font:600 20px/1.2 var(--head);letter-spacing:-.015em;margin-top:auto}
+.cap .n{font:500 11px/1 var(--mono);color:var(--text-3)}
+.cap.on .n{color:var(--signal)}
+.cap-detail{margin-top:16px;padding:24px;display:grid;grid-template-columns:.8fr 1.2fr;gap:32px;align-items:start;animation:fade .3s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cap-detail h3{font:600 24px/1.2 var(--head);letter-spacing:-.02em}
+.cap-detail p{color:var(--text-2);margin-top:8px}
+.cap-items{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cap-items li{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);font-weight:500;font-size:15px}
+.cap-items li .tag{margin-left:auto}
+
+/* modules */
+.mods{display:grid;grid-template-columns:1fr 1.6fr;gap:16px}
+.bank{padding:20px}
+.bank-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.bank ul{display:grid;gap:8px}
+.bank.add ul{grid-template-columns:1fr 1fr}
+.sw{display:flex;align-items:center;gap:12px;width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:var(--r);background:var(--canvas);text-align:left;font-weight:500;font-size:15px;line-height:1.25;transition:border-color .2s,background .2s}
+.sw:hover{border-color:var(--text-3)}
+.tog{margin-left:auto;flex-shrink:0;position:relative;width:36px;height:20px;border-radius:999px;border:1px solid var(--line);background:var(--surface);transition:all .2s}
+.tog::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--text-3);transition:transform .2s,background .2s}
+.sw[aria-pressed="true"]{border-color:rgba(255,85,0,.45);background:var(--ember)}
+.sw[aria-pressed="true"] .tog{background:var(--signal);border-color:var(--signal)}
+.sw[aria-pressed="true"] .tog::after{transform:translateX(16px);background:#fff}
+.mod-bar{margin-top:16px;padding:16px 20px;display:flex;align-items:center;gap:20px}
+.mod-bar .cnt{font:600 32px/1 var(--head);font-variant-numeric:tabular-nums}
+.mod-bar .sel{flex:1;font-size:14.5px;color:var(--text-2)}
+.mod-bar .sel b{color:var(--text);font-weight:600}
+
+/* operations */
+.ops{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:start}
+.duty{display:flex;align-items:center;gap:10px;margin:26px 0 30px;font:500 13px/1 var(--mono);color:var(--text-2);letter-spacing:.04em}
+.duty b{color:var(--text);font-weight:500}
+.svc{border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.svc li{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--line);transition:background .2s}
+.svc li:last-child{border-bottom:0}
+.svc li:hover{background:var(--surface-2)}
+.svc .n{font:500 12px/1 var(--mono);color:var(--text-3)}
+.svc b{font-weight:500;font-size:16px}
+.svc li:hover .n{color:var(--signal)}
+
+/* industries */
+.inds{border-top:1px solid var(--line)}
+.ind{display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:20px;padding:22px 0;border-bottom:1px solid var(--line);position:relative;transition:padding .3s}
+.ind .n{font:500 12px/1 var(--mono);color:var(--text-3)}
+.ind b{font:600 clamp(24px,2.6vw,40px)/1.1 var(--head);letter-spacing:-.025em;color:var(--text-2);transition:color .25s}
+.ind .lm{font-weight:600;font-size:15px;color:var(--text-2);transition:color .2s}
+.ind::before{content:"";position:absolute;left:0;top:-1px;height:1px;width:0;background:var(--signal);transition:width .4s}
+.ind:hover{padding-left:16px}
+.ind:hover b{color:var(--text)}
+.ind:hover .n,.ind:hover .lm{color:var(--signal)}
+.ind:hover::before{width:100%}
+
+/* accountability */
+.acc{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+.acc .body+.body{margin-top:14px}
+.acc .lede{margin:20px 0 18px}
+.acc .btn{margin-top:30px}
+.ent-h{display:flex;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.ent li{display:flex;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid var(--line);transition:background .3s}
+.ent li b{font-weight:500;font-size:16px;text-transform:capitalize}
+.ent li .tag{margin-left:auto}
+.ent li.on{background:var(--ember)}
+.ent li.on .tag{color:var(--signal-2);border-color:rgba(255,85,0,.3)}
+.ent-f{padding:18px;display:flex;align-items:center;gap:14px}
+.ent-f img{height:22px;width:auto}
+.ent-f b{display:block;font-weight:600}
+.ent-f span{display:block;font-size:13.5px;color:var(--text-2)}
+
+/* research */
+.res{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.rc{padding:24px;display:flex;align-items:center;gap:22px}
+.rc b{display:block;font:600 20px/1.25 var(--head);letter-spacing:-.015em}
+.rc span{display:block;font-size:14.5px;color:var(--text-2);margin-top:6px}
+.rc .btn{margin-top:14px}
+.seal{width:96px;height:96px;flex-shrink:0}
+.seal-spin{transform-origin:100px 100px;animation:spin 50s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cover{width:76px;aspect-ratio:3/4;flex-shrink:0;border:1px solid var(--line);border-radius:4px;background:var(--canvas);padding:8px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s}
+.rc:hover .cover{transform:rotate(-3deg)}
+.cover i{font:500 6.5px/1 var(--mono);letter-spacing:.1em;color:var(--text-3);font-style:normal}
+.cover svg{width:100%;height:14px}
+.cover polyline{fill:none;stroke:var(--signal);stroke-width:1.3}
+.cover em{font:600 8px/1.15 var(--head);font-style:normal;color:var(--text)}
+.labs{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.labs>*{padding:24px;background:var(--surface)}
+.labs>*+*{border-left:1px solid var(--line)}
+.labs p{color:var(--text-2);font-size:15.5px}
+.stat b{display:block;font:600 clamp(30px,2.8vw,44px)/1 var(--head);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat .u{font-size:.5em;color:var(--text-2);letter-spacing:-.01em}
+.stat>span{display:block;font-size:14px;color:var(--text-2);margin-top:12px;line-height:1.4}
+
+/* testimonials */
+.tq{padding:36px}
+.tq-track{display:flex;transition:transform .55s cubic-bezier(.6,0,.2,1)}
+.tq-slide{flex:0 0 100%;padding-right:8px}
+.tq-slide p{font:500 clamp(22px,2.2vw,32px)/1.35 var(--head);letter-spacing:-.02em;max-width:40ch}
+.tq-slide footer{margin-top:20px;font:500 12px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3)}
+.tq-ctrl{display:flex;align-items:center;gap:10px;margin-top:30px}
+.dots{display:flex;gap:6px;margin-left:auto}
+.dots i{width:18px;height:2px;background:var(--line);transition:background .3s}
+.dots i.on{background:var(--signal)}
+
+/* mssp */
+.mssp{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.mssp .body{margin:18px 0 30px}
+.tenants li{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;padding:13px 18px;border-bottom:1px solid var(--line);font-size:15px;font-weight:500;transition:background .3s}
+.tenants li:last-child{border-bottom:0}
+.tenants li.on{background:var(--ember)}
+.tenants .hub{background:var(--surface-2)}
+.tenants .hub img{height:16px;width:auto}
+
+/* footer */
+.site-footer{padding-block:72px 30px}
+.f-top{display:grid;grid-template-columns:1.1fr 3fr;gap:48px}
+.f-tag{font:600 20px/1.3 var(--head);letter-spacing:-.015em;margin-top:18px}
+.f-tag .s{color:var(--signal)}
+.f-cols{display:grid;grid-template-columns:repeat(4,1fr);gap:32px 24px}
+.f-col h4{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.f-col h4 a{display:inline;padding:0;font:inherit;color:inherit}
+.f-col a{display:block;padding:4px 0;font-size:14.5px;color:var(--text-2)}
+.f-col a:hover{color:var(--text)}
+.f-base{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.f-legal{display:flex;flex-wrap:wrap;gap:6px 22px;font:500 12px/1.4 var(--mono);letter-spacing:.04em;color:var(--text-3)}
+.f-legal a:hover{color:var(--text)}
+.social{display:flex;gap:8px}
+.social a{width:36px;height:36px;display:grid;place-items:center;border:1px solid var(--line);border-radius:var(--r);color:var(--text-2);transition:color .2s,border-color .2s}
+.social a:hover{color:var(--text);border-color:var(--signal)}
+.social svg{width:16px;height:16px}
+
+.progress{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--signal);transform-origin:left;transform:scaleX(0);z-index:70;pointer-events:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1240px){
+  .primary{display:none}
+  .menu-btn{display:inline-flex;align-items:center}
+  .top-row{justify-content:space-between}
+  .caps{grid-template-columns:1fr 1fr}
+  .labs{grid-template-columns:1fr 1fr}
+  .labs>*:nth-child(3){border-left:0}
+  .labs>*:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:980px){
+  .sec{padding-block:80px}
+  .hero{padding-block:48px 64px}
+  .hero-grid,.sec-head,.arch,.ops,.acc,.mssp,.mods,.cap-detail,.res,.f-top{grid-template-columns:1fr;gap:36px}
+  .guides i{display:none}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .logo{height:32px}
+  .top-cta .btn{display:none}
+  .hero-actions .btn{flex:1}
+  .board-body{grid-template-columns:1fr}
+  .bcell+.bcell{border-left:0;border-top:1px solid var(--line)}
+  .board-foot{grid-template-columns:1fr 1fr 1fr}
+  .bm{padding:12px}
+  .bm b{font-size:20px}
+  .dgrid{grid-template-columns:1fr;gap:14px}
+  .wires{display:none}
+  .caps{grid-template-columns:1fr}
+  .cap{min-height:0}
+  .cap-items,.bank.add ul{grid-template-columns:1fr}
+  .mod-bar{flex-wrap:wrap}
+  .mod-bar .btn{width:100%}
+  .svc li{grid-template-columns:36px 1fr}
+  .svc li .ic{display:none}
+  .ind{grid-template-columns:44px 1fr;gap:6px 14px}
+  .ind .lm{grid-column:2}
+  .rc{flex-direction:column;align-items:flex-start}
+  .labs{grid-template-columns:1fr}
+  .labs>*+*{border-left:0;border-top:1px solid var(--line)}
+  .tq{padding:24px}
+  .f-cols{grid-template-columns:1fr 1fr}
+  .guides::before,.guides::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+/*SHARED_CSS*/
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="k7mark" viewBox="52 52 188 134"><polygon fill="#FF5500" points="149.76 85.25 167.96 57.94 234.67 57.95 178.6 180.38 159.02 151.97 189.33 85.04 149.76 85.25"/><polygon fill="#F4F5F7" points="167.86 175.68 124.72 113.03 161.27 57.97 125.29 57.97 91.86 107.03 91.86 57.92 57.51 57.92 57.51 175.68 91.86 175.68 91.86 119.2 129.56 175.68 167.86 175.68"/></symbol></svg>
+<div class="guides" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="topbar">
+  <div class="top-row">
+    <a class="brand" href="#top" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="149" height="38"></a>
+    <nav class="primary" aria-label="Primary"><ul class="nav-list" id="navList"></ul></nav>
+    <div class="top-cta">
+      <a class="btn btn-signal btn-sm" href="#">Request Trial</a>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu" hidden></div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero wrap" aria-labelledby="heroTitle">
+  <div class="hero-grid">
+    <div>
+      <p class="label"><span class="dot"></span>Unified Endpoint-To-SOC</p>
+      <h1 id="heroTitle">K7 <span class="s">Seventh Sense</span></h1>
+      <p class="hero-sub">Unified Endpoint-To-SOC Security Platform</p>
+      <div class="hero-actions">
+        <a class="btn btn-signal" href="#platform">Explore Platform</a>
+        <a class="btn btn-line" href="#">Request Trial</a>
+      </div>
+    </div>
+
+    <div class="card board" id="board" aria-label="Seventh Sense board view">
+      <div class="board-h">
+        <span class="who"><svg class="mk" role="img" aria-label="K7"><use href="#k7mark"/></svg>Seventh Sense · Board View</span>
+        <span class="live"><span class="dot ok"></span><span id="clock">--:--</span></span>
+      </div>
+      <div class="board-body">
+        <div class="bcell">
+          <p class="k"><span>Infrastructure</span><span>6 / 6</span></p>
+          <ul class="infra" id="infra"></ul>
+        </div>
+        <div class="bcell">
+          <p class="k"><span>Endpoint to SOC</span></p>
+          <div class="path">
+            <div class="pnode"><span class="ic" id="srcIc"><i data-lucide="laptop"></i></span><div><small>Endpoint</small><span id="srcName">Endpoints</span></div><span class="pk"></span></div>
+            <div class="pnode core"><svg class="mk" role="img" aria-label="K7"><use href="#k7mark"/></svg><div><small>Platform</small>Seventh Sense</div><span class="pk"></span></div>
+            <div class="pnode"><span class="ic"><i data-lucide="radar"></i></span><div><small>SOC</small>Managed SOC</div><span class="pk"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="ticker" aria-live="polite"><span class="tag ok">Contained</span><p id="tick"></p></div>
+      <div class="board-foot">
+        <div class="bm"><b>24×7</b><span>Threat Detection and Response</span></div>
+        <div class="bm"><b data-count="11">11</b><span>Modules, one console</span></div>
+        <div class="bm"><b data-count="6">6</b><span>Compliance frameworks mapped</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROOF ============ -->
+<section class="proof wrap" aria-label="Integrated compliance frameworks">
+  <div class="proof-row">
+    <p class="label">Integrated Compliance</p>
+    <div class="fw"><span>DPDP</span><span>PCI DSS</span><span>ISO 27001</span><span>GDPR</span><span>CBUAE</span><span>ADHICS</span></div>
+  </div>
+</section>
+
+<!-- ============ BEYOND ============ -->
+<section class="sec wrap" id="platform" aria-labelledby="beyondTitle">
+  <div class="arch">
+    <div>
+      <p class="label"><span class="idx">01</span>Platform</p>
+      <h2 class="h2" id="beyondTitle" style="margin-top:22px">Beyond The <span class="s">Obvious</span></h2>
+      <p class="lede" style="margin-top:24px">Cybersecurity is getting lost in a complex puzzle of technologies and reports, with too many tools and not enough qualified people.</p>
+      <p class="body">K7 Seventh Sense is a Unified Endpoint-To-SOC Security Platform that was created to solve this puzzle. Our platform goes beyond the obvious to understand security by connecting intelligence across <strong>endpoints, identities, data, vulnerabilities,</strong> and <strong>behaviour,</strong> to help enterprises make cybersecurity simpler and trustable.</p>
+    </div>
+    <div class="card diagram">
+      <div class="dgrid">
+        <div class="sigs" id="sigs"></div>
+        <svg class="wires" id="wires" viewBox="0 0 60 300" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="layers" id="layers">
+          <div class="layer" data-l="2"><b>Agentic SOC</b><span class="lv">L3</span><span>Simplified Cybersecurity</span></div>
+          <div class="layer" data-l="1"><b>Platform</b><span class="lv">L2</span><span>Where It All Lives</span></div>
+          <div class="layer" data-l="0"><b>Sensor</b><span class="lv">L1</span><span>Proprietary, Unified</span></div>
+        </div>
+      </div>
+      <p class="dcap" id="dcap"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CAPABILITIES ============ -->
+<section class="sec wrap" id="coverage" aria-label="Capabilities">
+  <p class="label" style="margin-bottom:28px"><span class="idx">02</span>Coverage</p>
+  <div class="caps" id="caps" role="tablist"></div>
+  <div class="card cap-detail" id="capDetail" role="tabpanel"></div>
+</section>
+
+<!-- ============ MODULES ============ -->
+<section class="sec wrap" id="modules" aria-labelledby="modTitle">
+  <div class="sec-head">
+    <div><p class="label"><span class="idx">03</span>Modules</p><h2 class="h2" id="modTitle">Modular by <span class="s">Design</span></h2></div>
+    <p class="body">Switch on capabilities as required, managed from the same console.</p>
+  </div>
+  <div class="mods" id="banks">
+    <div class="card bank"><div class="bank-h"><span class="label">Core</span><span class="tag">✓</span></div><ul id="coreBank"></ul></div>
+    <div class="card bank add"><div class="bank-h"><span class="label">Add-ons</span><span class="tag">+</span></div><ul id="addBank"></ul></div>
+  </div>
+  <div class="card mod-bar">
+    <span class="cnt" id="modNum">4</span>
+    <p class="sel" id="modSel" aria-live="polite"></p>
+    <a class="btn btn-signal" id="modTrial" href="#">Request Trial with Selected</a>
+  </div>
+</section>
+
+<!-- ============ OPERATIONS ============ -->
+<section class="sec wrap" id="operations" aria-labelledby="opsTitle">
+  <div class="ops">
+    <div>
+      <p class="label"><span class="idx">04</span>Managed Security Services</p>
+      <h2 class="h2" id="opsTitle" style="margin-top:22px">One Platform. One Operator. <span class="s">Every Endpoint.</span></h2>
+      <p class="body" style="margin-top:22px">Managed security operations with K7 detecting and responding to incidents and continuously reducing security risk across your endpoint environment.</p>
+      <p class="duty"><span class="dot ok"></span>On duty <b>24×7</b></p>
+      <a class="btn btn-line" href="#">Learn More</a>
+    </div>
+    <ul class="svc" id="svc"></ul>
+  </div>
+</section>
+
+<!-- ============ INDUSTRIES ============ -->
+<section class="sec wrap" id="industries" aria-labelledby="indTitle">
+  <div class="sec-head">
+    <div><p class="label"><span class="idx">05</span>Industry Solutions</p><h2 class="h2" id="indTitle">Built For <span class="s">Your Industry</span></h2></div>
+  </div>
+  <div class="inds" id="inds"></div>
+</section>
+
+<!-- ============ ACCOUNTABILITY ============ -->
+<section class="sec wrap" id="accountability" aria-labelledby="accTitle">
+  <div class="acc">
+    <div>
+      <p class="label"><span class="idx">06</span>Why K7</p>
+      <h2 class="h2" id="accTitle" style="margin-top:22px">Security That <span class="s">Answers To You</span></h2>
+      <p class="lede">We believe trust must be earned through accountability.</p>
+      <p class="body">Organisations do not just buy security technology; they entrust a partner with their data, operations, reputation, and business continuity.</p>
+      <p class="body">We build cybersecurity around one responsibility: protecting our customers and being there when security matters most.</p>
+      <p class="body">When you trust K7 CyberSecurity, you gain a <strong>single accountable partner</strong> focused on <strong>customer-centricity, trust, and accountability</strong>.</p>
+      <a class="btn btn-signal" href="#">Learn More</a>
+    </div>
+    <div class="card">
+      <div class="ent-h"><span class="label">What you entrust</span><span class="label">Accountable</span></div>
+      <ul class="ent" id="ent">
+        <li><span class="ic"><i data-lucide="database"></i></span><b>data</b><span class="tag">K7</span></li>
+        <li><span class="ic"><i data-lucide="settings"></i></span><b>operations</b><span class="tag">K7</span></li>
+        <li><span class="ic"><i data-lucide="star"></i></span><b>reputation</b><span class="tag">K7</span></li>
+        <li><span class="ic"><i data-lucide="life-buoy"></i></span><b>business continuity</b><span class="tag">K7</span></li>
+      </ul>
+      <div class="ent-f"><svg class="mk" role="img" aria-label="K7"><use href="#k7mark"/></svg><div><b>Single accountable partner</b><span>Customer-centricity, trust, and accountability</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH ============ -->
+<section class="sec wrap" id="research" aria-labelledby="resTitle">
+  <div class="sec-head">
+    <div><p class="label"><span class="idx">07</span>K7 Labs</p><h2 class="h2" id="resTitle">Globally Recognised <span class="s">Cyberthreat Research</span></h2></div>
+  </div>
+  <div class="res">
+    <div class="card rc">
+      <svg class="seal" viewBox="0 0 200 200" aria-hidden="true"><defs><path id="ringp" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0"/></defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#FF5500" stroke-width="1.5"/><circle cx="100" cy="100" r="84" fill="none" stroke="#232730"/><circle cx="100" cy="100" r="56" fill="#0B0C0E" stroke="#232730"/>
+        <g class="seal-spin"><text font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="2.2" fill="#949BA8"><textPath href="#ringp">REAL TIME THREAT LIST · CONTRIBUTOR OF THE YEAR · </textPath></text></g>
+        <text x="100" y="98" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-weight="600" font-size="24" fill="#F4F5F7">AMTSO</text><text x="100" y="118" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="2" fill="#FF5500">K7 LABS</text></svg>
+      <div><b>Real Time Threat List Contributor of the Year</b><span>Anti-Malware Testing Standards Organization</span></div>
+    </div>
+    <div class="card rc">
+      <div class="cover" aria-hidden="true"><i>K7 Labs</i><svg viewBox="0 0 120 30" preserveAspectRatio="none"><polyline points="0,22 30,22 36,19 42,25 48,6 54,28 60,16 66,22 120,22"/></svg><em>K7 Cyber Threat Monitor Report</em></div>
+      <div><b>K7 Cyber Threat Monitor Report</b><a class="btn btn-line btn-sm" href="#">View Reports</a></div>
+    </div>
+  </div>
+  <div class="labs">
+    <p>K7 Labs is one of the world's leading antimalware research and threat intelligence centres, analysing hundreds of thousands of malware samples every day.</p>
+    <div class="stat"><b><span data-count="30" data-suffix="+">30+</span> <span class="u">Years</span></b><span>Multi-decade expertise</span></div>
+    <div class="stat"><b>Millions <span class="u">of Devices</span></b><span>Extensive sources of telemetry</span></div>
+    <div class="stat"><b><span data-count="32">32</span> <span class="u">Countries</span></b><span>Geographically distributed threat intelligence</span></div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="sec wrap" id="testimonials" aria-label="Customer testimonials">
+  <p class="label" style="margin-bottom:28px"><span class="idx">08</span>Testimonials</p>
+  <div class="card tq" data-carousel data-prev="tqPrev" data-next="tqNext">
+    <div style="overflow:hidden"><div class="tq-track" id="tqTrack">
+      <blockquote class="tq-slide"><p>One platform from the endpoint to the SOC meant one team to call. When something happened, K7 was already on it.</p><footer>Chief Information Security Officer · Banking</footer></blockquote>
+      <blockquote class="tq-slide"><p>We switched on the modules we needed and nothing else. Compliance reporting went from a quarterly scramble to a standing report.</p><footer>Head of IT · Healthcare</footer></blockquote>
+      <blockquote class="tq-slide"><p>Round-the-clock monitoring across our plants and offices, with one accountable partner behind it. That is what we were missing.</p><footer>IT Security Lead · Manufacturing</footer></blockquote>
+    </div></div>
+    <div class="tq-ctrl"><button class="btn btn-line btn-sm" id="tqPrev" type="button">Previous</button><button class="btn btn-line btn-sm" id="tqNext" type="button">Next</button><div class="dots" id="tqDots" aria-hidden="true"><i></i><i></i><i></i></div></div>
+  </div>
+</section>
+
+<!-- ============ MSSP ============ -->
+<section class="sec wrap" id="mssp" aria-labelledby="msspTitle">
+  <div class="mssp">
+    <div>
+      <p class="label"><span class="idx">09</span>Partners</p>
+      <h2 class="h2" id="msspTitle" style="margin-top:22px">K7 for <span class="s">MSSPs</span></h2>
+      <p class="body">Harness the power of K7 Seventh Sense and provide vCISO services to protect your enterprise customers by becoming a K7 MSSP.</p>
+      <a class="btn btn-signal" href="#">Learn More</a>
+    </div>
+    <div class="card"><ul class="tenants" id="tenants"></ul></div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer wrap">
+  <div class="f-top">
+    <div><a class="brand" href="#top" aria-label="K7 CyberSecurity home"><img class="logo" src="__LOGO_WHITE__" alt="K7 CyberSecurity" width="180" height="46" style="height:46px"></a><p class="f-tag">Security That <span class="s">Answers To You</span></p></div>
+    <div class="f-cols" id="fCols"></div>
+  </div>
+  <div class="f-base">
+    <div class="f-legal"><span>© 2026 K7 CyberSecurity</span><a href="#">Privacy Policy</a><a href="#">EULA</a></div>
+    <div class="social"><a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.77zm-1.08 16.18h1.7L7.4 4.73H5.58z"/></svg></a><a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a><a href="#" aria-label="YouTube"><i data-lucide="youtube"></i></a><a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a></div>
+  </div>
+</footer>
+
+<script>
+/* ===================== content ===================== */
+const NAV=[
+  {label:'Platform',mega:true,intro:{title:'K7 Seventh Sense',text:'Unified Endpoint-To-SOC Security Platform'},groups:[
+    {title:'Core',items:['K7 Seventh Sense MDR','K7 Seventh Sense XDR','K7 Seventh Sense EDR','K7 Seventh Sense EPP']},
+    {title:'Addons',items:['K7 Data Loss Protection','K7 Identity and Access Management','K7 Patch Management','K7 Advanced Endpoint Management','K7 Agentic SOC','K7 Log Retention','K7 File Security Monitoring']}]},
+  {label:'Solutions',mega:true,groups:[
+    {title:'Compliance Solutions',items:['ADHICS','CBUAE','DPDP']},
+    {title:'Industry Solutions',items:['BFSI','Education','Government','Healthcare','Manufacturing','Professional Services','Retail']},
+    {title:'Network Security Solutions',items:['K7 SD-WAN','K7 Next Generation Firewall','K7 VPN Concentrator','K7 Connect 500','K7 AAA']},
+    {title:'SMB',items:['K7 InfiniShield']},
+    {title:'File Security Solution',items:[]}]},
+  {label:'Services',mega:true,groups:[
+    {title:'Consulting Services',items:['K7 GRC','K7 vCISO','K7 Enterprise Risk Management','K7 Incident Response']},
+    {title:'Security Assessment Services',items:['K7 Cyber Defence Assessment','K7 Red Team Assessment','K7 VAPT']},
+    {title:'AI Security Services',items:['K7 AI Readiness Assessment','K7 AI Maturity Assessment']},
+    {title:'Managed Security Services',items:[]},
+    {title:'K7 ISAP',items:[]}]},
+  {label:'Partners',groups:[{items:['Integration Partners','Solution Partners','Distribution Partners']}]},
+  {label:'Resources',groups:[{items:['Insight','Research']},{title:'Media Room',items:['News','Press Releases','Events','Media Centre']}]},
+  {label:'Why K7',groups:[{title:'Competitor Comparison',items:['K7 vs CrowdStrike']},{items:['Certifications','Testimonials']}]},
+  {label:'About Us',groups:[{items:['About K7','Leadership','Careers','Contact Us']}]},
+  {label:'Support'}
+];
+const NAVICON={'Integration Partners':'plug','Solution Partners':'handshake','Distribution Partners':'truck','Insight':'lightbulb','Research':'microscope','Certifications':'award','Testimonials':'message-square-quote','About K7':'building-2','Leadership':'users','Careers':'briefcase','Contact Us':'mail'};
+const SRCS=[['Endpoints','laptop'],['Servers','server'],['Operational Technology','factory'],['Network','network'],['Mobile Devices','smartphone'],['Cloud','cloud']];
+const CAPS=[
+  {t:'Comprehensive Infrastructure Protection',i:'shield-check',d:'Prevention, detection, and response across your IT ecosystem.',items:SRCS,st:'Covered'},
+  {t:'Security for Sensitive Data',i:'lock-keyhole',d:'Complete control over where data lives and moves.',items:[['Data Loss Prevention','file-lock'],['Compliance-oriented Reporting','clipboard-list']],st:'Covered'},
+  {t:'Multi-OS Patch Management',i:'bandage',d:'Close vulnerabilities before they can be exploited.',items:[['Vulnerability Identification','scan-search'],['Automated Patching','wrench']],st:'Covered'},
+  {t:'Integrated Compliance',i:'badge-check',d:'With one platform, compliance is continuous, auditable, and mapped to frameworks that matter.',items:[['DPDP','badge-check'],['PCI DSS','badge-check'],['ISO 27001','badge-check'],['GDPR','badge-check'],['CBUAE','badge-check'],['ADHICS','badge-check']],st:'Mapped'}
+];
+const CORE=[['EPP','shield'],['EDR','scan-eye'],['XDR','waypoints'],['MDR','users']];
+const ADDS=[['DLP','file-lock'],['IAM','key-round'],['Patch Management','bandage'],['Advanced Endpoint Management','laptop'],['Agentic SOC','bot'],['Log Retention','database'],['File Security Monitoring','file-search']];
+const OPS=[['24×7 Threat Detection and Response','radar'],['Exposure Management','scan-eye'],['Patch and Remediation Oversight','wrench'],['Data-risk and Privileged-access Context','key-round'],['Proactive Threat Hunting','crosshair'],['Security Posture Improvement','gauge'],['Ongoing Security Governance','scale'],['Digital Forensics and Incident Response','fingerprint']];
+const INDS=['BFSI','Education','Government','Healthcare','Manufacturing','IT/ITES','Retail'];
+const SIGNALS=['endpoints','identities','data','vulnerabilities','behaviour'];
+const ACTIONS=['EPP · Malicious file blocked','EDR · Process isolated','XDR · Signals correlated','DLP · Data transfer stopped','IAM · Privileged access revoked','Patch · Vulnerability closed'];
+const $=(s,r=document)=>r.querySelector(s);
+const ic=n=>`<i data-lucide="${n}"></i>`;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pad=n=>String(n).padStart(2,'0');
+
+/* ---------- nav ---------- */
+(function(){
+  const list=$('#navList');
+  const links=a=>'<ul>'+a.map(i=>`<li><a href="#">${i}</a></li>`).join('')+'</ul>';
+  const groupHTML=g=>{
+    if(!g.title) return `<div class="grp">${links(g.items)}</div>`;
+    if(!g.items.length) return `<div class="grp solo"><a class="grp-link" href="#">${g.title}</a></div>`;
+    return `<div class="grp"><p class="grp-title">${g.title}</p>${links(g.items)}</div>`;
+  };
+  NAV.forEach((n,i)=>{
+    const li=document.createElement('li');li.className='nav-item';
+    if(!n.groups){li.innerHTML=`<a class="nav-link" href="#">${n.label}</a>`;list.appendChild(li);return;}
+    let inner;
+    if(n.mega){
+      const intro=n.intro?`<div class="mega-intro"><span class="ic sig">${ic('radar')}</span><a class="intro-title" href="#">${n.intro.title}</a><p>${n.intro.text}</p></div>`:'';
+      const full=n.groups.filter(g=>g.items.length),solo=n.groups.filter(g=>!g.items.length);
+      const cols=full.map(groupHTML);
+      if(solo.length){const last=cols.pop();cols.push(`<div class="stack">${last}${solo.map(groupHTML).join('')}</div>`);}
+      inner=`<div class="panel-in"><div class="mega${n.intro?' has-intro':''}">${intro}${cols.join('')}</div></div>`;
+    } else inner=`<div class="panel-in"><div class="rowmenu">${n.groups.map(g=>g.title?`<div class="tile-grp"><p class="grp-title">${g.title}</p><div class="chips">${g.items.map(x=>`<a class="chip-link" href="#">${x}</a>`).join('')}</div></div>`:g.items.map(x=>`<a class="tile-link" href="#"><span class="ic">${ic(NAVICON[x]||'circle')}</span>${x}</a>`).join('')).join('')}</div></div>`;
+    li.innerHTML=`<button class="nav-link nav-trigger" type="button" aria-expanded="false" aria-controls="np${i}">${n.label}</button><div class="panel" id="np${i}">${inner}</div>`;
+    list.appendChild(li);
+  });
+  const items=[...list.querySelectorAll('.nav-item')];
+  const closeAll=ex=>items.forEach(li=>{if(li!==ex){li.classList.remove('open');li.querySelector('.nav-trigger')?.setAttribute('aria-expanded','false');}});
+  const canHover=matchMedia('(hover:hover)').matches;
+  items.forEach(li=>{
+    const b=li.querySelector('.nav-trigger');if(!b)return;let t;
+    const open=()=>{clearTimeout(t);closeAll(li);li.classList.add('open');b.setAttribute('aria-expanded','true');};
+    const close=()=>{li.classList.remove('open');b.setAttribute('aria-expanded','false');};
+    b.addEventListener('click',()=>li.classList.contains('open')?close():open());
+    if(canHover){li.addEventListener('mouseenter',open);li.addEventListener('mouseleave',()=>{t=setTimeout(close,160)});}
+  });
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
+  document.addEventListener('click',e=>{if(e.isTrusted&&!e.target.closest('.nav-item'))closeAll()});
+  const mm=$('#mobileMenu'),mb=$('#menuBtn');
+  mm.innerHTML='<div class="in">'+NAV.map(n=>{
+    if(!n.groups)return `<a class="mm-link" href="#">${n.label}</a>`;
+    const intro=n.intro?`<div class="grp"><a class="grp-link" href="#">${n.intro.title}</a></div>`:'';
+    return `<details class="mm-item"><summary>${n.label}</summary><div class="mm-body">${intro}${n.groups.map(groupHTML).join('')}</div></details>`;
+  }).join('')+'<a class="btn btn-signal" href="#">Request Trial</a></div>';
+  mb.addEventListener('click',()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu';});
+  $('#fCols').innerHTML=NAV.map(n=>{
+    const l=[];if(n.intro)l.push(n.intro.title);
+    (n.groups||[]).forEach(g=>g.title?l.push(g.title):l.push(...g.items));
+    return `<div class="f-col"><h4>${n.groups?n.label:`<a href="#">${n.label}</a>`}</h4>${l.map(x=>`<a href="#">${x}</a>`).join('')}</div>`;
+  }).join('');
+})();
+
+/* ---------- hero board view ---------- */
+(function(){
+  const board=$('#board'),infra=$('#infra'),tick=$('#tick'),srcName=$('#srcName'),srcIc=$('#srcIc');
+  infra.innerHTML=SRCS.map(([n,i],k)=>`<li data-k="${k}" tabindex="0">${ic(i)}<span>${n}</span><span class="st">PROTECTED</span></li>`).join('');
+  const rows=[...infra.children];let cur=0,hold=false,a=0;
+  const set=k=>{cur=k;rows.forEach((r,j)=>r.classList.toggle('on',j===k));srcName.textContent=SRCS[k][0];srcIc.innerHTML=ic(SRCS[k][1]);if(window.renderIcons)renderIcons(srcIc);
+    tick.style.opacity=0;setTimeout(()=>{tick.innerHTML=`<b>${SRCS[k][0]}</b> · ${ACTIONS[a++%ACTIONS.length]}`;tick.style.opacity=1;},200);
+    board.classList.remove('run');void board.offsetWidth;board.classList.add('run');};
+  rows.forEach((r,k)=>{r.addEventListener('mouseenter',()=>{hold=true;set(k);});r.addEventListener('focus',()=>{hold=true;set(k);});r.addEventListener('click',()=>set(k));});
+  infra.addEventListener('mouseleave',()=>hold=false);
+  set(0);if(!reduce)setInterval(()=>{if(!hold&&!document.hidden)set((cur+1)%rows.length);},2600);
+  const c=$('#clock');const t=()=>c.textContent=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});t();setInterval(t,20000);
+})();
+
+/* ---------- architecture diagram ---------- */
+(function(){
+  const sigs=$('#sigs'),wires=$('#wires'),layers=[...document.querySelectorAll('#layers .layer')],cap=$('#dcap');
+  sigs.innerHTML=SIGNALS.map((s,k)=>`<button type="button" class="sigb" data-k="${k}"><span class="d"></span>${s}</button>`).join('');
+  const bs=[...sigs.children];
+  const draw=()=>{const g=wires.getBoundingClientRect(),h=g.height||300;wires.setAttribute('viewBox',`0 0 60 ${h}`);
+    const lp=layers.find(l=>l.dataset.l==='0');const lr=lp.getBoundingClientRect();const ty=lr.top+lr.height/2-g.top;
+    wires.innerHTML=bs.map(b=>{const r=b.getBoundingClientRect();const y=r.top+r.height/2-g.top;return `<path d="M0 ${y} C30 ${y} 30 ${ty} 60 ${ty}"/>`;}).join('');};
+  let cur=0,hold=false;
+  const set=k=>{cur=k;const ps=[...wires.children];bs.forEach((b,j)=>b.classList.toggle('on',j===k));ps.forEach((p,j)=>p.classList.toggle('on',j===k));
+    layers.forEach(l=>l.classList.add('on'));cap.textContent=`${SIGNALS[k].toUpperCase()} · SENSOR · PLATFORM · AGENTIC SOC`;};
+  bs.forEach((b,k)=>{b.addEventListener('mouseenter',()=>{hold=true;set(k);});b.addEventListener('click',()=>set(k));b.addEventListener('focus',()=>set(k));});
+  sigs.addEventListener('mouseleave',()=>hold=false);
+  draw();new ResizeObserver(()=>{draw();set(cur);}).observe(wires);
+  set(0);if(!reduce)setInterval(()=>{if(!hold&&!document.hidden)set((cur+1)%bs.length);},2200);
+})();
+
+/* ---------- capabilities ---------- */
+(function(){
+  const box=$('#caps'),det=$('#capDetail');const canHover=matchMedia('(hover:hover)').matches;
+  box.innerHTML=CAPS.map((c,k)=>`<button type="button" class="cap" role="tab" data-k="${k}"><span class="n">${pad(k+1)} / 04</span><span class="ic">${ic(c.i)}</span><b>${c.t}</b></button>`).join('');
+  const cs=[...box.children];
+  const set=k=>{const c=CAPS[k];cs.forEach((b,j)=>{b.classList.toggle('on',j===k);b.setAttribute('aria-selected',j===k);b.querySelector('.ic').classList.toggle('sig',j===k);});
+    det.innerHTML=`<div><h3>${c.t}</h3><p>${c.d}</p></div><ul class="cap-items">${c.items.map(([n,i])=>`<li><span class="ic">${ic(i)}</span>${n}<span class="tag ok">${c.st}</span></li>`).join('')}</ul>`;
+    det.style.animation='none';void det.offsetWidth;det.style.animation='';if(window.renderIcons)renderIcons(det);};
+  cs.forEach((b,k)=>{b.addEventListener('click',()=>set(k));if(canHover)b.addEventListener('mouseenter',()=>set(k));b.addEventListener('focus',()=>set(k));});
+  set(0);
+})();
+
+/* ---------- modules ---------- */
+(function(){
+  const on=new Set(['EPP','EDR','DLP','Agentic SOC']);
+  const sw=([n,i])=>`<li><button type="button" class="sw" aria-pressed="${on.has(n)}" data-m="${n}"><span class="ic">${ic(i)}</span>${n}<span class="tog" aria-hidden="true"></span></button></li>`;
+  $('#coreBank').innerHTML=CORE.map(sw).join('');$('#addBank').innerHTML=ADDS.map(sw).join('');
+  const order=[...CORE,...ADDS].map(x=>x[0]);
+  const upd=()=>{const sel=order.filter(m=>on.has(m));$('#modNum').textContent=sel.length;
+    $('#modSel').innerHTML=sel.length?`<b>Selected:</b> ${sel.join(', ')}`:'Switch on at least one module to request a trial.';
+    const t=$('#modTrial');t.setAttribute('aria-disabled',!sel.length);t.href='#request-trial?modules='+encodeURIComponent(sel.join(','));};
+  $('#banks').addEventListener('click',e=>{const b=e.target.closest('.sw');if(!b)return;const m=b.dataset.m,now=!on.has(m);now?on.add(m):on.delete(m);b.setAttribute('aria-pressed',now);upd();});
+  upd();
+})();
+
+/* ---------- operations, industries, tenants ---------- */
+$('#svc').innerHTML=OPS.map(([n,i],k)=>`<li><span class="n">${pad(k+1)}</span><b>${n}</b><span class="ic">${ic(i)}</span></li>`).join('');
+$('#inds').innerHTML=INDS.map((n,k)=>`<a class="ind" href="#"><span class="n">${pad(k+1)}</span><b>${n}</b><span class="lm">Learn More</span></a>`).join('');
+(function(){
+  const T=[['Enterprise customer','building-2'],['Bank','landmark'],['Hospital','heart-pulse'],['Factory','factory'],['Retail chain','shopping-bag']];
+  const ul=$('#tenants');ul.innerHTML=`<li class="hub"><svg class="mk" role="img" aria-label="K7"><use href="#k7mark"/></svg><span>Seventh Sense · MSSP console</span><span class="tag sig">vCISO</span></li>`+T.map(([n,i])=>`<li><span class="ic">${ic(i)}</span>${n}<span class="tag ok">Protected</span></li>`).join('');
+  const li=[...ul.querySelectorAll('li:not(.hub)')];let k=0;if(!reduce)setInterval(()=>{li.forEach((x,j)=>x.classList.toggle('on',j===k%li.length));k++;},1500);
+  const er=[...document.querySelectorAll('#ent li')];let m=0;const st=()=>{er.forEach((r,j)=>r.classList.toggle('on',j===m%er.length));m++;};st();if(!reduce)setInterval(st,1700);
+})();
+
+/* ---------- testimonials ---------- */
+(function(){
+  const tr=$('#tqTrack'),n=tr.children.length,dots=[...$('#tqDots').children];let i=0;
+  const go=k=>{i=(k+n)%n;tr.style.transform=`translateX(-${i*100}%)`;dots.forEach((d,j)=>d.classList.toggle('on',j===i));[...tr.children].forEach((c,j)=>c.setAttribute('aria-hidden',j!==i));};
+  $('#tqPrev').onclick=()=>go(i-1);$('#tqNext').onclick=()=>go(i+1);go(0);
+})();
+
+/*ICONS*/
+window.renderIcons=(root=document)=>root.querySelectorAll('i[data-lucide]').forEach(el=>{const d=ICONS[el.dataset.lucide];if(!d)return;el.outerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;});
+renderIcons();
+</script>
+<script>
+window.REVEAL='.hero-grid>*,.proof-row,.arch>*,.caps,.cap-detail,.sec-head>*,.mods>*,.mod-bar,.ops>*,.ind,.acc>*,.res>*,.labs,.tq,.mssp>*,.f-col';
+/*SHARED_JS*/
+</script>
+</body>
+</html>
