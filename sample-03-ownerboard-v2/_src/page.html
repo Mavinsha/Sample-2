@@ -468,9 +468,73 @@ h1 .o{display:block}
   .menu-btn{border-radius:0;clip-path:polygon(0 0,100% 0,calc(100% - 17px) 100%,0 100%)}
 }
 
+
+/* ===================== V2: glass =====================
+   Light fields sit behind everything; panels are near-clear glass that
+   blurs them, with a bright top edge and a faint sheen. Inner cards are
+   hairline outlines on the glass (no stacked greys). "On" states use an
+   orange edge, never an orange-into-grey fill. */
+:root{
+  --bg:#06070A;
+  --panel:rgba(255,255,255,.03);
+  --panel-2:rgba(255,255,255,.035);
+  --panel-3:rgba(255,255,255,.08);
+  --bg-2:rgba(255,255,255,.02);
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.11);
+  --glass-blur:22px;
+}
+body{background:var(--bg)}
+body::before{display:none}
+.aurora{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(120% 80% at 50% 120%,#0d1016,transparent 60%),var(--bg)}
+.aurora i{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform}
+.aurora i:nth-child(1){width:46vw;height:46vw;left:58%;top:-14%;background:#EC6A23;opacity:.32;animation:drift1 38s ease-in-out infinite alternate}
+.aurora i:nth-child(2){width:38vw;height:38vw;left:8%;top:38%;background:#FF9A4D;opacity:.16;animation:drift2 46s ease-in-out infinite alternate}
+.aurora i:nth-child(3){width:42vw;height:42vw;left:46%;top:62%;background:#3B5274;opacity:.34;animation:drift3 52s ease-in-out infinite alternate}
+@keyframes drift1{to{transform:translate(-14vw,18vh) scale(1.15)}}
+@keyframes drift2{to{transform:translate(16vw,-12vh) scale(.9)}}
+@keyframes drift3{to{transform:translate(-18vw,-16vh) scale(1.1)}}
+
+/* glass surfaces */
+.panel-box,.rail,.topbar{backdrop-filter:blur(var(--glass-blur)) saturate(150%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(150%)}
+.panel-box{isolation:isolate;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018) 40%,rgba(255,255,255,.012));border-color:rgba(255,255,255,.09);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 0 0 1px rgba(255,255,255,.015),0 24px 50px -30px rgba(0,0,0,.8)}
+.panel-box::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.07),rgba(255,255,255,0) 32%)}
+.hero-card,.mssp{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.015) 45%,rgba(255,255,255,.01))}
+.ph{border-bottom-color:rgba(255,255,255,.07)}
+.topbar{background:rgba(6,7,10,.55);border-bottom-color:rgba(255,255,255,.07)}
+.rail{background:rgba(255,255,255,.018);border-right-color:rgba(255,255,255,.07)}
+.panel-in{background:rgba(14,16,20,.72);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%);border-color:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 30px 70px -30px rgba(0,0,0,.9)}
+.mobile-menu{background:rgba(8,9,12,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.site-footer{background:rgba(255,255,255,.015);border-top-color:rgba(255,255,255,.07)}
+.partner{background:rgba(255,255,255,.03)}
+.rail-nav a::before{background:#0c0e12}
+
+/* inner cards: hairlines on the glass */
+.tier,.sig,.cov-tab,.cov-item,.sw,.svc li,.ind-kpis span,.stat,.labs-main,.award-card,.report-card,.mod-bar,.own,.console,.cov-detail,.matrix,.mega-intro,.tile-link,.grp-link,.globe-card{background:rgba(255,255,255,.022);border-color:rgba(255,255,255,.085)}
+.cov-tab:hover,.sw:hover,.tier:hover,.svc li:hover{background:rgba(255,255,255,.045)}
+.mhead{background:rgba(255,255,255,.025)}
+.mrow{border-bottom-color:rgba(255,255,255,.06)}
+
+/* icon tiles: clear with an orange hairline, not brown squares */
+.gi{background:rgba(255,255,255,.04);border-color:rgba(236,106,35,.38)}
+.gi.mute,.sw .gi{background:rgba(255,255,255,.03);border-color:rgba(255,255,255,.1)}
+
+/* "on" states: orange edge, no brown fills */
+.cov-tab.on{background:rgba(255,255,255,.06);border-color:var(--k7);box-shadow:inset 0 -2px 0 var(--k7)}
+.sw[aria-pressed="true"]{background:rgba(255,255,255,.055);border-color:rgba(236,106,35,.6)}
+.sw[aria-pressed="true"] .gi{background:rgba(255,255,255,.05);border-color:rgba(236,106,35,.45)}
+.own li.on,#tenants li.on,.mrow.on,.mrow:not(.mhead):hover{background:rgba(255,255,255,.045);box-shadow:inset 2px 0 0 var(--k7)}
+.own-f{background:rgba(255,255,255,.035);border-top:1px solid rgba(236,106,35,.35)}
+.cover{background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.02));border-color:rgba(255,255,255,.14)}
+.globe-card{background:radial-gradient(circle at 50% 45%,rgba(236,106,35,.08),transparent 60%),rgba(255,255,255,.02)}
+
+@media (max-width:980px){:root{--glass-blur:14px}.aurora i{filter:blur(60px)}}
+@media (prefers-reduced-motion:reduce){.aurora i{animation:none}}
 </style>
 </head>
 <body>
+<div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="k7mark" viewBox="52 52 188 134"><polygon fill="#EC6A23" points="149.76 85.25 167.96 57.94 234.67 57.95 178.6 180.38 159.02 151.97 189.33 85.04 149.76 85.25"/><polygon fill="#fff" points="167.86 175.68 124.72 113.03 161.27 57.97 125.29 57.97 91.86 107.03 91.86 57.92 57.51 57.92 57.51 175.68 91.86 175.68 91.86 119.2 129.56 175.68 167.86 175.68"/></symbol>
 </svg>
